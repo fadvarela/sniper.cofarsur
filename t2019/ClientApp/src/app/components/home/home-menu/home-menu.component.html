@@ -1,0 +1,89 @@
+<nav class="navbar navbar-expand-lg navbar-dark menustyle">
+  <!--<a class="navbar-brand" href="#">SniperBot</a>-->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+
+
+
+  <div id="navbarNavDropdown" class="navbar-collapse collapse">
+
+
+
+    <ul class="navbar-nav  mr-auto">
+
+      <li class="nav-item dropdown">
+        <a id="btn_homemenu_sniper" class="nav-link dropdown-toggle menustyle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sniper
+        </a>
+
+
+        <div class="dropdown-menu dropdown-menu-left" dropdownMenu aria-labelledby="navbarDropdownMenuLink">
+
+          <!--Submenú-->
+          <a class="dropdown-toggle ml-4 mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Configuraciones
+          </a>
+          <ul class="navbar-nav  dropdown-submenu">
+            <li class="nav-item ">
+              <div class="dropdown-menu dropdown-menu-left">
+                <a id="ABMSistema" class="dropdown-item"  (click)="HomeMenu_ComponentShow_void('ABMSistema')">ABM Sistema</a>
+                <a id="ABMEstructuras" class="dropdown-item"  (click)="HomeMenu_ComponentShow_void('ABMEstructuras')">ABM Estructuras</a>
+                <a id="ABMNovedades"  class="dropdown-item" (click)="HomeMenu_ComponentShow_void('ABMNovedades')">ABM Novedades</a>
+              </div>
+            </li>
+          </ul>
+          <!--Submenú-->
+
+          <a class="dropdown-item">Soporte</a>
+        </div>
+
+      <li class="nav-item dropdown">
+        <a id="btn_homemenu_nomina" class="nav-link dropdown-toggle menustyle" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Nómina
+        </a>
+        <div class="dropdown-menu dropdown-menu-left" dropdownMenu aria-labelledby="navbarDropdownMenuLink">
+          <a  id="ABMPersonas" class="dropdown-item"  (click)="HomeMenu_ComponentShow_void('ABMPersonas')">ABM Personas</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a  id="btn_homemenu_novedades" class="nav-link dropdown-toggle menustyle" href=""  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Novedades
+        </a>
+        <div class="dropdown-menu dropdown-menu-left" dropdownMenu aria-labelledby="navbarDropdownMenuLink">
+          <a  id="JornadasHabituales" class="dropdown-item" (click)="HomeMenu_ComponentShow_void('JornadasHabituales')">Jornadas Habituales</a>
+          <a  id="Marcaciones" class="dropdown-item" (click)="HomeMenu_ComponentShow_void('Marcaciones')">Marcaciones</a>
+          <a  id="Ausencias" class="dropdown-item" (click)="HomeMenu_ComponentShow_void('Ausencias')">Ausencias</a>
+          <a  id="ParteDiario" class="dropdown-item" (click)="HomeMenu_ComponentShow_void('ParteDiario')" >Parte Diario</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a  id="btn_homemenu_reportes" class="nav-link dropdown-toggle menustyle" href=""  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Reportes
+        </a>
+        <div class="dropdown-menu dropdown-menu-left" dropdownMenu aria-labelledby="navbarDropdownMenuLink">
+          <a  id="NovedadesConsolidadas" class="dropdown-item"  (click)="HomeMenu_ComponentShow_void('NovedadesConsolidadas')" >Novedades Consolidadas</a>
+          <a  id="Anomalías" class="dropdown-item"  (click)="HomeMenu_ComponentShow_void('Anomalías')" >Anomalías</a>
+        </div>
+      </li>
+    </ul>
+
+
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle menustyle box-shadow" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Login
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" dropdownMenu aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" (click)="send_LoginAccion(1)">Usuarios</a>
+            </div>
+          </li>
+        </ul>
+</div>
+</nav>
+
+
+

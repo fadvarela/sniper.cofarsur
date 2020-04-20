@@ -1,0 +1,82 @@
+.tabla-home {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+th, td {
+  overflow: hidden;
+  width: 50px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fondito {
+  background-color: #F5DEB3;
+}
+
+
+.gilla-container {
+  width: 100%;
+  overflow: auto;
+  background-color: white;
+}
+
+.menu-container {
+  color: white;
+  height: 20px;
+  font-size: 15px;
+  justify-content: center;
+  margin-top: 0 !important;
+  margin-bottom: auto !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/*table {
+  width: 800px;
+}*/
+
+td.mat-column-star {
+  /*width: 20px;*/
+  padding-right: 8px;
+}
+
+th.mat-column-position, td.mat-column-position {
+  padding-left: 8px;
+}
+
+.mat-table-sticky:first-child {
+  border-right: 1px solid #e0e0e0;
+}
+
+.mat-table-sticky:last-child {
+  border-left: 1px solid #e0e0e0;
+}
+
+.mat-row {
+  transition: 0.2s all;
+  -webkit-transition: 0.1s all;
+}
+.mat-row:hover {
+  background-color: rgba(200,200,200, 0.8);
+  cursor: pointer;
+}
+
+
+.menu-opciones{
+  color: skyblue !important;
+  justify-content: center;
+  /* margin-top: auto !important; */
+  margin-bottom: auto !important;
+  margin-left: 5px !important;
+  margin-right: auto !important;
+}
+
+.date-picker-container {
+  color: black !important
+}
+

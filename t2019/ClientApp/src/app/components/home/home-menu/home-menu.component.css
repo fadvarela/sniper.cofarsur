@@ -1,0 +1,66 @@
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+a:hover{
+  color: aqua !important;
+  background-color:  #0B0040;
+  }
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem #0B0040;
+}
+
+.menustyle{
+  color: white;
+  background-color:  #0B0040;
+}
+
+
+
+
+
+
+
+.disabled{
+  background-color:grey;
+}
+
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu a::after {
+    transform: rotate(-90deg);
+    position: absolute;
+    right: 6px;
+    top: .8em;
+  }
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-left: .1rem;
+    margin-right: .1rem;
+  }
+
+button{
+  color: aqua !important;
+}
+
+.navbar-toggler {
+  border-color: lightskyblue !important;
+  color:lightskyblue !important;
+}

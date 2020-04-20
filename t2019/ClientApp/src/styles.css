@@ -1,0 +1,65 @@
+/* You can add global styles to this file, and also import other style files */
+
+html { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  /*background-image: linear-gradient(to bottom, #357ce9, #18a5f2, #65c8ef, #aee5ef, #f5fffe);*/
+  background-color: white; /*#F7EFD5;*/
+}
+
+/*Colores*/
+
+.box {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  background-color: #0B0040;
+  justify-content: center;
+  align-items: center;
+}
+
+.responsive-image {
+  max-width: 100%;
+  display: block;
+  max-height: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+}
+
+.btn_loading {
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: #0052cc;
+}
+
+
+.darkgray {
+  background-color: darkslategray;
+}
+
+
+/*Snackbar*/
+
+.snack-primary, .snack-primary button {
+  text-align: center;
+  background-color: #3D5AFE;
+  color: #E8EAF6;
+}
+
+.snack-success, .snack-success button {
+  text-align: center;
+  background-color: #00C851;
+  color: #E8EAF6;
+}
+
+.snack-danger, .snack-danger button {
+  text-align: center;
+  background-color: #ff4444;
+  color: #E8EAF6;
+}
+
+.no-padding mat-dialog-container {
+  padding: 0;
+}

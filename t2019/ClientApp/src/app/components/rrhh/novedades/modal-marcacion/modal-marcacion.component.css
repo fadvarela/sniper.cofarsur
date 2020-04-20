@@ -1,0 +1,72 @@
+.contenedor-modal {
+  position: relative;
+  width: 900px;
+  margin: 0 auto;
+}
+
+.mat-dialog-content {
+  margin: 0;
+}
+
+.mat-dialog-title {
+  font-size: 14px;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.btn-close {
+  top: 3px;
+  width: 30px;
+  position: absolute;
+  right: 3px;
+  transition: 0.2s all;
+  border-radius: none;
+}
+
+.btn-close:hover {
+  cursor: pointer;
+  background-color: rgba(200, 200, 200, 0.6);
+  border-radius: 25px;
+}
+
+.p-nombre {
+  position: relative;
+  z-index: 2;
+}
+
+.p-nombre span {
+  background: #fff;
+  padding: 0 15px;
+  left: 60px;
+  position: relative;
+}
+
+.p-nombre::before {
+  border-top: 1px solid rgba(200, 200, 200, 0.6);
+  content: "";
+  /* margin: 0 auto; */
+  position: absolute;
+  top: 50%;
+  /* left: 0;
+  right: 0; */
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.margin-y {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.margin-x {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.input-content {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}

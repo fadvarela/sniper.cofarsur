@@ -1,0 +1,87 @@
+<h1 mat-dialog-title class="bg-primary titulo-modal">{{ titulo }}
+  <mat-icon class="btn-close" (click)="cerrarModal()">clear</mat-icon>
+</h1>
+<div mat-dialog-content>
+  <p class="p-nombre"><span>{{ obj.nombre + ' ' + obj.apellido + ' (Leg. ' + obj.iD_LEGAJO + ')' }}</span></p>
+
+  <div class="input-content">
+    <mat-form-field class="margin-x">
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="margin-x">
+      <mat-label>Jornada</mat-label>
+      <input matInput [(ngModel)]="obj.n_JORNADA">
+    </mat-form-field>
+
+    <mat-form-field class="margin-x">
+      <mat-label>Movimientos</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Control</mat-label>
+      <input matInput>
+    </mat-form-field>
+  </div>
+
+  <div class="margin-y">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Jornadas
+          </mat-panel-title>
+          <!-- <mat-panel-description>
+            Type your name and age
+          </mat-panel-description> -->
+        </mat-expansion-panel-header>
+
+        <mat-form-field>
+          <mat-label>First name</mat-label>
+          <input matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Age</mat-label>
+          <input matInput type="number" min="1">
+        </mat-form-field>
+      </mat-expansion-panel>
+      <!-- Otro panel -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Marcaciones
+          </mat-panel-title>
+          <!-- <mat-panel-description>
+            Currently I am closed
+          </mat-panel-description> -->
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+
+      <!-- Otro panel -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Avisos
+          </mat-panel-title>
+          <!-- <mat-panel-description>
+            Currently I am closed
+          </mat-panel-description> -->
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+
+
+</div>
+<!-- <div mat-dialog-actions>
+  <button mat-button (click)="cerrarModal()">Cerrar</button>
+  <button mat-button cdkFocusInitial>Ok</button>
+</div> -->
