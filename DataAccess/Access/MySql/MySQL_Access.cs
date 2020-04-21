@@ -18,11 +18,8 @@ namespace DataAccess.Access.MySQL
         // Acá es donde vamos a hacer cosas que la cadena la toma de otra función que consulte la cadena de un archivo
         // el app config va a tener la cadena principal a la BD  de SNIPER
         // Aquí vamos a crear otro método que llene un objeto
-        
-            
-            // Ramiro Santillán te extraño
-			// fer dice rami que no lo pases a produccion (lau)
-			// POR LO QUE VEO ANDA BIEN
+
+
 
         /*--------------GET LIST-------------*/
         public IEnumerable<T> GetSavantList<TResult, T>(string sqlQuery, CommandType comandType, Type tipo, List<object> parameters = null)
