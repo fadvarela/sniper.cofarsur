@@ -13,6 +13,15 @@ namespace DataAccess.Access.MySQL
 
         private readonly string cadena = ConfigurationManager.ConnectionStrings["cadena"].ConnectionString.ToString();
 
+
+        /*--------------MAXI-------------*/
+        // Acá es donde vamos a hacer cosas que la cadena la toma de otra función que consulte la cadena de un archivo
+        // el app config va a tener la cadena principal a la BD  de SNIPER
+        // Aquí vamos a crear otro método que llene un objeto
+        
+            
+            // Ramiro Santillán te extraño
+
         /*--------------GET LIST-------------*/
         public IEnumerable<T> GetSavantList<TResult, T>(string sqlQuery, CommandType comandType, Type tipo, List<object> parameters = null)
                 where TResult : DbConnection where T : new()
