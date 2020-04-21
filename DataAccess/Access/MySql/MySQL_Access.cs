@@ -21,6 +21,7 @@ namespace DataAccess.Access.MySQL
         
             
             // Ramiro Santillán te extraño
+			// fer dice rami que no lo pases a produccion (lau)
 
         /*--------------GET LIST-------------*/
         public IEnumerable<T> GetSavantList<TResult, T>(string sqlQuery, CommandType comandType, Type tipo, List<object> parameters = null)
