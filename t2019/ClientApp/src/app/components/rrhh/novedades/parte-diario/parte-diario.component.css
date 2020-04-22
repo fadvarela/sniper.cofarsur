@@ -2,7 +2,12 @@
   width: 100%;
 }
 
-table {
+.tabla-home th,
+.tabla-home td {
+  font-size: 10px;
+}
+
+/* table {
   width: 100%;
   table-layout: fixed;
 }
@@ -12,7 +17,7 @@ th, td {
   width: 50px;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
+} */
 
 .fondito {
   background-color: #F5DEB3;

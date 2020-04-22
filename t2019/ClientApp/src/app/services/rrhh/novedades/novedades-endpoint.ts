@@ -1,8 +1,10 @@
+import { CmbEntity } from './../../../models/general/cmbEntity.model';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { DateTimeEntity } from 'src/app/models/sistema/dateTimeEntity';
+import { Novedades } from 'src/app/models/rrhh/novedades/novedades.model';
 
 @Injectable()
 export class NovedadesEndPoint {
@@ -13,15 +15,12 @@ export class NovedadesEndPoint {
   constructor(private http: HttpClient) { }
 
   protected getRequestHeaders(params?: any): HttpHeaders {
-    // let headers = new HttpHeaders({
-    //   'Authorization': 'Bearer ' + '',
-    //   'Content-Type': 'application/json',
-    //   'Accept': `application/json, text/plain, */*`,
-    //   'App-Version': '1.0'
-    // });
-
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
+    let headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + '',
+      'Content-Type': 'application/json',
+      'Accept': `application/json, text/plain, */*`,
+      'App-Version': '1.0'
+    });
 
     return headers;
   }
@@ -30,12 +29,23 @@ export class NovedadesEndPoint {
     return throwError(error);
   }
 
-  getnovedades(dateTimeEntity: DateTimeEntity) {
+  getnovedades<T>(dateTimeEntity: DateTimeEntity): Observable<T> {
     let endpointUrl = this._urlNovedades + '/getnovedades';
     const params = new HttpParams()
       .set('objeto', JSON.stringify(dateTimeEntity));
 
-    return this.http.get(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe(
+    return this.http.get<T>(endpointUrl, { params: params }).pipe<T>(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
+  getListJornadasEndPoint<T>(filtro?): Observable<T> {
+    let endpointUrl = this._urlNovedades + '/getListJornadas';
+    const params = new HttpParams()
+      .set('filtro', (filtro) ? filtro : '');
+
+    return this.http.get<T>(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe<T>(
       catchError(error => {
         return this.handleError(error);
       }));

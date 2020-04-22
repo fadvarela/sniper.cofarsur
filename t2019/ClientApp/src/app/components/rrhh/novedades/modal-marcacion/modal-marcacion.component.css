@@ -55,11 +55,6 @@
   z-index: -1;
 }
 
-.margin-y {
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
 .margin-x {
   margin-left: 10px;
   margin-right: 10px;
@@ -69,4 +64,17 @@
   position: relative;
   width: 100%;
   text-align: center;
+}
+
+.table-parte-diario {
+  width: 100%;
+}
+
+.table-parte-diario th,
+.table-parte-diario td {
+  font-size: 10px;
+}
+
+.labels-container p {
+  color: rgba(5, 5, 5, 0.6);
 }

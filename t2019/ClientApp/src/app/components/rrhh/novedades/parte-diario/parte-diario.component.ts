@@ -4,7 +4,8 @@ import { Novedades } from 'src/app/models/rrhh/novedades/novedades.model';
 import { NovedadesService } from 'src/app/services/rrhh/novedades/novedades.service';
 
 
-import { MatTableDataSource, MatPaginator, MatDialog, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import { MatTableDataSource, MatDialog, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
 import { ModalMarcacionComponent } from 'src/app/components/rrhh/novedades/modal-marcacion/modal-marcacion.component';
 import { DatePipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
@@ -19,7 +20,8 @@ import * as _moment from 'moment';
   styleUrls: ['./parte-diario.component.css']
 })
 export class ParteDiarioComponent implements OnInit {
-
+  dataSource: MatTableDataSource<Novedades>;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: string[] = [
     'ID_LEGAJO',
     'APELLIDO',
@@ -38,23 +40,21 @@ export class ParteDiarioComponent implements OnInit {
   ];
 
   @Output() ParteDiario_WaitHome_prm = new EventEmitter();
-  dataSource = new MatTableDataSource<Novedades>([]); // primero se declara un dataSource para la tabla
+
   txtParam: any;
   datePicker = new Date(); // = moment(new Date()).format('DD-MM-YYYY');
   hoyDate = new Date();
-  // date = new FormControl(new Date());
-  // serializedDate = new FormControl((new Date()).toISOString());
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private novedadesService: NovedadesService,
     public dialog: MatDialog) {
+      this.dataSource = new MatTableDataSource();
+    this.getNovedades(false);
   }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
-    this.getNovedades(false);
   }
 
   getNovedades(convertir: boolean) {
@@ -66,12 +66,11 @@ export class ParteDiarioComponent implements OnInit {
     dateEntity.dia = this.datePicker.getDate();
     dateEntity.mes = this.datePicker.getMonth() + 1;
     dateEntity.anio = this.datePicker.getFullYear();
-
-    console.log(dateEntity);
     // this.datePicker = this.datePipe.transform(this.datePicker, 'dd-MM-yyyy', 'es-AR');
     this.ParteDiario_WaitHome_void(1);
     this.novedadesService.getnovedades(dateEntity).subscribe((result: Novedades[]) => {
       this.dataSource.data = result;
+      // this.dataSource.data = result;
     });
     this.ParteDiario_WaitHome_void(0);
   }
@@ -86,10 +85,11 @@ export class ParteDiarioComponent implements OnInit {
 
 
   openModalData(row?) {
+    row.fecha = this.datePicker;
 
     const dialogRef = this.dialog.open(ModalMarcacionComponent, {
       width: '1000px',
-      height: '350px',
+      height: '500px',
       panelClass: 'no-padding',
       data: {
         titulo: 'Novedades',
