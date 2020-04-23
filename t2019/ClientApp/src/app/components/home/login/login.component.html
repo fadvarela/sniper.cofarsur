@@ -24,11 +24,11 @@
             </tr>
           </table>
         </form>
-        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+        <mat-spinner [style.display]="mostrar ? 'block' : 'none'"></mat-spinner>
         <!-- <mat-spinner></mat-spinner> -->
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button (click)="ValidarInputs()" color="primary">Login</button>
+        <button mat-raised-button (click)="ValidarInputs()" color="primary" [disabled]="mostrar">Login</button>
       </mat-card-actions>
       <mat-progress-bar mode="indeterminate" *ngIf="Login_Wait_prm===1"></mat-progress-bar>
     </mat-card>

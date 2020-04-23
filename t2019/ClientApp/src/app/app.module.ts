@@ -61,6 +61,9 @@ import { NovedadesService } from './services/rrhh/novedades/novedades.service';
 import { NovedadesEndPoint } from './services/rrhh/novedades/novedades-endpoint';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
+import { DatepickerComponent } from './components/utils/datepicker/datepicker.component';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { TimepickerComponent } from './components/utils/timepicker/timepicker.component';
 
 declare var $: any;
 registerLocaleData(localeEsAr, 'es-AR');
@@ -85,7 +88,9 @@ export const DateFormats = {
     LoginComponent,
     HomeMenuComponent,
     ParteDiarioComponent,
-    ModalMarcacionComponent
+    ModalMarcacionComponent,
+    DatepickerComponent,
+    TimepickerComponent
   ],
   entryComponents: [
     ModalMarcacionComponent
@@ -133,7 +138,8 @@ export const DateFormats = {
     MatNativeDateModule,
     MatMomentDateModule,
     DragDropModule,
-    MatBadgeModule
+    MatBadgeModule,
+    NgxMaterialTimepickerModule.setLocale('es-AR')
   ],
   providers: [ // Se declaran los servicios
     LoginService,

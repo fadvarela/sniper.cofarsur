@@ -63,3 +63,11 @@ body {
 .no-padding mat-dialog-container {
   padding: 0;
 }
+
+.timepicker-overlay {
+  z-index: 1100 !important;
+}
+
+.timepicker-backdrop-overlay {
+  z-index: 1100 !important;
+}

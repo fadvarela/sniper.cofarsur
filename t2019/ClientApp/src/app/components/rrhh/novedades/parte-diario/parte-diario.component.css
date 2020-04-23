@@ -7,18 +7,6 @@
   font-size: 10px;
 }
 
-/* table {
-  width: 100%;
-  table-layout: fixed;
-}
-
-th, td {
-  overflow: hidden;
-  width: 50px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-} */
-
 .fondito {
   background-color: #F5DEB3;
 }
@@ -40,10 +28,6 @@ th, td {
   margin-left: auto !important;
   margin-right: auto !important;
 }
-
-/*table {
-  width: 800px;
-}*/
 
 td.mat-column-star {
   /*width: 20px;*/
@@ -81,7 +65,4 @@ th.mat-column-position, td.mat-column-position {
   margin-right: auto !important;
 }
 
-.date-picker-container {
-  color: black !important
-}
 

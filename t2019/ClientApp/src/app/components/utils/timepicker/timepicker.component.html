@@ -1,0 +1,10 @@
+<mat-form-field class="timepicker-form-field">
+  <mat-label>Seleccione horario</mat-label>
+  <input matInput [ngxTimepicker]="toggleTimepicker"
+  [ngxTimepicker]="fullTime" [format]="24"
+  [disableClick]="true" readonly [(ngModel)]="txtTimePicker"
+  [ngxTimepicker]="editableDial">
+  <mat-icon matSuffix (click)="toggleTimepicker.open()">access_time</mat-icon>
+  <ngx-material-timepicker #toggleTimepicker (timeSet)="getTimeValueEmit($event)"
+    [theme]="(setDarkMode) ? darkTheme : ''" [enableKeyboardInput]="true"></ngx-material-timepicker>
+</mat-form-field>

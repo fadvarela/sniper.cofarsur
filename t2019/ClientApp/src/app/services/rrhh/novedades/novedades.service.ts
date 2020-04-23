@@ -27,13 +27,13 @@ export class NovedadesService {
     return this.novedadesEndPoint.getListJornadasEndPoint(filtro);
   }
 
-  private getnovedadesFromResponse(response) {
-    let novedades: Novedades[] = [];
+  // private getnovedadesFromResponse(response) {
+  //   let novedades: Novedades[] = [];
 
-    for (let i in response) {
-      novedades[i] = Novedades.Create(response[i]);
-    }
-    return novedades;
-  }
+  //   for (let i in response) {
+  //     novedades[i] = Novedades.Create(response[i]);
+  //   }
+  //   return novedades;
+  // }
 
 }

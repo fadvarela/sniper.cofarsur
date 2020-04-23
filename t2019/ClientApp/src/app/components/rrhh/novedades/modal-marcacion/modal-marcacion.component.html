@@ -2,7 +2,7 @@
   <mat-icon class="btn-close" (click)="cerrarModal()">clear</mat-icon>
 </h1>
 <div mat-dialog-content>
-  <!-- <p class="p-nombre"><span>{{ obj.nombre + ' ' + obj.apellido + ' (Leg. ' + obj.iD_LEGAJO + ')' }}</span></p> -->
+  <p class="p-nombre"><span>{{ obj.nombre + ' ' + obj.apellido + ' (Leg. ' + obj.idLegajo + ')' }}</span></p>
 
   <div class="row text-center labels-container">
     <div class="col-4">
@@ -56,6 +56,19 @@
       <!-- Contenido -->
 
       <div class="container">
+        <div class="row justify-content-start mb-3">
+          <div class="col-2 text-center">
+            <button mat-mini-fab color="accent" aria-label="Add" class="mr-3">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-mini-fab color="primary" aria-label="Remove">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+          <div class="col-6">
+            <app-timepicker [setDarkMode]="true"></app-timepicker>
+          </div>
+        </div>
         <div class="row">
           <div class="col">
             <div class="mat-elevation-z8">
@@ -95,6 +108,9 @@
         </div>
       </div>
 
+      <mat-action-row>
+        <button mat-button color="primary">Guardar</button>
+      </mat-action-row>
 
     </mat-expansion-panel>
 

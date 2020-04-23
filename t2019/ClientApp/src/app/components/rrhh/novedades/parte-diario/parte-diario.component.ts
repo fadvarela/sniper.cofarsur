@@ -1,10 +1,10 @@
 import { DateTimeEntity } from './../../../../models/sistema/dateTimeEntity';
-import { Component, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, EventEmitter, AfterViewInit } from '@angular/core';
 import { Novedades } from 'src/app/models/rrhh/novedades/novedades.model';
 import { NovedadesService } from 'src/app/services/rrhh/novedades/novedades.service';
 
 
-import { MatTableDataSource, MatDialog, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import { MatTableDataSource, MatDialog, DateAdapter, MAT_DATE_FORMATS, MatMenuTrigger } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { ModalMarcacionComponent } from 'src/app/components/rrhh/novedades/modal-marcacion/modal-marcacion.component';
 import { DatePipe } from '@angular/common';
@@ -20,15 +20,11 @@ import * as _moment from 'moment';
   styleUrls: ['./parte-diario.component.css']
 })
 export class ParteDiarioComponent implements OnInit {
-  dataSource: MatTableDataSource<Novedades>;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: string[] = [
     'ID_LEGAJO',
     'APELLIDO',
     'NOMBRE',
-    'ID_JORNADA',
     'N_JORNADA',
-    'ID_INCIDENCIA',
     'N_INCIDENCIA',
     'MARCACIONES',
     'H_TEORICAS',
@@ -38,41 +34,54 @@ export class ParteDiarioComponent implements OnInit {
     'H_ADICIONALES',
     'H_AUSENCIA'
   ];
+  dataSource = new MatTableDataSource<Novedades>([]);
+  @ViewChild(MatPaginator, { static: true }) set matPaginator(paginator: MatPaginator) {
+    this.dataSource.paginator = paginator;
+  }
+  @ViewChild('dtpMenuTrigger', { static: true }) datepickerMenuTrigger: MatMenuTrigger;
 
   @Output() ParteDiario_WaitHome_prm = new EventEmitter();
-
+  datePicker = new Date();
   txtParam: any;
-  datePicker = new Date(); // = moment(new Date()).format('DD-MM-YYYY');
-  hoyDate = new Date();
+  isDatePickerMenuOpened = false;
 
 
   constructor(
     private novedadesService: NovedadesService,
     public dialog: MatDialog) {
-      this.dataSource = new MatTableDataSource();
-    this.getNovedades(false);
+    this.getNovedades();
   }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+
   }
 
-  getNovedades(convertir: boolean) {
-    if (convertir) {
-      this.datePicker = new Date(this.datePicker);
+  getNovedades(valor?) {
+
+    if (this.isDatePickerMenuOpened) {
+      this.datepickerMenuTrigger.closeMenu();
     }
 
     let dateEntity = new DateTimeEntity();
     dateEntity.dia = this.datePicker.getDate();
     dateEntity.mes = this.datePicker.getMonth() + 1;
     dateEntity.anio = this.datePicker.getFullYear();
-    // this.datePicker = this.datePipe.transform(this.datePicker, 'dd-MM-yyyy', 'es-AR');
+
     this.ParteDiario_WaitHome_void(1);
     this.novedadesService.getnovedades(dateEntity).subscribe((result: Novedades[]) => {
       this.dataSource.data = result;
-      // this.dataSource.data = result;
+      let a = new Novedades();
+      a.nombre = 'Raul';
+      a.idLegajo = 294;
+      a.apellido = 'Pipilua';
+      this.dataSource.data.push(a);
+      this.dataSource.data = [...this.dataSource.data];
     });
     this.ParteDiario_WaitHome_void(0);
+  }
+
+  toggleDatepickerMenuOpened() {
+    this.isDatePickerMenuOpened = !this.isDatePickerMenuOpened;
   }
 
   applyFilter(filterValue: string) {
@@ -85,8 +94,8 @@ export class ParteDiarioComponent implements OnInit {
 
 
   openModalData(row?) {
-    row.fecha = this.datePicker;
 
+    row.fecha = this.datePicker;
     const dialogRef = this.dialog.open(ModalMarcacionComponent, {
       width: '1000px',
       height: '500px',
