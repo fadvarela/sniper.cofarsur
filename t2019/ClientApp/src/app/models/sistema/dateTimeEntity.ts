@@ -5,4 +5,8 @@ export class DateTimeEntity {
   public hora: number;
   public minuto: number;
   public segundo: number;
+
+  getDateString() {
+    return this.dia + '/' + this.mes + '/' + this.anio;
+  }
 }

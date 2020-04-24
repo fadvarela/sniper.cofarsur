@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 using System;
 
 namespace t2019
@@ -21,6 +22,8 @@ namespace t2019
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddMvc().AddJsonOptions(options =>
+				options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
 			// In production, the Angular files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>
@@ -44,13 +47,13 @@ namespace t2019
 			app.UseStaticFiles();
 			app.UseSpaStaticFiles();
 
-            app.UseCors(builder => builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
+			app.UseCors(builder => builder
+						.AllowAnyOrigin()
+						.AllowAnyMethod()
+						.AllowAnyHeader()
+						.AllowCredentials());
 
-            app.UseMvc(routes =>
+			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
 					name: "default",
@@ -66,7 +69,7 @@ namespace t2019
 
 				if (env.IsDevelopment())
 				{
-					spa.Options.StartupTimeout = new TimeSpan(0,0, 80);
+					spa.Options.StartupTimeout = new TimeSpan(0, 0, 80);
 					spa.UseAngularCliServer(npmScript: "start");
 				}
 			});

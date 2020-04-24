@@ -1,11 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-html { height: 100%; }
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   /*background-image: linear-gradient(to bottom, #357ce9, #18a5f2, #65c8ef, #aee5ef, #f5fffe);*/
-  background-color: white; /*#F7EFD5;*/
+  background-color: white;
+  /*#F7EFD5;*/
 }
 
 /*Colores*/
@@ -42,27 +46,28 @@ body {
 
 /*Snackbar*/
 
-.snack-primary, .snack-primary button {
+.snack-primary,
+.snack-primary button {
   text-align: center;
   background-color: #3D5AFE;
   color: #E8EAF6;
 }
 
-.snack-success, .snack-success button {
+.snack-success,
+.snack-success button {
   text-align: center;
   background-color: #00C851;
   color: #E8EAF6;
 }
 
-.snack-danger, .snack-danger button {
+.snack-danger,
+.snack-danger button {
   text-align: center;
   background-color: #ff4444;
   color: #E8EAF6;
 }
 
-.no-padding mat-dialog-container {
-  padding: 0;
-}
+
 
 .timepicker-overlay {
   z-index: 1100 !important;
@@ -70,4 +75,9 @@ body {
 
 .timepicker-backdrop-overlay {
   z-index: 1100 !important;
+}
+
+.modal-marcacion mat-dialog-container {
+  padding: 0;
+  overflow-y: hidden;
 }

@@ -1,131 +1,36 @@
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
 
-    <mat-card class="example-card">
-      <mat-card-header>
-        <mat-card-title>Login</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <form class="example-form">
-          <table class="example-full-width" cellspacing="0">
-            <tr>
-              <td>
-                <mat-form-field class="example-full-width">
-                  <input matInput [formControl]="nomUsuarioFormControl" [(ngModel)]="usuario.nomUsuario" placeholder="Usuario" name="username" required>
-                </mat-form-field>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <mat-form-field class="example-full-width">
-                  <input matInput [formControl]="passFormControl" [(ngModel)]="usuario.pass" placeholder="Contraseña" type="password" name="password" required>
-                </mat-form-field>
-              </td>
-            </tr>
-          </table>
-        </form>
-        <mat-spinner [style.display]="mostrar ? 'block' : 'none'"></mat-spinner>
-        <!-- <mat-spinner></mat-spinner> -->
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button (click)="ValidarInputs()" color="primary" [disabled]="mostrar">Login</button>
-      </mat-card-actions>
-      <mat-progress-bar mode="indeterminate" *ngIf="Login_Wait_prm===1"></mat-progress-bar>
-    </mat-card>
-
-    <!--<mat-card>
-    <mat-card-title>Login</mat-card-title>
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="submit()">
-        <p>
-           <mat-form-field>
-            <input type="text" matInput [formControl]="Usuario" [(ngModel)]="Usuario.Usuario" placeholder="Usuario" formControlName="Usuario">
-          </mat-form-field>
-        </p>
-
-        <p>
-          <mat-form-field>
-            <input type="password" matInput [formControl]="password" [(ngModel)]="Usuario.password" placeholder="password" formControlName="password">
-          </mat-form-field>
-        </p>
-
-
-        <p *ngIf="error" class="error">
-          {{ error }}
-        </p>
-
-        <div class="button">
-          <button mat-raised-button class="amarillo" (click)="registrar()">Ingresar</button>
-        </div>
-
+      <form class="example-form">
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+                <input matInput [formControl]="nomUsuarioFormControl" [(ngModel)]="usuario.NomUsuario"
+                  placeholder="Usuario" name="username" required>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+                <input matInput [formControl]="passFormControl" [(ngModel)]="usuario.Pass" placeholder="Contraseña"
+                  type="password" name="password" required>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
       </form>
     </mat-card-content>
-  </mat-card>-->
+    <mat-card-actions>
+      <button mat-raised-button (click)="loginSubmit()" color="primary" [disabled]="mostrarProgressBar">Login</button>
+    </mat-card-actions>
+    <mat-progress-bar mode="indeterminate" *ngIf="mostrarProgressBar"></mat-progress-bar>
+  </mat-card>
+
 </div>
-
-
-
-
-
-  <!--<div class="row">
-    <div class="col maina">
-      <div class="card text-center">
-        <div class="card-header">
-          Control de asistencia
-        </div>
-        <div class="card-body">
-          <div class="embed-responsive embed-responsive-21by9">
-            <p>
-               <iframe class="embed-responsive-item" [src]="getVideoIframe('https://www.youtube.com/embed/FBqf8uTZQ3Q')" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </p>
-          </div>
-        </div>
-        <div class="card-footer text-muted">
-          Demo ShooterDroid
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-3 logina">
-      <mat-card>
-        <mat-card-title>Login</mat-card-title>
-        <mat-card-content>
-          <form [formGroup]="form" (ngSubmit)="submit()">
-            <p>
-              <mat-form-field>
-                <input type="number" matInput [formControl]="CUIT" [(ngModel)]="Usuario.CUIT" placeholder="CUIT" formControlName="CUIT">
-              </mat-form-field>
-            </p>
-
-            <p>
-              <mat-form-field>
-                <input type="text" matInput [formControl]="Usuario" [(ngModel)]="Usuario.Usuario" placeholder="Usuario" formControlName="Usuario">
-              </mat-form-field>
-            </p>
-
-            <p>
-              <mat-form-field>
-                <input type="password" matInput [formControl]="password" [(ngModel)]="Usuario.password" placeholder="password" formControlName="password">
-              </mat-form-field>
-            </p>
-
-
-            <p *ngIf="error" class="error">
-              {{ error }}
-            </p>
-
-            <div class="button">
-              <button mat-raised-button class="amarillo" (click)="registrar()">Ingresar</button>
-            </div>
-
-          </form>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-  </div>-->
-
-
-
-

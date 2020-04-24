@@ -1,6 +1,6 @@
 <mat-form-field class="date-picker-container m-2">
   <mat-label>Seleccione fecha</mat-label>
-  <input matInput #inputDate [max]="hoyDate" [matDatepicker]="picker" (dateChange)="getDateEmit()"
+  <input matInput #inputDate [max]="hoyDate" [matDatepicker]="picker" (dateChange)="getDateEmit(datePicker)"
     [(ngModel)]="datePicker">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>

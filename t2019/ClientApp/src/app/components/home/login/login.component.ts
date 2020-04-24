@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   valid: boolean;
   Login_Wait_prm: number;
-  mostrar: boolean = false;
+  mostrarProgressBar = false;
 
   @Input() public set Login_ReciveLoginId_Void(IdAccion: number) {
     this.Login_Recibe_LoginAccion(IdAccion);
@@ -43,35 +43,32 @@ export class LoginComponent implements OnInit {
   }
 
 
-  ValidarInputs() {
+  loginSubmit() {
     let mensaje = '';
-    this.mostrar = false;
-    this.Login_Wait_prm = 1;
+    this.mostrarProgressBar = true;
 
     if (this.validarForm()) {
-      this.loginService.ValidarUsuario(this.usuario.nomUsuario, this.usuario.pass).subscribe((result: Usuario[]) => {
-        console.log(result)
+      this.loginService.ValidarUsuario(this.usuario.NomUsuario, this.usuario.Pass).subscribe((result: Usuario[]) => {
         result.forEach(e => {
-          if (e.ok) {
-            this.get_IdRol(e.idRol);
-            this.mostrar = true;
+          if (e.Ok) {
+            this.get_IdRol(e.IdRol);
             this.closeNav();
-            this.openSnackBar('snack-success', 'Bienvenido ' + e.nomUsuario + '!', 4000);
+            this.openSnackBar('snack-success', 'Bienvenido ' + e.NomUsuario + '!', 4000);
           } else {
-            this.openSnackBar('snack-danger', e.mensaje, 4000);
+            this.openSnackBar('snack-danger', e.Mensaje, 4000);
           }
         });
-        this.Login_Wait_prm = 0;
       });
     }
+    this.mostrarProgressBar = false;
   }
 
   validarForm() {
-    if (!this.usuario.nomUsuario) {
+    if (!this.usuario.NomUsuario) {
       this.openSnackBar('snack-danger', 'Debe ingresar un nombre de usuario', 4000);
       return false;
     }
-    if (!this.usuario.pass) {
+    if (!this.usuario.Pass) {
       this.openSnackBar('snack-danger', 'Debe ingresar una contraseña', 4000);
       return false;
     }

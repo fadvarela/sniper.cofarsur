@@ -29,7 +29,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ModalMarcacionComponent implements OnInit {
   dataSource: MatTableDataSource<PeriodicElement>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  obj;
+  objeto: Novedades;
   titulo: string;
   novedad;
   lstJornadas: CmbEntity[] = [];
@@ -44,7 +44,7 @@ export class ModalMarcacionComponent implements OnInit {
   ) {
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.titulo = this.data.titulo;
-    this.obj = data.obj;
+    this.objeto = data.obj;
   }
 
   ngOnInit() {
@@ -61,13 +61,13 @@ export class ModalMarcacionComponent implements OnInit {
   cerrarModal() { this.dialogRef.close(); }
 
   calcularMovimientos() {
-    if (this.obj.marcaciones && this.obj.nIncidencia) {
-      return this.obj.marcaciones + this.obj.nIncidencia;
+    if (this.objeto.Marcaciones && this.objeto.Nincidencia) {
+      return this.objeto.Marcaciones + this.objeto.Nincidencia;
     }
   }
 
   getSeleccionCmb(value) {
-    this.obj.idJornada = value;
+    this.objeto.IdJornada = value;
   }
 
 }

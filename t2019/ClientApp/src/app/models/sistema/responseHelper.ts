@@ -1,4 +1,4 @@
 export class ResponseHelper {
-  public ok: boolean;
-  public mensaje: string;
+  public Ok: boolean;
+  public Mensaje: string;
 }

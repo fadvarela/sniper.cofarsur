@@ -1,7 +1,7 @@
 export class Validacion {
-  public pId: number;
+  public PId: number;
 
-  constructor(pId?: number) {
-    this.pId = pId;
-  }
+  // constructor(pId?: number) {
+  //   this.pId = pId;
+  // }
 }

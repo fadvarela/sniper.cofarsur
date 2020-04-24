@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { DateTimeEntity } from 'src/app/models/sistema/dateTimeEntity';
 import * as _moment from 'moment';
 
@@ -9,9 +9,10 @@ import * as _moment from 'moment';
 })
 export class DatepickerComponent implements OnInit {
   @Output() dateEmit = new EventEmitter;
+  @Input() getDateInput;
   datePicker = new Date();
-  hoyDate = new Date();
-
+  hoyDate = new Date(); // solo se usa para setear un maximo al datepicker
+  dateEntity = new DateTimeEntity(); // se usa como dato a enviar Emit
 
 
   constructor() { }
@@ -19,15 +20,17 @@ export class DatepickerComponent implements OnInit {
   ngOnInit() {
   }
 
-  getDateEmit() {
-    this.datePicker = new Date(this.datePicker);
+  getDateEmit(valor) {
+    this.convertirDateEntity(valor);
+    this.dateEmit.emit(this.dateEntity);
+  }
 
-    let dateEntity = new DateTimeEntity();
-    dateEntity.dia = this.datePicker.getDate();
-    dateEntity.mes = this.datePicker.getMonth() + 1;
-    dateEntity.anio = this.datePicker.getFullYear();
-
-    this.dateEmit.emit(dateEntity);
+  convertirDateEntity(valor) {
+    this.datePicker = new Date(valor);
+    this.dateEntity.dia = this.datePicker.getDate();
+    this.dateEntity.mes = this.datePicker.getMonth() + 1;
+    this.dateEntity.anio = this.datePicker.getFullYear();
+    return this.dateEntity;
   }
 
 }

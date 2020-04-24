@@ -1,9 +1,9 @@
 export class CmbEntity {
-  public id: number;
-  public detalle: string;
+  public Id: number;
+  public Detalle: string;
 
-  constructor(id?: number, detalle?: string) {
-    this.id = id;
-    this.detalle = detalle;
-  }
+  // constructor(Id?: number, Detalle?: string) {
+  //   this.id = id;
+  //   this.detalle = detalle;
+  // }
 }

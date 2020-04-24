@@ -2,16 +2,16 @@
   <mat-icon class="btn-close" (click)="cerrarModal()">clear</mat-icon>
 </h1>
 <div mat-dialog-content>
-  <p class="p-nombre"><span>{{ obj.nombre + ' ' + obj.apellido + ' (Leg. ' + obj.idLegajo + ')' }}</span></p>
+  <p class="p-nombre"><span>{{ objeto.Nombre + ' ' + objeto.Apellido + ' (Leg. ' + objeto.IdLegajo + ')' }}</span></p>
 
   <div class="row text-center labels-container">
     <div class="col-4">
       <mat-label>Fecha</mat-label>
-      <p>{{ obj.fecha | date: 'dd/MM/yyyy' }}</p>
+      <p>{{ objeto.Fecha.getDateString() }}</p>
     </div>
     <div class="col-4">
       <mat-label>Jornada</mat-label>
-      <p>{{ obj.nJornada }}</p>
+      <p>{{ objeto.Njornada }}</p>
     </div>
     <div class="col-4">
       <mat-label>Movimientos</mat-label>
@@ -31,9 +31,9 @@
         <div class="col-4">
           <mat-form-field>
             <mat-label>Seleccione jornada</mat-label>
-            <mat-select [(ngModel)]="obj.idJornada" (selectionChange)="getSeleccionCmb($event)">
-              <mat-option *ngFor="let item of lstJornadas" [matTooltip]="item.detalle" [value]="obj.idJornada">
-                {{ item.detalle }}
+            <mat-select [(ngModel)]="objeto.IdJornada" (selectionChange)="getSeleccionCmb($event)">
+              <mat-option *ngFor="let item of lstJornadas" [matTooltip]="item.Detalle" [value]="objeto.IdJornada">
+                {{ item.Detalle }}
               </mat-option>
             </mat-select>
           </mat-form-field>

@@ -16,24 +16,10 @@ export class NovedadesService {
 
   getnovedades(ateTimeEntity: DateTimeEntity) {
     return this.novedadesEndPoint.getnovedades(ateTimeEntity);
-    // .pipe(
-    //   map(response => {
-    //     return this.getnovedadesFromResponse(response);
-    //   })
-    // );
   }
 
   getListJornadas(filtro?): Observable<CmbEntity[]> {
     return this.novedadesEndPoint.getListJornadasEndPoint(filtro);
   }
-
-  // private getnovedadesFromResponse(response) {
-  //   let novedades: Novedades[] = [];
-
-  //   for (let i in response) {
-  //     novedades[i] = Novedades.Create(response[i]);
-  //   }
-  //   return novedades;
-  // }
 
 }

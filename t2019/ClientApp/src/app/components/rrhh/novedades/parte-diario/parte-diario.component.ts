@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/models/sistema/dateHelper';
 import * as _moment from 'moment';
+import { DatepickerComponent } from 'src/app/components/utils/datepicker/datepicker.component';
 
 
 
@@ -21,6 +22,7 @@ import * as _moment from 'moment';
 })
 export class ParteDiarioComponent implements OnInit {
   displayedColumns: string[] = [
+    'SECCION',
     'ID_LEGAJO',
     'APELLIDO',
     'NOMBRE',
@@ -41,7 +43,9 @@ export class ParteDiarioComponent implements OnInit {
   @ViewChild('dtpMenuTrigger', { static: true }) datepickerMenuTrigger: MatMenuTrigger;
 
   @Output() ParteDiario_WaitHome_prm = new EventEmitter();
-  datePicker = new Date();
+  @Output() eventEmitter = new EventEmitter();
+  datePickerComponent = new DatepickerComponent();
+  setDatePickerEmit = new DateTimeEntity();
   txtParam: any;
   isDatePickerMenuOpened = false;
 
@@ -49,33 +53,26 @@ export class ParteDiarioComponent implements OnInit {
   constructor(
     private novedadesService: NovedadesService,
     public dialog: MatDialog) {
-    this.getNovedades();
   }
 
   ngOnInit() {
-
+    this.setDatePickerEmit = this.datePickerComponent.convertirDateEntity(new Date());
+    this.getNovedades(this.setDatePickerEmit);
   }
 
-  getNovedades(valor?) {
+  // recibe por param el valor del Datepicker (enviado desde otra funcion)
+  // si el menu flotante (donde esta el datepicker) esta abierto (valor)
+  // lo cierro luego de seleccionar una fecha
+  getNovedades(valor) {
 
     if (this.isDatePickerMenuOpened) {
       this.datepickerMenuTrigger.closeMenu();
     }
 
-    let dateEntity = new DateTimeEntity();
-    dateEntity.dia = this.datePicker.getDate();
-    dateEntity.mes = this.datePicker.getMonth() + 1;
-    dateEntity.anio = this.datePicker.getFullYear();
-
     this.ParteDiario_WaitHome_void(1);
-    this.novedadesService.getnovedades(dateEntity).subscribe((result: Novedades[]) => {
+    this.novedadesService.getnovedades(valor).subscribe((result: Novedades[]) => {
+      console.log(result)
       this.dataSource.data = result;
-      let a = new Novedades();
-      a.nombre = 'Raul';
-      a.idLegajo = 294;
-      a.apellido = 'Pipilua';
-      this.dataSource.data.push(a);
-      this.dataSource.data = [...this.dataSource.data];
     });
     this.ParteDiario_WaitHome_void(0);
   }
@@ -92,14 +89,26 @@ export class ParteDiarioComponent implements OnInit {
     this.ParteDiario_WaitHome_prm.emit(wait);
   }
 
+  // recibo el valor que viene del Datepicker (HTML)
+  // y lo capturo en mi variable
+  // si necesito llamar a la BD, seteo el segundo parametro
+  // en TRUE
+  getDateFromPickerEmit(value?, callDB?) {
+    this.setDatePickerEmit = value;
 
-  openModalData(row?) {
+    if (callDB) {
+      this.getNovedades(this.setDatePickerEmit);
+    }
+  }
 
-    row.fecha = this.datePicker;
+
+  openModalData(row: Novedades) {
+
+    row.Fecha = this.setDatePickerEmit;
     const dialogRef = this.dialog.open(ModalMarcacionComponent, {
       width: '1000px',
       height: '500px',
-      panelClass: 'no-padding',
+      panelClass: 'modal-marcacion',
       data: {
         titulo: 'Novedades',
         obj: row,

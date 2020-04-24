@@ -1,12 +1,14 @@
 import { CmbEntity } from './../../../models/general/cmbEntity.model';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { DateTimeEntity } from 'src/app/models/sistema/dateTimeEntity';
 import { Novedades } from 'src/app/models/rrhh/novedades/novedades.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NovedadesEndPoint {
 
   /* Variables para llamar a API */
@@ -29,12 +31,12 @@ export class NovedadesEndPoint {
     return throwError(error);
   }
 
-  getnovedades<T>(dateTimeEntity: DateTimeEntity): Observable<T> {
+  getnovedades(dateTimeEntity: DateTimeEntity): Observable<Novedades[]> {
     let endpointUrl = this._urlNovedades + '/getnovedades';
     const params = new HttpParams()
       .set('objeto', JSON.stringify(dateTimeEntity));
 
-    return this.http.get<T>(endpointUrl, { params: params }).pipe<T>(
+    return this.http.get<Novedades[]>(endpointUrl, { params: params }).pipe<Novedades[]>(
       catchError(error => {
         return this.handleError(error);
       }));

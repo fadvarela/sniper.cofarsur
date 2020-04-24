@@ -4,6 +4,9 @@ namespace DataAccess.Models.RRHH
 {
 	public class Novedad : Nomina
 	{
+		[Column("SECCION")]
+		public string Seccion { get; set; }
+
 		[Column("ID_JORNADA")]
 		public long? IdJornada { get; set; }
 
