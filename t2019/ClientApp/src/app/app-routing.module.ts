@@ -1,13 +1,15 @@
+import { UserValuesService } from 'src/app/services/utils/user-values.service';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/home/login/login.component';
+import { AuthGuard } from './services/utils/auth.guard';
+import { LoginComponent } from './components/login/login.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard], pathMatch: 'full' },
   { path: 'login', component: LoginComponent, data: { title: 'Login' } },
-  { path: 'home', component: HomeComponent, data: {title: 'Home'} }
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard], data: { title: 'Home'} }
 ];
 
 @NgModule({

@@ -53,4 +53,27 @@ export class NovedadesEndPoint {
       }));
   }
 
+  getListIncidenciasEndPoint<T>(filtro?): Observable<T> {
+    let endpointUrl = this._urlNovedades + '/getListIncidencias';
+    const params = new HttpParams()
+      .set('filtro', (filtro) ? JSON.stringify(filtro) : '');
+
+    return this.http.get<T>(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe<T>(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
+  getListMarcacionesEndPoint<T>(filtro?): Observable<T> {
+    console.log(filtro)
+    let endpointUrl = this._urlNovedades + '/getListMarcaciones';
+    const params = new HttpParams()
+      .set('filtro', (filtro) ? JSON.stringify(filtro) : '');
+
+    return this.http.get<T>(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe<T>(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
 }

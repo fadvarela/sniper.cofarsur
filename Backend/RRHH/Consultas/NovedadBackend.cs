@@ -21,6 +21,18 @@ namespace Backend.RRHH.Consultas
 			return NovedadDataAccess.getListJornadas(filtro);
 		}
 
+		public IEnumerable<CmbEntity> getListIncidencias(List<string> filtros)
+		{
+			return NovedadDataAccess.getListIncidencias(filtros);
+		}
+
+		public IEnumerable<Marcacion> getListMarcaciones(List<string> filtros)
+		{
+			return NovedadDataAccess.getListMarcaciones(filtros);
+		}
 		
+
+
+
 	}
 }

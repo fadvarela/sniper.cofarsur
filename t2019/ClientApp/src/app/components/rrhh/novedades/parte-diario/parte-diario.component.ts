@@ -71,7 +71,6 @@ export class ParteDiarioComponent implements OnInit {
 
     this.ParteDiario_WaitHome_void(1);
     this.novedadesService.getnovedades(valor).subscribe((result: Novedades[]) => {
-      console.log(result)
       this.dataSource.data = result;
     });
     this.ParteDiario_WaitHome_void(0);

@@ -1,3 +1,5 @@
+import { Marcacion } from './../../../../models/rrhh/marcacion.model';
+import { Usuario } from 'src/app/models/general/usuario.model';
 import { CmbEntity } from './../../../../models/general/cmbEntity.model';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { Novedades } from 'src/app/models/rrhh/novedades/novedades.model';
@@ -7,6 +9,7 @@ import { NovedadesService } from 'src/app/services/rrhh/novedades/novedades.serv
 import { MatTableDataSource } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserValuesService } from 'src/app/services/utils/user-values.service';
 
 const ELEMENT_DATA: PeriodicElement[] = [
   { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
@@ -27,34 +30,66 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./modal-marcacion.component.css']
 })
 export class ModalMarcacionComponent implements OnInit {
-  dataSource: MatTableDataSource<PeriodicElement>;
+  displayedColumns: string[] = [
+    'Hora',
+    'Tipo Marcación',
+    'Fuente Marcación',
+    'Equipo',
+    'Estado',
+    'Incidencia',
+    'Foto'
+  ];
+  dataSource = new MatTableDataSource<Marcacion>([]);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   objeto: Novedades;
   titulo: string;
   novedad;
   lstJornadas: CmbEntity[] = [];
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-
+  lstIncidencias: CmbEntity[] = [];
+  usuario: Usuario;
 
 
   constructor(
     public dialogRef: MatDialogRef<ModalMarcacionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private novedadesService: NovedadesService
-  ) {
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
-    this.titulo = this.data.titulo;
+    private novedadesService: NovedadesService,
+    private userValuesService: UserValuesService) {
+    this.usuario = this.userValuesService.getUsuarioValues;
     this.objeto = data.obj;
+    this.loadMarcaciones();
+    this.titulo = this.data.titulo;
+
   }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.loadJornadasCmb();
+    this.loadIncidenciasCmb();
   }
 
   loadJornadasCmb() {
     this.novedadesService.getListJornadas().subscribe((result: CmbEntity[]) => {
       this.lstJornadas = result;
+    });
+  }
+
+  loadIncidenciasCmb() {
+    let params = [];
+    params.push(null);
+    params.push(this.usuario.IdRol);
+    params.push(1); // idEmpresa luego obtener el valido
+    this.novedadesService.getListIncidencias(params).subscribe((result: CmbEntity[]) => {
+      this.lstIncidencias = result;
+    });
+  }
+
+  loadMarcaciones() {
+    let params = [];
+    params.push(this.objeto.Fecha.getDateString());
+    params.push(this.objeto.IdLegajo);
+    params.push(1); // idEmpresa luego obtener el valido
+    this.novedadesService.getListMarcaciones(params).subscribe((result: Marcacion[]) => {
+      this.dataSource.data = result;
     });
   }
 
@@ -66,8 +101,12 @@ export class ModalMarcacionComponent implements OnInit {
     }
   }
 
-  getSeleccionCmb(value) {
+  getSeleccionJornada(value) {
     this.objeto.IdJornada = value;
+  }
+
+  getSeleccionIncidencia(value) {
+    this.objeto.IdIncidencia = value;
   }
 
 }

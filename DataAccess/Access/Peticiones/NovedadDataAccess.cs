@@ -5,7 +5,6 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace DataAccess.Access.Peticiones
 {
@@ -37,6 +36,48 @@ namespace DataAccess.Access.Peticiones
 
 			return result;
 		}
+		public IEnumerable<CmbEntity> getListIncidencias(List<string> filtros)
+		{
+			var paramNames = new[] { "P_ID_INCIDENCIA", "P_ID_USUARIO", "P_ID_EMPRESA" };
+			var parametros = new List<object>();
+
+			for (int i = 0; i < paramNames.Length; i++)
+			{
+				parametros.Add(new MySqlParameter()
+				{
+					ParameterName = paramNames[i],
+					Value = (filtros[i] != null) ? filtros[i] : null
+				});
+			}
+
+			var sqlQuery = "SP_INCIDENCIAS_GET";
+			var result = MAccess.GetSavantList<MySqlConnection, CmbEntity>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+
+			return result;
+		}
+
+		public IEnumerable<Marcacion> getListMarcaciones(List<string> filtros)
+		{
+			var paramNames = new[] { "P_FECHA", "P_ID_LEGAJO", "P_ID_EMPRESA" };
+			var parametros = new List<object>();
+
+			for (int i = 0; i < paramNames.Length; i++)
+			{
+				parametros.Add(new MySqlParameter()
+				{
+					ParameterName = paramNames[i],
+					Value = (filtros[i] != null) ? filtros[i] : null
+				});
+			}
+
+			var sqlQuery = "SP_MARCACIONES_GET";
+			var result = MAccess.GetSavantList<MySqlConnection, Marcacion>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+
+			return result;
+		}
+
 		
+
+
 	}
 }

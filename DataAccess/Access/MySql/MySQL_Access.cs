@@ -53,7 +53,7 @@ namespace DataAccess.Access.MySQL
         }
 
 		/*--------------GET OBJECT-------------*/
-		public object GetSavantObject<TResult, T>(string sqlQuery, CommandType comandType, Type tipo, List<object> parameters = null)
+		public T GetSavantObject<TResult, T>(string sqlQuery, CommandType comandType, Type tipo, List<object> parameters = null)
 			where TResult : DbConnection where T : new()
 		{
 			// Creo el objeto de tipo DbConnector enviándole la cadena de conexión por parámetro

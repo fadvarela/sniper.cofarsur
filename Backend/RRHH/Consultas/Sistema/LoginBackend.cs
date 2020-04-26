@@ -9,7 +9,7 @@ namespace Backend.RRHH.Consultas.Sistema
 	public class LoginBackend
 	{
 		LoginDataAccess loginDataAccess = new LoginDataAccess();
-		public IEnumerable<Usuario> ValidarUsuario(string usuario, string pass, string cuit)
+		public Usuario ValidarUsuario(string usuario, string pass, string cuit)
 		{
 			return loginDataAccess.ValidarUsuario(usuario, pass, cuit);
 		}

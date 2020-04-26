@@ -12,7 +12,7 @@ namespace DataAccess.Access.Peticiones.Sistema
 	{
 		MySQL_Access MAccess = new MySQL_Access();
 
-		public IEnumerable<Usuario> ValidarUsuario(string usuario, string pass, string cuit)
+		public Usuario ValidarUsuario(string usuario, string pass, string cuit)
 		{
 			var parametros = new List<object>()
 			{
@@ -21,7 +21,7 @@ namespace DataAccess.Access.Peticiones.Sistema
 				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = 1, Direction=System.Data.ParameterDirection.Input}
 			};
 			var sqlQuery = "SP_VALIDARUSUARIO_GET";
-			var result = MAccess.GetSavantList<MySqlConnection, Usuario>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+			var result = MAccess.GetSavantObject<MySqlConnection, Usuario>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
 			return result;
 		}

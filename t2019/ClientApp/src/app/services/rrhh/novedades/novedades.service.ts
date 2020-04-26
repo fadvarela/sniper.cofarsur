@@ -1,3 +1,4 @@
+import { Marcacion } from './../../../models/rrhh/marcacion.model';
 import { CmbEntity } from './../../../models/general/cmbEntity.model';
 import { Observable } from 'rxjs';
 
@@ -20,6 +21,14 @@ export class NovedadesService {
 
   getListJornadas(filtro?): Observable<CmbEntity[]> {
     return this.novedadesEndPoint.getListJornadasEndPoint(filtro);
+  }
+
+  getListIncidencias(filtro?): Observable<CmbEntity[]> {
+    return this.novedadesEndPoint.getListIncidenciasEndPoint(filtro);
+  }
+
+  getListMarcaciones(filtro?): Observable<Marcacion[]> {
+    return this.novedadesEndPoint.getListMarcacionesEndPoint(filtro);
   }
 
 }

@@ -1,12 +1,13 @@
 <div class="login">
-  <app-login-home [Login_ReciveLoginId_Void]="Home_idLoginAccion_Prm"
-    (LoginAccion_Prm)="Home_Get_LoginAccion_Void($event)" (Login_IdRol_Prm)="Home_Get_IdRol_Void($event)">
-  </app-login-home>
+  <!-- <app-login> [Login_ReciveLoginId_Void]="Home_idLoginAccion_Prm"
+    (LoginAccion_Prm)="Home_Get_LoginAccion_Void($event)" (Login_IdRol_Prm)="Home_Get_IdRol_Void($event)"
+    (autenticadoEmit)="getAutenticadoEmit($event)">
+  </app-login> -->
 </div>
 
 
 <div class="mainheader" id="MenuHeader">
-  <app-home-menu (HomeMenu_ComponentShow_prm)="Home_ComponentShow_void($event)"
+  <app-home-menu *ngIf="autenticado" (HomeMenu_ComponentShow_prm)="Home_ComponentShow_void($event)"
     [HomeMenu_SetOpcionesXRol_void]="Home_IdRol_Prm" (HomeMenu_LoginAccion_prm)="Home_Get_LoginAccion_Void($event)">
   </app-home-menu>
 </div>

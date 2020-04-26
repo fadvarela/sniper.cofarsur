@@ -21,10 +21,10 @@ namespace t2019.Controllers
         [ProducesResponseType(200, Type = typeof(Nomina))]
         [ProducesResponseType(403)]
         [ProducesResponseType(404)]
-        public IEnumerable<Nomina> Getnomina([FromQuery]long param)
+        public IActionResult Getnomina([FromQuery]long param)
         {
             var result = nominaBackend.GetNomina(param);
-            return result;
+            return Ok(result);
         }
     }
 }

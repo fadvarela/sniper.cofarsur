@@ -2,23 +2,31 @@
   <mat-icon class="btn-close" (click)="cerrarModal()">clear</mat-icon>
 </h1>
 <div mat-dialog-content>
-  <p class="p-nombre"><span>{{ objeto.Nombre + ' ' + objeto.Apellido + ' (Leg. ' + objeto.IdLegajo + ')' }}</span></p>
 
-  <div class="row text-center labels-container">
-    <div class="col-4">
-      <mat-label>Fecha</mat-label>
-      <p>{{ objeto.Fecha.getDateString() }}</p>
-    </div>
-    <div class="col-4">
-      <mat-label>Jornada</mat-label>
-      <p>{{ objeto.Njornada }}</p>
-    </div>
-    <div class="col-4">
-      <mat-label>Movimientos</mat-label>
-      <p>{{ calcularMovimientos() }}</p>
-    </div>
-  </div>
+  <p class="p-nombre">
+    <span>{{ objeto.Nombre + ' ' + objeto.Apellido + ' (Leg. ' + objeto.IdLegajo + ')' }}</span>
+  </p>
 
+  <mat-card class="mb-3">
+    <div class="row text-center labels-container">
+      <div class="col-3">
+        <mat-label>Sección</mat-label>
+        <p>{{ objeto.Seccion }}</p>
+      </div>
+      <div class="col-3">
+        <mat-label>Fecha</mat-label>
+        <p>{{ objeto.Fecha.getDateString() }}</p>
+      </div>
+      <div class="col-3">
+        <mat-label>Jornada</mat-label>
+        <p>{{ objeto.Njornada }}</p>
+      </div>
+      <div class="col-3">
+        <mat-label>Movimientos</mat-label>
+        <p>{{ calcularMovimientos() }}</p>
+      </div>
+    </div>
+  </mat-card>
   <mat-accordion class="my-2">
     <mat-expansion-panel class="mb-2">
       <mat-expansion-panel-header>
@@ -31,7 +39,7 @@
         <div class="col-4">
           <mat-form-field>
             <mat-label>Seleccione jornada</mat-label>
-            <mat-select [(ngModel)]="objeto.IdJornada" (selectionChange)="getSeleccionCmb($event)">
+            <mat-select [(ngModel)]="objeto.IdJornada" (selectionChange)="getSeleccionJornada($event)">
               <mat-option *ngFor="let item of lstJornadas" [matTooltip]="item.Detalle" [value]="objeto.IdJornada">
                 {{ item.Detalle }}
               </mat-option>
@@ -74,28 +82,39 @@
             <div class="mat-elevation-z8">
               <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-parte-diario">
 
-                <!-- Position Column -->
-                <ng-container matColumnDef="position">
-                  <th mat-header-cell *matHeaderCellDef> No. </th>
-                  <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                <ng-container matColumnDef="Hora">
+                  <th mat-header-cell *matHeaderCellDef> Hora </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Hora}} </td>
                 </ng-container>
 
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef> Name </th>
-                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                <ng-container matColumnDef="Tipo Marcación">
+                  <th mat-header-cell *matHeaderCellDef> Tipo Marcación </th>
+                  <td mat-cell *matCellDef="let element"> {{element.IdMarcacionTipo}} </td>
                 </ng-container>
 
-                <!-- Weight Column -->
-                <ng-container matColumnDef="weight">
-                  <th mat-header-cell *matHeaderCellDef> Weight </th>
-                  <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                <ng-container matColumnDef="Fuente Marcación">
+                  <th mat-header-cell *matHeaderCellDef> Fuente Marcación </th>
+                  <td mat-cell *matCellDef="let element"> {{element.NmarcacionFuente}} </td>
                 </ng-container>
 
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="symbol">
-                  <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                  <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                <ng-container matColumnDef="Equipo">
+                  <th mat-header-cell *matHeaderCellDef> Equipo </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Nequipo}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Estado">
+                  <th mat-header-cell *matHeaderCellDef> Estado </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Nestado}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Incidencia">
+                  <th mat-header-cell *matHeaderCellDef> Incidencia </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Nincidencia}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Foto">
+                  <th mat-header-cell *matHeaderCellDef> Foto </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Foto}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -118,13 +137,26 @@
     <mat-expansion-panel class="mb-2">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Avisos
+          Incidencias
         </mat-panel-title>
-        <!-- <mat-panel-description>
-            Currently I am closed
-          </mat-panel-description> -->
       </mat-expansion-panel-header>
-      <p>I'm visible because I am open</p>
+      <div class="row justify-content-center text-center">
+
+        <div class="col-4">
+          <mat-form-field>
+            <mat-label>Seleccione incidencia</mat-label>
+            <mat-select [(ngModel)]="objeto.IdIncidencia" (selectionChange)="getSeleccionIncidencia($event)">
+              <mat-option *ngFor="let item of lstIncidencias" [matTooltip]="item.Detalle" [value]="objeto.IdIncidencia">
+                {{ item.Detalle }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-action-row>
+        <button mat-button color="primary">Guardar</button>
+      </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
 

@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 // Components
-import { LoginComponent } from './components/home/login/login.component';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
@@ -64,6 +63,12 @@ import localeEsAr from '@angular/common/locales/es-AR';
 import { DatepickerComponent } from './components/utils/datepicker/datepicker.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { TimepickerComponent } from './components/utils/timepicker/timepicker.component';
+import { UserValuesService } from './services/utils/user-values.service';
+import { StorageModule } from '@ngx-pwa/local-storage';
+import { AuthGuard } from './services/utils/auth.guard';
+import { SenderService } from './services/utils/sender.service';
+import { LoginComponent } from './components/login/login.component';
+import { SnackBarService } from './services/utils/snackBar.service';
 
 declare var $: any;
 registerLocaleData(localeEsAr, 'es-AR');
@@ -139,7 +144,8 @@ export const DateFormats = {
     MatMomentDateModule,
     DragDropModule,
     MatBadgeModule,
-    NgxMaterialTimepickerModule.setLocale('es-AR')
+    NgxMaterialTimepickerModule.setLocale('es-AR'),
+    StorageModule.forRoot({ IDBNoWrap: true })
   ],
   providers: [ // Se declaran los servicios
     LoginService,
@@ -150,7 +156,11 @@ export const DateFormats = {
     NovedadesEndPoint,
     // DatePipe,
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: DateFormats }
+    { provide: MAT_DATE_FORMATS, useValue: DateFormats },
+    UserValuesService,
+    AuthGuard,
+    SenderService,
+    SnackBarService
   ],
   bootstrap: [AppComponent]
 })
