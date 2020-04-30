@@ -12,12 +12,19 @@ namespace DataAccess.Access.Peticiones
 	{
 		MySQL_Access MAccess = new MySQL_Access();
 
-		public IEnumerable<Novedad> GetNovedades(DateTime fecha)
+		public IEnumerable<Novedad> GetNovedades(List<string> filtros)
 		{
-			var parametros = new List<object>()
+			var paramNames = new[] { "P_FECHA", "P_ID_USUARIO", "P_ID_EMPRESA" };
+			var parametros = new List<object>();
+
+			for (int i = 0; i < paramNames.Length; i++)
 			{
-				new MySqlParameter(){ ParameterName = "P_FECHA",Value = fecha}
-			};
+				parametros.Add(new MySqlParameter()
+				{
+					ParameterName = paramNames[i],
+					Value = (filtros[i] != null) ? filtros[i] : null
+				});
+			}
 			var sqlQuery = "SP_NOVEDADES_GET";
 			var result = MAccess.GetSavantList<MySqlConnection, Novedad>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
@@ -76,7 +83,72 @@ namespace DataAccess.Access.Peticiones
 			return result;
 		}
 
-		
+		public ResponseHelper guardarJornada(List<string> filtros)
+		{
+			var paramNames = new[] { "P_FECHA", "P_ID_LEGAJO", "P_ID_EMPRESA" };
+			var parametros = new List<object>();
+
+			for (int i = 0; i < paramNames.Length; i++)
+			{
+				parametros.Add(new MySqlParameter()
+				{
+					ParameterName = paramNames[i],
+					Value = (filtros[i] != null) ? filtros[i] : null
+				});
+			}
+
+			var sqlQuery = "NOVEDADES_JORNADA_UPD";
+			var responseHelper = new ResponseHelper();
+			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+			
+			return responseHelper;
+		}
+
+		public ResponseHelper guardarIncidencia(List<string> filtros)
+		{
+			var paramNames = new[] { "P_FECHA", "P_ID_LEGAJO", "P_ID_EMPRESA" };
+			var parametros = new List<object>();
+
+			for (int i = 0; i < paramNames.Length; i++)
+			{
+				parametros.Add(new MySqlParameter()
+				{
+					ParameterName = paramNames[i],
+					Value = (filtros[i] != null) ? filtros[i] : null
+				});
+			}
+
+			var sqlQuery = "NOVEDADES_INCIDENCIAS_UPD";
+			var responseHelper = new ResponseHelper();
+			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+
+			return responseHelper;
+		}
+
+		public ResponseHelper guardarMarcacion(List<string> filtros)
+		{
+			var paramNames = new[] { "P_FECHA", "P_ID_LEGAJO", "P_ID_EMPRESA" };
+			var parametros = new List<object>();
+
+			for (int i = 0; i < paramNames.Length; i++)
+			{
+				parametros.Add(new MySqlParameter()
+				{
+					ParameterName = paramNames[i],
+					Value = (filtros[i] != null) ? filtros[i] : null
+				});
+			}
+
+			var sqlQuery = "NOVEDADES_MARCACION_UPD";
+			var responseHelper = new ResponseHelper();
+			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+
+			return responseHelper;
+		}
+
+
+
+
 
 
 	}

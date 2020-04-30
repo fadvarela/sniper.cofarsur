@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Usuario } from 'src/app/models/general/usuario.model';
 import { UserValuesService } from 'src/app/services/utils/user-values.service';
@@ -12,7 +12,7 @@ import { SnackBarService } from 'src/app/services/utils/snackBar.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   bgImage = '../../../assets/images/bg/recursoHumano.jpg';
   nomUsuarioFormControl = new FormControl('');
   passFormControl = new FormControl('');
@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit {
   valid: boolean;
   Login_Wait_prm: number;
   mostrarProgressBar = false;
+
+  /*--------Styles---------*/
+  sideNavWidth = '';
+  matCardLogin = 'mat-card-login';
 
   @Input() public set Login_ReciveLoginId_Void(IdAccion: number) {
     this.Login_Recibe_LoginAccion(IdAccion);
@@ -41,6 +45,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.sideNavWidth = '18%';
+      this.matCardLogin = '';
+    }, 1000);
+  }
+
+  ngAfterViewInit() {
 
   }
 
@@ -50,16 +61,13 @@ export class LoginComponent implements OnInit {
     if (this.validarForm()) {
       this.userValuesService.setLogin(this.usuario.NomUsuario, this.usuario.Pass).then((result) => {
         if (result) {
-          //this.setEmitIdRol(this.userValuesService.getUsuarioValues.IdRol);
-          //this.closeNav();
-          //this.setAutenticado();
           this._snackBar.openSnackBar('snack-success', 'Bienvenido ' + this.userValuesService.getUsuarioValues.NomUsuario + '!', 4000);
         } else {
           this._snackBar.openSnackBar('snack-danger', this.userValuesService.getUsuarioValues.Mensaje, 4000);
+          this.mostrarProgressBar = true;
         }
       });
     }
-    this.mostrarProgressBar = false;
   }
 
   validarForm() {

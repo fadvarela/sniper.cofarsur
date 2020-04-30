@@ -15,8 +15,8 @@ export class NovedadesService {
   }
 
 
-  getnovedades(ateTimeEntity: DateTimeEntity) {
-    return this.novedadesEndPoint.getnovedades(ateTimeEntity);
+  getNovedades(filtro?) {
+    return this.novedadesEndPoint.getNovedades(filtro);
   }
 
   getListJornadas(filtro?): Observable<CmbEntity[]> {
@@ -29,6 +29,20 @@ export class NovedadesService {
 
   getListMarcaciones(filtro?): Observable<Marcacion[]> {
     return this.novedadesEndPoint.getListMarcacionesEndPoint(filtro);
+  }
+
+  /*--------POST-----------*/
+
+  guardarJornada(params?) {
+    return this.novedadesEndPoint.guardarJornada(params);
+  }
+
+  guardarIncidencia(params?) {
+    return this.novedadesEndPoint.guardarIncidencia(params);
+  }
+
+  guardarMarcacion(params?) {
+    return this.novedadesEndPoint.guardarMarcacion(params);
   }
 
 }

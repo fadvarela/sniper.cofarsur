@@ -49,7 +49,7 @@
       </div>
 
       <mat-action-row>
-        <button mat-button color="primary">Guardar</button>
+        <button mat-button [disabled]="disableButton" (click)="guardarJornada()" color="primary">Guardar</button>
       </mat-action-row>
 
     </mat-expansion-panel>

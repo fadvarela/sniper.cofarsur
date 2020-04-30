@@ -64,11 +64,8 @@ export class HomeMenuComponent implements OnInit {
   }
 
 
-
-
-
-
-
-
+  cerrarSesion() {
+    this.userValuesService.setLogout();
+  }
 
 }

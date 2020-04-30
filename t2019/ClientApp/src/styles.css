@@ -1,15 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
-html {
-  height: 100%;
+body{
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  height: 100vh;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  /*background-image: linear-gradient(to bottom, #357ce9, #18a5f2, #65c8ef, #aee5ef, #f5fffe);*/
-  background-color: white;
-  /*#F7EFD5;*/
+html {
+  height: 100%;
 }
 
 /*Colores*/

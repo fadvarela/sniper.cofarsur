@@ -31,10 +31,10 @@ export class NovedadesEndPoint {
     return throwError(error);
   }
 
-  getnovedades(dateTimeEntity: DateTimeEntity): Observable<Novedades[]> {
+  getNovedades(filtro?): Observable<Novedades[]> {
     let endpointUrl = this._urlNovedades + '/getnovedades';
     const params = new HttpParams()
-      .set('objeto', JSON.stringify(dateTimeEntity));
+      .set('filtro', JSON.stringify(filtro));
 
     return this.http.get<Novedades[]>(endpointUrl, { params: params }).pipe<Novedades[]>(
       catchError(error => {
@@ -65,12 +65,40 @@ export class NovedadesEndPoint {
   }
 
   getListMarcacionesEndPoint<T>(filtro?): Observable<T> {
-    console.log(filtro)
     let endpointUrl = this._urlNovedades + '/getListMarcaciones';
     const params = new HttpParams()
       .set('filtro', (filtro) ? JSON.stringify(filtro) : '');
 
     return this.http.get<T>(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe<T>(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
+  /*------------POST--------------*/
+
+  guardarJornada(params?) {
+    let endPointUrl = this._urlNovedades + '/guardarJornada';
+
+    return this.http.post(endPointUrl, params, { headers: this.getRequestHeaders() }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
+  guardarIncidencia(params?) {
+    let endPointUrl = this._urlNovedades + '/guardarIncidencia';
+
+    return this.http.post(endPointUrl, params, { headers: this.getRequestHeaders() }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
+  guardarMarcacion(params?) {
+    let endPointUrl = this._urlNovedades + '/guardarMarcacion';
+
+    return this.http.post(endPointUrl, params, { headers: this.getRequestHeaders() }).pipe(
       catchError(error => {
         return this.handleError(error);
       }));

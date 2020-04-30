@@ -10,6 +10,8 @@ import { MatTableDataSource } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserValuesService } from 'src/app/services/utils/user-values.service';
+import { SnackBarService } from 'src/app/services/utils/snackBar.service';
+import { ResponseHelper } from 'src/app/models/sistema/responseHelper';
 
 const ELEMENT_DATA: PeriodicElement[] = [
   { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
@@ -47,13 +49,15 @@ export class ModalMarcacionComponent implements OnInit {
   lstJornadas: CmbEntity[] = [];
   lstIncidencias: CmbEntity[] = [];
   usuario: Usuario;
+  disableButton = false;
 
 
   constructor(
     public dialogRef: MatDialogRef<ModalMarcacionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private novedadesService: NovedadesService,
-    private userValuesService: UserValuesService) {
+    private userValuesService: UserValuesService,
+    private _snackBar: SnackBarService) {
     this.usuario = this.userValuesService.getUsuarioValues;
     this.objeto = data.obj;
     this.loadMarcaciones();
@@ -107,6 +111,51 @@ export class ModalMarcacionComponent implements OnInit {
 
   getSeleccionIncidencia(value) {
     this.objeto.IdIncidencia = value;
+  }
+
+  guardarJornada() {
+    this.disableButton = true; // deshabilito en boton
+    let params = [];
+    params.push(this.objeto.IdJornada);
+
+    this.novedadesService.guardarJornada(params).subscribe((result: ResponseHelper) => {
+      if (result.Ok) {
+        this._snackBar.openSnackBar('snack-success', 'Jornada guardada correctamente', 3000);
+      } else {
+        this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
+      }
+    }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
+    this.disableButton = false;
+  }
+
+  guardarIncidencia() {
+    this.disableButton = true; // deshabilito en boton
+    let params = [];
+    params.push(this.objeto.IdJornada);
+
+    this.novedadesService.guardarIncidencia(params).subscribe((result: ResponseHelper) => {
+      if (result.Ok) {
+        this._snackBar.openSnackBar('snack-success', 'Incidencia guardada correctamente', 3000);
+      } else {
+        this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
+      }
+    }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
+    this.disableButton = false;
+  }
+
+  guardarMarcacion() {
+    this.disableButton = true; // deshabilito en boton
+    let params = [];
+    params.push(this.objeto.IdJornada);
+
+    this.novedadesService.guardarMarcacion(params).subscribe((result: ResponseHelper) => {
+      if (result.Ok) {
+        this._snackBar.openSnackBar('snack-success', 'Marcación guardada correctamente', 3000);
+      } else {
+        this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
+      }
+    }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
+    this.disableButton = false;
   }
 
 }

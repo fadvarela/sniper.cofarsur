@@ -12,6 +12,8 @@ import { FormControl } from '@angular/forms';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/models/sistema/dateHelper';
 import * as _moment from 'moment';
 import { DatepickerComponent } from 'src/app/components/utils/datepicker/datepicker.component';
+import { UserValuesService } from 'src/app/services/utils/user-values.service';
+import { SnackBarService } from 'src/app/services/utils/snackBar.service';
 
 
 
@@ -51,8 +53,10 @@ export class ParteDiarioComponent implements OnInit {
 
 
   constructor(
+    private userValuesService: UserValuesService,
     private novedadesService: NovedadesService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private _snackBar: SnackBarService) {
   }
 
   ngOnInit() {
@@ -63,16 +67,20 @@ export class ParteDiarioComponent implements OnInit {
   // recibe por param el valor del Datepicker (enviado desde otra funcion)
   // si el menu flotante (donde esta el datepicker) esta abierto (valor)
   // lo cierro luego de seleccionar una fecha
-  getNovedades(valor) {
+  getNovedades(valor: DateTimeEntity) {
 
     if (this.isDatePickerMenuOpened) {
       this.datepickerMenuTrigger.closeMenu();
     }
 
     this.ParteDiario_WaitHome_void(1);
-    this.novedadesService.getnovedades(valor).subscribe((result: Novedades[]) => {
+    let params = [];
+    params.push(valor.getDateString()); // fecha obtenida del datePicker
+    params.push(this.userValuesService.getUsuarioValues.IdUsuario);
+    params.push(1);
+    this.novedadesService.getNovedades(params).subscribe((result: Novedades[]) => {
       this.dataSource.data = result;
-    });
+    }, (error) => { this._snackBar.openSnackBar('snack-danger', 'Backend error: ' +  error.error, 5000); });
     this.ParteDiario_WaitHome_void(0);
   }
 
