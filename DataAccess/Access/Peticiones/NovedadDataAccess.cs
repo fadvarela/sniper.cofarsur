@@ -15,17 +15,29 @@ namespace DataAccess.Access.Peticiones
 		public IEnumerable<Novedad> GetNovedades(List<string> filtros)
 		{
 			var paramNames = new[] { "P_FECHA", "P_ID_USUARIO", "P_ID_EMPRESA" };
-			var parametros = new List<object>();
+            DateTime oDate = DateTime.ParseExact(filtros[0], "d/M/yyyy", null);
 
-			for (int i = 0; i < paramNames.Length; i++)
-			{
-				parametros.Add(new MySqlParameter()
-				{
-					ParameterName = paramNames[i],
-					Value = (filtros[i] != null) ? filtros[i] : null
-				});
-			}
-			var sqlQuery = "SP_NOVEDADES_GET";
+            var parametros = new List<object>()
+            {
+
+         
+
+                new MySqlParameter(){ ParameterName = "P_FECHA", Value = oDate, MySqlDbType= MySqlDbType.Date, Direction=ParameterDirection.Input},
+                new MySqlParameter(){ ParameterName = "P_ID_USUARIO", Value = filtros[1], MySqlDbType= MySqlDbType.Int32, Direction=ParameterDirection.Input},
+                new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = filtros[2], MySqlDbType= MySqlDbType.Int32, Direction=ParameterDirection.Input}
+            };
+            //for (int i = 0; i < paramNames.Length; i++)
+            //{
+            //             Valorete = (filtros[i] != null) ? filtros[i] : null;
+            //             parametros.Add(new MySqlParameter()
+            //             {
+            //                 ParameterName = paramNames[i],
+            //                 MySqlDbType = (paramNames[i].Contains("FECHA") == true) ? MySqlDbType.Date : MySqlDbType.VarChar,
+            //                 Value = (paramNames[i].Contains("FECHA") == true) ? DateTime.ParseExact(Valorete.ToString(), "dd/M/yyyy", null) : Valorete.ToString()
+
+            //             });
+            //}
+            var sqlQuery = "SP_NOVEDADES_GET";
 			var result = MAccess.GetSavantList<MySqlConnection, Novedad>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
 			return result;

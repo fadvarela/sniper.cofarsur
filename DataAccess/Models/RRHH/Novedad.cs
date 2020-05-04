@@ -23,10 +23,10 @@ namespace DataAccess.Models.RRHH
 		public string Marcaciones { get; set; }
 
 		[Column("H_TEORICAS")]
-		public decimal? Hteoricas { get; set; }
+		public decimal Hteoricas { get; set; }
 
 		[Column("H_TRABAJADAS")]
-		public decimal? Htrabajadas { get; set; }
+		public decimal Htrabajadas { get; set; }
 
 		[Column("I_IMPARES")]
 		public long? Iimpares { get; set; }
@@ -35,9 +35,9 @@ namespace DataAccess.Models.RRHH
 		public long? IsinIncidencias { get; set; }
 
 		[Column("H_ADICIONALES")]
-		public decimal? Hadicionales { get; set; }
+		public decimal Hadicionales { get; set; }
 
 		[Column("H_AUSENCIA")]
-		public decimal? Hausencia { get; set; }
+		public decimal Hausencia { get; set; }
 	}
 }

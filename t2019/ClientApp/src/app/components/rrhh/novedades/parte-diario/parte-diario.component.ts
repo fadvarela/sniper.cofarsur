@@ -1,5 +1,5 @@
 import { DateTimeEntity } from './../../../../models/sistema/dateTimeEntity';
-import { Component, OnInit, Output, ViewChild, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { Novedades } from 'src/app/models/rrhh/novedades/novedades.model';
 import { NovedadesService } from 'src/app/services/rrhh/novedades/novedades.service';
 
@@ -16,13 +16,14 @@ import { UserValuesService } from 'src/app/services/utils/user-values.service';
 import { SnackBarService } from 'src/app/services/utils/snackBar.service';
 
 
-
 @Component({
   selector: 'app-parte-diario',
   templateUrl: './parte-diario.component.html',
   styleUrls: ['./parte-diario.component.css']
 })
 export class ParteDiarioComponent implements OnInit {
+
+
   displayedColumns: string[] = [
     'SECCION',
     'ID_LEGAJO',
@@ -50,13 +51,16 @@ export class ParteDiarioComponent implements OnInit {
   setDatePickerEmit = new DateTimeEntity();
   txtParam: any;
   isDatePickerMenuOpened = false;
+   mostrarProgressBarra = false;
 
+  suscribe: any;
 
   constructor(
     private userValuesService: UserValuesService,
     private novedadesService: NovedadesService,
     public dialog: MatDialog,
-    private _snackBar: SnackBarService) {
+    private _snackBar: SnackBarService
+    ) {
   }
 
   ngOnInit() {
@@ -68,21 +72,28 @@ export class ParteDiarioComponent implements OnInit {
   // si el menu flotante (donde esta el datepicker) esta abierto (valor)
   // lo cierro luego de seleccionar una fecha
   getNovedades(valor: DateTimeEntity) {
-
-    if (this.isDatePickerMenuOpened) {
+    this.mostrarProgressBarra=true;
+     if (this.isDatePickerMenuOpened) {
       this.datepickerMenuTrigger.closeMenu();
     }
-
-    this.ParteDiario_WaitHome_void(1);
     let params = [];
     params.push(valor.getDateString()); // fecha obtenida del datePicker
     params.push(this.userValuesService.getUsuarioValues.IdUsuario);
     params.push(1);
-    this.novedadesService.getNovedades(params).subscribe((result: Novedades[]) => {
+
+    //---------->
+    this.suscribe=this.novedadesService.getNovedades(params).subscribe((result: Novedades[]) => {
       this.dataSource.data = result;
+      this.mostrarProgressBarra = false;
     }, (error) => { this._snackBar.openSnackBar('snack-danger', 'Backend error: ' +  error.error, 5000); });
-    this.ParteDiario_WaitHome_void(0);
+    //---------->
+    this.suscribe.unsuscribe();
+
   }
+
+
+
+
 
   toggleDatepickerMenuOpened() {
     this.isDatePickerMenuOpened = !this.isDatePickerMenuOpened;
@@ -90,10 +101,6 @@ export class ParteDiarioComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  ParteDiario_WaitHome_void(wait: number) {
-    this.ParteDiario_WaitHome_prm.emit(wait);
   }
 
   // recibo el valor que viene del Datepicker (HTML)
