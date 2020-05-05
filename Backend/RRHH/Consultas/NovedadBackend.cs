@@ -1,9 +1,7 @@
 ﻿using DataAccess.Access.Peticiones;
 using DataAccess.Models.RRHH;
 using DataAccess.Models.Sistema.Helper;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Backend.RRHH.Consultas
 {
@@ -11,9 +9,9 @@ namespace Backend.RRHH.Consultas
 	{
 		NovedadDataAccess novedadDataAccess = new NovedadDataAccess();
 
-		public IEnumerable<Novedad> GetNovedades(List<string> filtros)
+		public IEnumerable<Novedad> GetNovedades(ParamEntity filtro)
 		{
-			return novedadDataAccess.GetNovedades(filtros);
+			return novedadDataAccess.GetNovedades(filtro);
 		}
 
 		public IEnumerable<CmbEntity> getListJornadas(long? filtro)
@@ -26,14 +24,14 @@ namespace Backend.RRHH.Consultas
 			return novedadDataAccess.getListIncidencias(filtros);
 		}
 
-		public IEnumerable<Marcacion> getListMarcaciones(List<string> filtros)
+		public IEnumerable<Marcacion> getListMarcaciones(ParamEntity param)
 		{
-			return novedadDataAccess.getListMarcaciones(filtros);
+			return novedadDataAccess.getListMarcaciones(param);
 		}
-		
+
 		/*-------------------------POST-----------------------------*/
 
-		public ResponseHelper guardarJornada(List<string> param)
+		public ResponseHelper guardarJornada(ParamEntity param)
 		{
 			var responseHelper = new ResponseHelper();
 			responseHelper = novedadDataAccess.guardarJornada(param);
@@ -44,7 +42,7 @@ namespace Backend.RRHH.Consultas
 			return responseHelper;
 		}
 
-		public ResponseHelper guardarIncidencia(List<string> param)
+		public ResponseHelper guardarIncidencia(ParamEntity param)
 		{
 			var responseHelper = new ResponseHelper();
 			responseHelper = novedadDataAccess.guardarIncidencia(param);
@@ -55,7 +53,18 @@ namespace Backend.RRHH.Consultas
 			return responseHelper;
 		}
 
-		public ResponseHelper guardarMarcacion(List<string> param)
+		public ResponseHelper anularMarcacion(ParamEntity param)
+		{
+			var responseHelper = new ResponseHelper();
+			responseHelper = novedadDataAccess.anularMarcacion(param);
+			if (!responseHelper.Ok)
+			{
+				responseHelper.Mensaje = "Hubo un problema al guardar los datos";
+			}
+			return responseHelper;
+		}
+
+		public ResponseHelper guardarMarcacion(ParamEntity param)
 		{
 			var responseHelper = new ResponseHelper();
 			responseHelper = novedadDataAccess.guardarMarcacion(param);

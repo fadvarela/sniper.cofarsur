@@ -14,6 +14,7 @@ import * as _moment from 'moment';
 import { DatepickerComponent } from 'src/app/components/utils/datepicker/datepicker.component';
 import { UserValuesService } from 'src/app/services/utils/user-values.service';
 import { SnackBarService } from 'src/app/services/utils/snackBar.service';
+import { ParamEntity } from 'src/app/models/general/param.model';
 
 
 @Component({
@@ -51,7 +52,7 @@ export class ParteDiarioComponent implements OnInit {
   setDatePickerEmit = new DateTimeEntity();
   txtParam: any;
   isDatePickerMenuOpened = false;
-   mostrarProgressBarra = false;
+  mostrarProgressBarra = false;
 
   suscribe: any;
 
@@ -60,7 +61,7 @@ export class ParteDiarioComponent implements OnInit {
     private novedadesService: NovedadesService,
     public dialog: MatDialog,
     private _snackBar: SnackBarService
-    ) {
+  ) {
   }
 
   ngOnInit() {
@@ -72,27 +73,25 @@ export class ParteDiarioComponent implements OnInit {
   // si el menu flotante (donde esta el datepicker) esta abierto (valor)
   // lo cierro luego de seleccionar una fecha
   getNovedades(valor: DateTimeEntity) {
-    this.mostrarProgressBarra=true;
-     if (this.isDatePickerMenuOpened) {
+    this.mostrarProgressBarra = true;
+    if (this.isDatePickerMenuOpened) {
       this.datepickerMenuTrigger.closeMenu();
     }
-    let params = [];
-    params.push(valor.getDateString()); // fecha obtenida del datePicker
-    params.push(this.userValuesService.getUsuarioValues.IdUsuario);
-    params.push(1);
+
+    let paramEntity = new ParamEntity();
+    paramEntity.IdEmpresa = 1;
+    paramEntity.Fecha = valor;
+    paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
 
     //---------->
-    this.suscribe=this.novedadesService.getNovedades(params).subscribe((result: Novedades[]) => {
+    this.suscribe = this.novedadesService.getNovedades(paramEntity).subscribe((result: Novedades[]) => {
       this.dataSource.data = result;
       this.mostrarProgressBarra = false;
-    }, (error) => { this._snackBar.openSnackBar('snack-danger', 'Backend error: ' +  error.error, 5000); });
+    }, (error) => { this._snackBar.openSnackBar('snack-danger', 'Backend error: ' + error.error, 5000); });
     //---------->
-    this.suscribe.unsuscribe();
+    // this.suscribe.unsuscribe();
 
   }
-
-
-
 
 
   toggleDatepickerMenuOpened() {
@@ -129,8 +128,9 @@ export class ParteDiarioComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      this.getNovedades(result);
     });
   }
 }

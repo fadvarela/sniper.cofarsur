@@ -1,3 +1,16 @@
 .timepicker-form-field mat-icon:hover {
   cursor: pointer;
 }
+
+:host ::ng-deep .ngx-timepicker-container .ngx-timepicker-control__arrows {
+  top: -5px !important;
+}
+
+:host ::ng-deep .ngx-timepicker-container .ngx-timepicker {
+  border-bottom: none !important;
+}
+
+:host ::ng-deep mat-label {
+  position: relative;
+  top: -10px;
+}

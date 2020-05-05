@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.Text;
 
 namespace DataAccess.Models.RRHH
@@ -8,7 +9,7 @@ namespace DataAccess.Models.RRHH
 	public class Marcacion: Novedad
 	{
 		[Column("ID_MARCACION")]
-		public long IdMarcacion { get; set; }
+		public long? IdMarcacion { get; set; }
 
 		[Column("HORA")]
 		public string Hora { get; set; }
@@ -38,16 +39,24 @@ namespace DataAccess.Models.RRHH
 		public string Nestado { get; set; }
 
 		[Column("LATITUD")]
-		public string Latitud { get; set; }
+		public decimal Latitud { get; set; }
 
 		[Column("LONGITUD")]
-		public string Longitud { get; set; }
+		public decimal Longitud { get; set; }
 
 		[Column("FOTO")]
 		public string Foto { get; set; }
 
 		[Column("OK")]
 		public bool Ok { get; set; }
+
+		public DateTime getDateTimeConcatenate()
+		{
+			var hora = TimeSpan.Parse(Hora);
+			var fechaConvertir = DateTime.ParseExact(DateTime.Now.ToShortDateString(), "dd/MM/yyyy", null);
+			DateTime result = fechaConvertir + hora;
+			return result;
+		}
 
 	}
 }

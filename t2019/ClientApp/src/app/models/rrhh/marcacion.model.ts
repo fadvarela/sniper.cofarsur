@@ -15,4 +15,6 @@ export class Marcacion extends Novedades {
   public Longitud: string;
   public Foto: string;
   public Ok: boolean;
+  public Seleccionado = false;
+  public Hovered: boolean;
 }

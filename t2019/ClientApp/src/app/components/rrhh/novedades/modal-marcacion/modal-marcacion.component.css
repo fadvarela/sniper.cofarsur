@@ -7,6 +7,7 @@
 .mat-dialog-content {
   margin: 0;
   max-height: 100%;
+  overflow: inherit;
 }
 
 .mat-dialog-title {
@@ -78,4 +79,16 @@
 
 .labels-container p {
   color: rgba(5, 5, 5, 0.6);
+}
+
+.bg-opacity {
+  background-color: rgba(0,0,0,.32);
+  width: 1000px;
+  height: 100%;
+  position: absolute;
+  z-index: 99;
+}
+
+.menu-marcacion {
+  z-index: 999;
 }

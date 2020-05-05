@@ -63,9 +63,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
         if (result) {
           this._snackBar.openSnackBar('snack-success', 'Bienvenido ' + this.userValuesService.getUsuarioValues.NomUsuario + '!', 4000);
         } else {
-          this._snackBar.openSnackBar('snack-danger', this.userValuesService.getUsuarioValues.Mensaje, 4000);
+          this._snackBar.openSnackBar('snack-danger', this.userValuesService.getUsuarioValues.Mensaje, 5000);
         }
-        this.mostrarProgressBar = true;
+        this.mostrarProgressBar = false;
       });
     }
   }

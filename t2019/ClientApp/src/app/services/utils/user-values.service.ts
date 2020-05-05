@@ -50,7 +50,7 @@ export class UserValuesService {
         this.setLoggedIn(true);
         this.route.navigate(['home']);
       }
-    }).catch((error) => { this.getUsuarioValues.Mensaje = error; this.getUsuarioValues.Ok = false; });
+    }).catch((error) => { this.getUsuarioValues.Mensaje = error.error; this.getUsuarioValues.Ok = false;});
   }
 
   getUsuarioSuccess(nuevoLogin) {

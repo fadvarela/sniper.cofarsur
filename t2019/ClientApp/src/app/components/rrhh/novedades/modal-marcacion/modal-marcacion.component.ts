@@ -5,26 +5,14 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { Novedades } from 'src/app/models/rrhh/novedades/novedades.model';
 import { NovedadesService } from 'src/app/services/rrhh/novedades/novedades.service';
 
-
 import { MatTableDataSource } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserValuesService } from 'src/app/services/utils/user-values.service';
 import { SnackBarService } from 'src/app/services/utils/snackBar.service';
 import { ResponseHelper } from 'src/app/models/sistema/responseHelper';
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
+import { ParamEntity } from 'src/app/models/general/param.model';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-modal-marcacion',
@@ -49,8 +37,12 @@ export class ModalMarcacionComponent implements OnInit {
   lstJornadas: CmbEntity[] = [];
   lstIncidencias: CmbEntity[] = [];
   usuario: Usuario;
-  disableButton = false;
-
+  isBtnGuardarJornada = false;
+  setHorarioHabilitado = true;
+  menuMarcacionOpened = false;
+  isBtnAnularMarcacion = true;
+  isBtnHabilitarMarcacion = true;
+  timePickerValue: string;
 
   constructor(
     public dialogRef: MatDialogRef<ModalMarcacionComponent>,
@@ -62,7 +54,6 @@ export class ModalMarcacionComponent implements OnInit {
     this.objeto = data.obj;
     this.loadMarcaciones();
     this.titulo = this.data.titulo;
-
   }
 
   ngOnInit() {
@@ -88,16 +79,16 @@ export class ModalMarcacionComponent implements OnInit {
   }
 
   loadMarcaciones() {
-    let params = [];
-    params.push(this.objeto.Fecha.getDateString());
-    params.push(this.objeto.IdLegajo);
-    params.push(1); // idEmpresa luego obtener el valido
-    this.novedadesService.getListMarcaciones(params).subscribe((result: Marcacion[]) => {
+    let paramEntity = new ParamEntity();
+    paramEntity.IdEmpresa = 1;
+    paramEntity.IdLegajo = this.objeto.IdLegajo;
+    paramEntity.Fecha = this.objeto.Fecha;
+    this.novedadesService.getListMarcaciones(paramEntity).subscribe((result: Marcacion[]) => {
       this.dataSource.data = result;
-    });
+    }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
   }
 
-  cerrarModal() { this.dialogRef.close(); }
+  cerrarModal() { this.dialogRef.close(this.objeto.Fecha); }
 
   calcularMovimientos() {
     if (this.objeto.Marcaciones && this.objeto.Nincidencia) {
@@ -105,57 +96,130 @@ export class ModalMarcacionComponent implements OnInit {
     }
   }
 
-  getSeleccionJornada(value) {
-    this.objeto.IdJornada = value;
+  getSeleccionJornada(e) {
+    this.objeto.IdJornada = e.value;
   }
 
-  getSeleccionIncidencia(value) {
-    this.objeto.IdIncidencia = value;
+  getSeleccionIncidencia(e) {
+    this.objeto.IdIncidencia = e.value;
   }
 
   guardarJornada() {
-    this.disableButton = true; // deshabilito en boton
-    let params = [];
-    params.push(this.objeto.IdJornada);
+    this.isBtnGuardarJornada = true; // deshabilito en boton
 
-    this.novedadesService.guardarJornada(params).subscribe((result: ResponseHelper) => {
+    let paramEntity = new ParamEntity();
+    paramEntity.IdEmpresa = 1;
+    paramEntity.IdLegajo = this.objeto.IdLegajo;
+    paramEntity.Fecha = this.objeto.Fecha;
+    paramEntity.IdJornada = this.objeto.IdJornada;
+    paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
+
+
+    this.novedadesService.guardarJornada(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {
         this._snackBar.openSnackBar('snack-success', 'Jornada guardada correctamente', 3000);
+        this.cerrarModal();
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
-    this.disableButton = false;
+    this.isBtnGuardarJornada = false;
   }
 
   guardarIncidencia() {
-    this.disableButton = true; // deshabilito en boton
-    let params = [];
-    params.push(this.objeto.IdJornada);
+    this.isBtnGuardarJornada = true; // deshabilito en boton
 
-    this.novedadesService.guardarIncidencia(params).subscribe((result: ResponseHelper) => {
+    let paramEntity = new ParamEntity();
+    paramEntity.IdEmpresa = 1;
+    paramEntity.IdLegajo = this.objeto.IdLegajo;
+    paramEntity.Fecha = this.objeto.Fecha;
+    paramEntity.IdIncidencia = this.objeto.IdIncidencia;
+    paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
+
+    this.novedadesService.guardarIncidencia(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {
         this._snackBar.openSnackBar('snack-success', 'Incidencia guardada correctamente', 3000);
+        this.cerrarModal();
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
-    this.disableButton = false;
+    this.isBtnGuardarJornada = false;
+  }
+
+  anularMarcacion() {
+    let marcacion = this.dataSource.data.find(x => x.Seleccionado);
+    let paramEntity = new ParamEntity();
+    paramEntity.IdEmpresa = 1;
+    paramEntity.IdLegajo = this.objeto.IdLegajo;
+    paramEntity.MarcacionEntity.Hora = '';
+    paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
+    paramEntity.MarcacionEntity.IdMarcacionFuente = 2;
+    paramEntity.MarcacionEntity.IdMarcacionTipo = 2;
+    paramEntity.MarcacionEntity.IdEstado = 0;
+    paramEntity.MarcacionEntity.IdIncidencia = null;
+    paramEntity.MarcacionEntity.IdMarcacion = marcacion.IdMarcacion;
+
+    this.novedadesService.anularMarcacion(paramEntity).subscribe((result: ResponseHelper) => {
+      if (result.Ok) {
+        this._snackBar.openSnackBar('snack-success', 'Marcación anulada correctamente', 3000);
+        this.loadMarcaciones();
+      } else {
+        this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
+      }
+    }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
+
   }
 
   guardarMarcacion() {
-    this.disableButton = true; // deshabilito en boton
-    let params = [];
-    params.push(this.objeto.IdJornada);
+    let paramEntity = new ParamEntity();
+    paramEntity.MarcacionEntity = new Marcacion();
+    paramEntity.IdEmpresa = 1;
+    paramEntity.IdLegajo = this.objeto.IdLegajo;
+    paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
+    paramEntity.MarcacionEntity.Hora = this.timePickerValue;
+    paramEntity.MarcacionEntity.IdMarcacionFuente = 2;
+    paramEntity.MarcacionEntity.IdMarcacionTipo = 2;
+    paramEntity.MarcacionEntity.IdEstado = 1;
+    paramEntity.MarcacionEntity.IdIncidencia = 0;
+    paramEntity.MarcacionEntity.IdMarcacion = null;
 
-    this.novedadesService.guardarMarcacion(params).subscribe((result: ResponseHelper) => {
+    this.novedadesService.guardarMarcacion(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {
         this._snackBar.openSnackBar('snack-success', 'Marcación guardada correctamente', 3000);
+        this.loadMarcaciones();
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
-    this.disableButton = false;
+    this.isBtnGuardarJornada = false;
+  }
+
+  getRowData(marcacion: Marcacion) {
+    this.dataSource.data.forEach(element => {
+      if (element && element !== marcacion) {
+        element.Seleccionado = false;
+      }
+    });
+    marcacion.Seleccionado = !marcacion.Seleccionado;
+    this.toggleAnularMarcacion(marcacion.Seleccionado);
+  }
+
+  toggleHorarioHabilitado() {
+    this.setHorarioHabilitado = !this.setHorarioHabilitado;
+  }
+
+  toggleMarcacionMenuOpened() {
+    this.menuMarcacionOpened = !this.menuMarcacionOpened;
+  }
+
+  toggleAnularMarcacion(habilitado) {
+    this.isBtnAnularMarcacion = !habilitado;
+    this.isBtnHabilitarMarcacion = !habilitado;
+  }
+
+  getTimePickerValue(value) {
+    this.timePickerValue = value;
   }
 
 }
@@ -163,13 +227,6 @@ export class ModalMarcacionComponent implements OnInit {
 export interface DialogData {
   titulo: string;
   obj: any;
-}
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
 }
 
 

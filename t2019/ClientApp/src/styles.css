@@ -79,3 +79,11 @@ html {
 .modal-marcacion mat-dialog-container {
   padding: 0;
 }
+
+.mat-row.hovered {
+  background: #eee;
+}
+
+.mat-row.sombreado {
+  background: #999;
+}

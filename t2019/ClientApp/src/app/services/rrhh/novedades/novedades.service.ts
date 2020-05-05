@@ -1,3 +1,4 @@
+import { ParamEntity } from 'src/app/models/general/param.model';
 import { Marcacion } from './../../../models/rrhh/marcacion.model';
 import { CmbEntity } from './../../../models/general/cmbEntity.model';
 import { Observable } from 'rxjs';
@@ -26,21 +27,25 @@ export class NovedadesService {
     return this.novedadesEndPoint.getListIncidenciasEndPoint(filtro);
   }
 
-  getListMarcaciones(filtro?): Observable<Marcacion[]> {
-    return this.novedadesEndPoint.getListMarcacionesEndPoint(filtro);
+  getListMarcaciones(params?: ParamEntity): Observable<Marcacion[]> {
+    return this.novedadesEndPoint.getListMarcacionesEndPoint(params);
   }
 
   /*--------POST-----------*/
 
-  guardarJornada(params?) {
+  guardarJornada(params: ParamEntity) {
     return this.novedadesEndPoint.guardarJornada(params);
   }
 
-  guardarIncidencia(params?) {
+  guardarIncidencia(params: ParamEntity) {
     return this.novedadesEndPoint.guardarIncidencia(params);
   }
 
-  guardarMarcacion(params?) {
+  anularMarcacion(params: ParamEntity) {
+    return this.novedadesEndPoint.anularMarcacionEndPoint(params);
+  }
+
+  guardarMarcacion(params: ParamEntity) {
     return this.novedadesEndPoint.guardarMarcacion(params);
   }
 

@@ -1,3 +1,4 @@
+import { ParamEntity } from 'src/app/models/general/param.model';
 import { CmbEntity } from './../../../models/general/cmbEntity.model';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
@@ -16,7 +17,7 @@ export class NovedadesEndPoint {
 
   constructor(private http: HttpClient) { }
 
-  protected getRequestHeaders(params?: any): HttpHeaders {
+  protected getRequestHeaders() {
     let headers = new HttpHeaders({
       'Authorization': 'Bearer ' + '',
       'Content-Type': 'application/json',
@@ -58,16 +59,16 @@ export class NovedadesEndPoint {
     const params = new HttpParams()
       .set('filtro', (filtro) ? JSON.stringify(filtro) : '');
 
-    return this.http.get<T>(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe<T>(
+    return this.http.get<T>(endpointUrl, { headers:  this.getRequestHeaders(), params: params }).pipe<T>(
       catchError(error => {
         return this.handleError(error);
       }));
   }
 
-  getListMarcacionesEndPoint<T>(filtro?): Observable<T> {
+  getListMarcacionesEndPoint<T>(param?: ParamEntity): Observable<T> {
     let endpointUrl = this._urlNovedades + '/getListMarcaciones';
     const params = new HttpParams()
-      .set('filtro', (filtro) ? JSON.stringify(filtro) : '');
+      .set('filtro', JSON.stringify(param));
 
     return this.http.get<T>(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe<T>(
       catchError(error => {
@@ -77,28 +78,38 @@ export class NovedadesEndPoint {
 
   /*------------POST--------------*/
 
-  guardarJornada(params?) {
+  guardarJornada(param: ParamEntity): Observable<any> {
+
     let endPointUrl = this._urlNovedades + '/guardarJornada';
 
-    return this.http.post(endPointUrl, params, { headers: this.getRequestHeaders() }).pipe(
+    return this.http.post(endPointUrl, JSON.stringify(param), { headers: this.getRequestHeaders()}).pipe(
       catchError(error => {
         return this.handleError(error);
       }));
   }
 
-  guardarIncidencia(params?) {
+  guardarIncidencia(param: ParamEntity): Observable<any> {
     let endPointUrl = this._urlNovedades + '/guardarIncidencia';
 
-    return this.http.post(endPointUrl, params, { headers: this.getRequestHeaders() }).pipe(
+    return this.http.post(endPointUrl, JSON.stringify(param), { headers: this.getRequestHeaders() }).pipe(
       catchError(error => {
         return this.handleError(error);
       }));
   }
 
-  guardarMarcacion(params?) {
-    let endPointUrl = this._urlNovedades + '/guardarMarcacion';
+  anularMarcacionEndPoint(param: ParamEntity): Observable<any> {
+    let endPointUrl = this._urlNovedades + '/anularMarcacion';
 
-    return this.http.post(endPointUrl, params, { headers: this.getRequestHeaders() }).pipe(
+    return this.http.post(endPointUrl, JSON.stringify(param), { headers: this.getRequestHeaders() }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
+  guardarMarcacion(param: ParamEntity) {
+    let endPointUrl = this._urlNovedades + '/guardarMarcacion';
+console.log(JSON.stringify(param));
+    return this.http.post(endPointUrl, JSON.stringify(param), { headers: this.getRequestHeaders() }).pipe(
       catchError(error => {
         return this.handleError(error);
       }));
