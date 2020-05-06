@@ -52,7 +52,8 @@ export class ParteDiarioComponent implements OnInit {
   setDatePickerEmit = new DateTimeEntity();
   txtParam: any;
   isDatePickerMenuOpened = false;
-  mostrarProgressBarra = false;
+  mostrarProgressBar: boolean;
+  fechaLabel: any;
 
   suscribe: any;
 
@@ -73,24 +74,22 @@ export class ParteDiarioComponent implements OnInit {
   // si el menu flotante (donde esta el datepicker) esta abierto (valor)
   // lo cierro luego de seleccionar una fecha
   getNovedades(valor: DateTimeEntity) {
-    this.mostrarProgressBarra = true;
+    this.mostrarProgressBar = true;
     if (this.isDatePickerMenuOpened) {
       this.datepickerMenuTrigger.closeMenu();
     }
-
+    this.fechaLabel = valor.getDateString();
     let paramEntity = new ParamEntity();
     paramEntity.IdEmpresa = 1;
     paramEntity.Fecha = valor;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
 
-    //---------->
-    this.suscribe = this.novedadesService.getNovedades(paramEntity).subscribe((result: Novedades[]) => {
-      this.dataSource.data = result;
-      this.mostrarProgressBarra = false;
+    this.novedadesService.getNovedades(paramEntity).subscribe((result: Novedades[]) => {
+      if (result) {
+        this.dataSource.data = [...result];
+      }
+      this.mostrarProgressBar = false;
     }, (error) => { this._snackBar.openSnackBar('snack-danger', 'Backend error: ' + error.error, 5000); });
-    //---------->
-    // this.suscribe.unsuscribe();
-
   }
 
 

@@ -55,7 +55,6 @@ th.mat-column-position, td.mat-column-position {
   cursor: pointer;
 }
 
-
 .menu-opciones{
   color: skyblue !important;
   justify-content: center;
@@ -64,6 +63,5 @@ th.mat-column-position, td.mat-column-position {
   margin-left: 5px !important;
   margin-right: auto !important;
 }
-
 
 
