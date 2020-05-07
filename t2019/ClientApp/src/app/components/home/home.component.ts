@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // this.Home_Get_LoginAccion_Void(1);
+    this.Home_ComponentShow_prm = 'Home';
   }
 
   Home_Get_LoginAccion_Void(idAccion: number) {

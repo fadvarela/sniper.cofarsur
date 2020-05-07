@@ -38,11 +38,15 @@ export class ModalMarcacionComponent implements OnInit {
   lstIncidencias: CmbEntity[] = [];
   usuario: Usuario;
   isBtnGuardarJornada = false;
+  isBtnGuardarMarcacion = false;
+  isBtnGuardarIncidencia = false;
   setHorarioHabilitado = true;
   menuMarcacionOpened = false;
   isBtnAnularMarcacion = true;
   isBtnHabilitarMarcacion = true;
   timePickerValue: string;
+
+
 
   constructor(
     public dialogRef: MatDialogRef<ModalMarcacionComponent>,
@@ -127,7 +131,7 @@ export class ModalMarcacionComponent implements OnInit {
   }
 
   guardarIncidencia() {
-    this.isBtnGuardarJornada = true; // deshabilito en boton
+    this.isBtnGuardarIncidencia = true; // deshabilito en boton
 
     let paramEntity = new ParamEntity();
     paramEntity.IdEmpresa = 1;
@@ -144,7 +148,7 @@ export class ModalMarcacionComponent implements OnInit {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
-    this.isBtnGuardarJornada = false;
+    this.isBtnGuardarIncidencia = false;
   }
 
   anularMarcacion() {
@@ -172,6 +176,7 @@ export class ModalMarcacionComponent implements OnInit {
   }
 
   guardarMarcacion() {
+    this.isBtnGuardarMarcacion = true; // deshabilito en boton
     if (!this.timePickerValue) {
       this._snackBar.openSnackBar('snack-danger', 'Debe completar el campo de horario', 3000);
       return false;
@@ -198,7 +203,7 @@ export class ModalMarcacionComponent implements OnInit {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
-    this.isBtnGuardarJornada = false;
+    this.isBtnGuardarMarcacion = false;
   }
 
   getRowData(marcacion: Marcacion) {

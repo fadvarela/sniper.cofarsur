@@ -138,7 +138,7 @@
       </div>
 
       <mat-action-row>
-        <button mat-button color="primary" (click)="guardarMarcacion()">Guardar</button>
+        <button mat-button color="primary" (click)="guardarMarcacion()" [disabled]="isBtnGuardarMarcacion">Guardar</button>
       </mat-action-row>
 
     </mat-expansion-panel>
@@ -165,7 +165,7 @@
       </div>
 
       <mat-action-row>
-        <button mat-button color="primary" (click)="guardarIncidencia()">Guardar</button>
+        <button mat-button color="primary" (click)="guardarIncidencia()" [disabled]="isBtnGuardarIncidencia">Guardar</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
