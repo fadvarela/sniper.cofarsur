@@ -50,13 +50,5 @@ namespace DataAccess.Models.RRHH
 		[Column("OK")]
 		public bool Ok { get; set; }
 
-		public DateTime getDateTimeConcatenate()
-		{
-			var hora = TimeSpan.Parse(Hora);
-			var fechaConvertir = DateTime.ParseExact(DateTime.Now.ToShortDateString(), "dd/MM/yyyy", null);
-			DateTime result = fechaConvertir + hora;
-			return result;
-		}
-
 	}
 }

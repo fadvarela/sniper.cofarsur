@@ -23,9 +23,6 @@ namespace DataAccess.Models.Sistema.Helper
 			MarcacionEntity = new Marcacion();
 		}
 
-		public DateTime toDateTimeFromString()
-		{
-			return new DateTime(Fecha.Anio, Fecha.Mes, Fecha.Dia);
-		}
+		
 	}
 }

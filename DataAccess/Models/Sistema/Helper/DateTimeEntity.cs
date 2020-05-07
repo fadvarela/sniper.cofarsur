@@ -20,5 +20,10 @@ namespace DataAccess.Models.Sistema.Helper
 			this.Mes = Mes;
 			this.Anio = Anio;
 		}
+
+		public string getDateString()
+		{
+			return Dia + "/" + Mes + "/" + Anio;
+		}
 	}
 }

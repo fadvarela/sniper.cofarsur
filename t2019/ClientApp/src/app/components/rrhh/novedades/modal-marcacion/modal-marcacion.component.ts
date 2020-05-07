@@ -172,11 +172,17 @@ export class ModalMarcacionComponent implements OnInit {
   }
 
   guardarMarcacion() {
+    if (!this.timePickerValue) {
+      this._snackBar.openSnackBar('snack-danger', 'Debe completar el campo de horario', 3000);
+      return false;
+    }
+
     let paramEntity = new ParamEntity();
     paramEntity.MarcacionEntity = new Marcacion();
     paramEntity.IdEmpresa = 1;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
+    paramEntity.FechaStr = this.objeto.Fecha.getDateString();
     paramEntity.MarcacionEntity.Hora = this.timePickerValue;
     paramEntity.MarcacionEntity.IdMarcacionFuente = 2;
     paramEntity.MarcacionEntity.IdMarcacionTipo = 2;

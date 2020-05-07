@@ -72,6 +72,7 @@ import { AuthGuard } from './services/utils/auth.guard';
 import { SenderService } from './services/utils/sender.service';
 import { LoginComponent } from './components/login/login.component';
 import { SnackBarService } from './services/utils/snackBar.service';
+import { HomeFooterComponent } from './components/home/home-footer/home-footer/home-footer.component';
 
 declare var $: any;
 registerLocaleData(localeEsAr, 'es-AR');
@@ -95,6 +96,7 @@ export const DateFormats = {
     HomeComponent,
     LoginComponent,
     HomeMenuComponent,
+    HomeFooterComponent,
     ParteDiarioComponent,
     ModalMarcacionComponent,
     DatepickerComponent,

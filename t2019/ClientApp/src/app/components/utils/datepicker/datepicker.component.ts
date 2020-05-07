@@ -13,6 +13,7 @@ export class DatepickerComponent implements OnInit {
   datePicker = new Date();
   hoyDate = new Date(); // solo se usa para setear un maximo al datepicker
   dateEntity = new DateTimeEntity(); // se usa como dato a enviar Emit
+  dateFormat = require('dateformat');
 
 
   constructor() { }
@@ -27,9 +28,9 @@ export class DatepickerComponent implements OnInit {
 
   convertirDateEntity(valor) {
     this.datePicker = new Date(valor);
-    this.dateEntity.dia = this.datePicker.getDate();
-    this.dateEntity.mes = this.datePicker.getMonth() + 1;
-    this.dateEntity.anio = this.datePicker.getFullYear();
+    this.dateEntity.dia = this.dateFormat(this.datePicker, 'dd');
+    this.dateEntity.mes = this.dateFormat(this.datePicker, 'mm');
+    this.dateEntity.anio = this.dateFormat(this.datePicker, 'yyyy');
     return this.dateEntity;
   }
 

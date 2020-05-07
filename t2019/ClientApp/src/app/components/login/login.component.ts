@@ -13,7 +13,7 @@ import { SnackBarService } from 'src/app/services/utils/snackBar.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-  bgImage = '../../../assets/images/bg/recursoHumano.jpg';
+  bgImage = '../../../assets/images/bg/recursoHumano-min.jpg';
   nomUsuarioFormControl = new FormControl('');
   passFormControl = new FormControl('');
   usuario: Usuario = new Usuario();

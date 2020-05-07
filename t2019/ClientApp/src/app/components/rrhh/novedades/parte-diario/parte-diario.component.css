@@ -1,3 +1,8 @@
+.table-container {
+  height: 450px;
+  overflow-y: auto;
+}
+
 .tabla-home {
   width: 100%;
 }
@@ -38,13 +43,6 @@ th.mat-column-position, td.mat-column-position {
   padding-left: 8px;
 }
 
-.mat-table-sticky:first-child {
-  border-right: 1px solid #e0e0e0;
-}
-
-.mat-table-sticky:last-child {
-  border-left: 1px solid #e0e0e0;
-}
 
 .mat-row {
   transition: 0.2s all;

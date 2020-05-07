@@ -1,16 +1,6 @@
-<div class="login">
-  <!-- <app-login> [Login_ReciveLoginId_Void]="Home_idLoginAccion_Prm"
-    (LoginAccion_Prm)="Home_Get_LoginAccion_Void($event)" (Login_IdRol_Prm)="Home_Get_IdRol_Void($event)"
-    (autenticadoEmit)="getAutenticadoEmit($event)">
-  </app-login> -->
-</div>
-
-
-<div class="mainheader" id="MenuHeader">
-  <app-home-menu *ngIf="autenticado" (HomeMenu_ComponentShow_prm)="Home_ComponentShow_void($event)"
-    [HomeMenu_SetOpcionesXRol_void]="Home_IdRol_Prm" (HomeMenu_LoginAccion_prm)="Home_Get_LoginAccion_Void($event)">
-  </app-home-menu>
-</div>
+<app-home-menu *ngIf="autenticado" (HomeMenu_ComponentShow_prm)="Home_ComponentShow_void($event)"
+  [HomeMenu_SetOpcionesXRol_void]="Home_IdRol_Prm" (HomeMenu_LoginAccion_prm)="Home_Get_LoginAccion_Void($event)">
+</app-home-menu>
 
 <div class="container-fluid" id="contenedor">
 
@@ -29,20 +19,6 @@
   </div>
 
 
-  <div class="mainfooter">
-    <div class="row mt-1">
-      <div class="col col-xs-5 text-left">
-        <img class="border border-primary rounded-circle logo-sniper" src="../../../assets/images/SBOT/SBOT_3D_Long.gif"
-          style="width: 50px; height: 50px;" alt="..." />
-      </div>
-      <div class="col firma col-xs-2 text-center ">
-        © 2020 Copyright: SniperBot®
-      </div>
-      <div class="col col-xs-5  text-right">
-        <img class="logo-cofarsur" src="../../../assets/images/Cofarsur/cofarsur_logo.png"
-          style="width: 70px; height: 50px;" alt="..." />
-      </div>
-    </div>
-  </div>
+
 
 </div>

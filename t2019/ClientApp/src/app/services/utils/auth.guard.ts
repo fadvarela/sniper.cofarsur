@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core"
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router"
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from "@angular/router"
 import { UserValuesService } from "./user-values.service"
-import { Observable } from "rxjs"
-import { map } from "rxjs/operators"
 import { SenderService } from "./sender.service"
 
 @Injectable()
@@ -24,6 +22,9 @@ export class AuthGuard implements CanActivate {
       this.senderService.enviarObjeto(setMostrar);
       this.router.navigate(['login']);
       return false;
+    }
+    if (state.url === '/login') {
+      this.router.navigate(['home']);
     }
     setMostrar = true;
     this.senderService.enviarObjeto(setMostrar);

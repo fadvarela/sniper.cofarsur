@@ -16,7 +16,7 @@ html {
 .box {
   display: flex;
   flex-flow: column;
-  height: 100%;
+  height: 100vh;
   background-color: #0B0040;
   justify-content: center;
   align-items: center;

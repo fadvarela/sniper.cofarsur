@@ -128,8 +128,10 @@ export class ParteDiarioComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-      this.getNovedades(result);
+      if (result) {
+        this.getNovedades(result);
+      }
+
     });
   }
 }
