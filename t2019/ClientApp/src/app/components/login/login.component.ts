@@ -56,18 +56,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   loginSubmit() {
-    this.mostrarProgressBar = true;
-
-    if (this.validarForm()) {
-      this.userValuesService.setLogin(this.usuario.NomUsuario, this.usuario.Pass).then((result) => {
-        if (result) {
-          this._snackBar.openSnackBar('snack-success', 'Bienvenido ' + this.userValuesService.getUsuarioValues.NomUsuario + '!', 4000);
-        } else {
-          this._snackBar.openSnackBar('snack-danger', this.userValuesService.getUsuarioValues.Mensaje, 5000);
-        }
-        this.mostrarProgressBar = false;
-      });
-    }
+    this.mostrarProgressBar = this.validarForm();
+    this.userValuesService.setLogin(this.usuario.NomUsuario, this.usuario.Pass).then((result) => {
+      if (result) {
+        this._snackBar.openSnackBar('snack-success', 'Bienvenido ' + this.userValuesService.getUsuarioValues.NomUsuario + '!', 4000);
+      } else {
+        this._snackBar.openSnackBar('snack-danger', this.userValuesService.getUsuarioValues.Mensaje, 5000);
+      }
+      this.mostrarProgressBar = false;
+    });
   }
 
   validarForm() {
