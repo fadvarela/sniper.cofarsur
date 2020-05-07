@@ -20,11 +20,14 @@ export class AuthGuard implements CanActivate {
     if (!this.auth.isLogueado) {
       setMostrar = false;
       this.senderService.enviarObjeto(setMostrar);
+      if (state.url === '/login') {
+        return true;
+      }
       this.router.navigate(['login']);
       return false;
-    }
-    if (state.url === '/login') {
+    } else if (state.url === '/login') {
       this.router.navigate(['home']);
+      return true;
     }
     setMostrar = true;
     this.senderService.enviarObjeto(setMostrar);
