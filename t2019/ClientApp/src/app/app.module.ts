@@ -47,7 +47,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatNativeDateModule } from '@angular/material';
 import {
-  MatMomentDateModule, MomentDateAdapter,
+  MatMomentDateModule,
   MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS
 } from '@angular/material-moment-adapter';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -73,21 +73,11 @@ import { SenderService } from './services/utils/sender.service';
 import { LoginComponent } from './components/login/login.component';
 import { SnackBarService } from './services/utils/snackBar.service';
 import { HomeFooterComponent } from './components/home/home-footer/home-footer/home-footer.component';
+import { AlertComponent } from './components/utils/alert/alert/alert.component';
 
 declare var $: any;
 registerLocaleData(localeEsAr, 'es-AR');
 
-export const DateFormats = {
-  parse: {
-    dateInput: 'es-AR',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'YYYY',
-    dateA11yLabel: 'es',
-    monthYearA11yLabel: 'YYYY',
-  },
-};
 
 @NgModule({
   declarations: [
@@ -100,7 +90,8 @@ export const DateFormats = {
     ParteDiarioComponent,
     ModalMarcacionComponent,
     DatepickerComponent,
-    TimepickerComponent
+    TimepickerComponent,
+    AlertComponent
   ],
   entryComponents: [
     ModalMarcacionComponent
@@ -159,9 +150,6 @@ export const DateFormats = {
     NominaEndPoint,
     NovedadesService,
     NovedadesEndPoint,
-    // DatePipe,
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: DateFormats },
     UserValuesService,
     AuthGuard,
     SenderService,

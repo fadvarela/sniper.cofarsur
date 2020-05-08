@@ -23,7 +23,7 @@ import { ParamEntity } from 'src/app/models/general/param.model';
   styleUrls: ['./parte-diario.component.css']
 })
 export class ParteDiarioComponent implements OnInit {
-
+  titulo = 'Parte diario';
 
   displayedColumns: string[] = [
     'SECCION',
@@ -48,14 +48,14 @@ export class ParteDiarioComponent implements OnInit {
 
   @Output() ParteDiario_WaitHome_prm = new EventEmitter();
   @Output() eventEmitter = new EventEmitter();
-  datePickerComponent = new DatepickerComponent();
-  setDatePickerEmit = new DateTimeEntity();
+  datePickerComponent: DatepickerComponent;
+  setDatePickerEmit: any;
   txtParam: any;
   isDatePickerMenuOpened = false;
   mostrarProgressBar: boolean;
   fechaLabel: any;
-
   suscribe: any;
+  initialDate: any;
 
   constructor(
     private userValuesService: UserValuesService,
@@ -63,25 +63,28 @@ export class ParteDiarioComponent implements OnInit {
     public dialog: MatDialog,
     private _snackBar: SnackBarService
   ) {
+    this.datePickerComponent = new DatepickerComponent();
   }
 
   ngOnInit() {
-    this.setDatePickerEmit = this.datePickerComponent.convertirDateEntity(new Date());
+    this.setDatePickerEmit = new Date().toISOString();
     this.getNovedades(this.setDatePickerEmit);
   }
 
   // recibe por param el valor del Datepicker (enviado desde otra funcion)
   // si el menu flotante (donde esta el datepicker) esta abierto (valor)
   // lo cierro luego de seleccionar una fecha
-  getNovedades(valor: DateTimeEntity) {
+  getNovedades(valor: Date) {
     this.mostrarProgressBar = true;
     if (this.isDatePickerMenuOpened) {
       this.datepickerMenuTrigger.closeMenu();
     }
-    this.fechaLabel = valor.getDateString();
+
+    this.fechaLabel = valor;
+
     let paramEntity = new ParamEntity();
     paramEntity.IdEmpresa = 1;
-    paramEntity.Fecha = valor;
+    paramEntity.FechaDate = valor;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
 
     this.novedadesService.getNovedades(paramEntity).subscribe((result: Novedades[]) => {
@@ -109,14 +112,14 @@ export class ParteDiarioComponent implements OnInit {
     this.setDatePickerEmit = value;
 
     if (callDB) {
-      this.getNovedades(this.setDatePickerEmit);
+      this.getNovedades(value);
     }
   }
 
 
   openModalData(row: Novedades) {
 
-    row.Fecha = this.setDatePickerEmit;
+    row.FechaDate = this.setDatePickerEmit;
     const dialogRef = this.dialog.open(ModalMarcacionComponent, {
       width: '1000px',
       height: '500px',

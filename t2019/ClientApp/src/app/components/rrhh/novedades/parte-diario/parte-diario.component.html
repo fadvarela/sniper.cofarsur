@@ -1,7 +1,7 @@
 <div class="container-fluid mt-1">
   <div class="row">
-    <div class="col">
-      <div class="bg-primary menu-container text-center">Parte Diario</div>
+    <div class="col-6 mx-auto text-center">
+      <app-alert [titulo]="titulo"></app-alert>
       <div *ngIf="mostrarProgressBar">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
@@ -16,11 +16,11 @@
       </button>
       <mat-menu #datepickerMenu="matMenu" yPosition="below">
         <ng-template matMenuContent>
-          <app-datepicker (dateEmit)="getDateFromPickerEmit($event, true)"></app-datepicker>
+          <app-datepicker (dateEmit)="getDateFromPickerEmit($event, true)" [dateInput]="fechaLabel"></app-datepicker>
         </ng-template>
       </mat-menu>
       <mat-chip-list>
-        <mat-chip class="mx-auto mt-3">{{ fechaLabel }}</mat-chip>
+        <mat-chip class="mx-auto mt-3">{{ fechaLabel | date:'dd/MM/yyyy' }}</mat-chip>
       </mat-chip-list>
 
     </div>

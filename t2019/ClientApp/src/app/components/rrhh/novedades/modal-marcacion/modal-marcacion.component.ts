@@ -58,6 +58,7 @@ export class ModalMarcacionComponent implements OnInit {
     this.objeto = data.obj;
     this.loadMarcaciones();
     this.titulo = this.data.titulo;
+    console.log(this.objeto)
   }
 
   ngOnInit() {
@@ -86,7 +87,7 @@ export class ModalMarcacionComponent implements OnInit {
     let paramEntity = new ParamEntity();
     paramEntity.IdEmpresa = 1;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
-    paramEntity.Fecha = this.objeto.Fecha;
+    paramEntity.FechaDate = this.objeto.FechaDate;
     this.novedadesService.getListMarcaciones(paramEntity).subscribe((result: Marcacion[]) => {
       this.dataSource.data = result;
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
@@ -114,7 +115,7 @@ export class ModalMarcacionComponent implements OnInit {
     let paramEntity = new ParamEntity();
     paramEntity.IdEmpresa = 1;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
-    paramEntity.Fecha = this.objeto.Fecha;
+    paramEntity.FechaDate = this.objeto.FechaDate;
     paramEntity.IdJornada = this.objeto.IdJornada;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
 
@@ -136,7 +137,7 @@ export class ModalMarcacionComponent implements OnInit {
     let paramEntity = new ParamEntity();
     paramEntity.IdEmpresa = 1;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
-    paramEntity.Fecha = this.objeto.Fecha;
+    paramEntity.FechaDate = this.objeto.FechaDate;
     paramEntity.IdIncidencia = this.objeto.IdIncidencia;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
 
@@ -187,7 +188,7 @@ export class ModalMarcacionComponent implements OnInit {
     paramEntity.IdEmpresa = 1;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
-    paramEntity.FechaStr = this.objeto.Fecha.getDateString();
+    paramEntity.FechaDate = this.objeto.FechaDate;
     paramEntity.MarcacionEntity.Hora = this.timePickerValue;
     paramEntity.MarcacionEntity.IdMarcacionFuente = 2;
     paramEntity.MarcacionEntity.IdMarcacionTipo = 2;
@@ -204,6 +205,7 @@ export class ModalMarcacionComponent implements OnInit {
       }
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
     this.isBtnGuardarMarcacion = false;
+    this.setHorarioHabilitado = false;
   }
 
   getRowData(marcacion: Marcacion) {

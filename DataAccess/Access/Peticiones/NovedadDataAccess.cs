@@ -15,7 +15,7 @@ namespace DataAccess.Access.Peticiones
 		{
 			var parametros = new List<object>()
 			{
-				new MySqlParameter(){ ParameterName = "P_FECHA", Value = Conversor.toDateTimeFromString(filtros.Fecha.Dia, filtros.Fecha.Mes, filtros.Fecha.Anio) },
+				new MySqlParameter(){ ParameterName = "P_FECHA", Value = filtros.FechaDate },
 				new MySqlParameter(){ ParameterName = "P_ID_USUARIO", Value = filtros.IdUsuario },
 				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = filtros.IdEmpresa }
 			};
@@ -63,7 +63,7 @@ namespace DataAccess.Access.Peticiones
 			{
 				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa},
 				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
-				new MySqlParameter(){ ParameterName = "P_FECHA", Value = Conversor.toDateTimeFromString(param.Fecha.Dia, param.Fecha.Mes, param.Fecha.Anio) }
+				new MySqlParameter(){ ParameterName = "P_FECHA", Value = param.FechaDate }
 			};
 
 			var sqlQuery = "SP_MARCACIONES_GET";
@@ -136,7 +136,7 @@ namespace DataAccess.Access.Peticiones
 			{
 				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa},
 				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
-				new MySqlParameter(){ ParameterName = "P_FECHA_HORA", Value = Conversor.getDateTimeConcatenate(param.FechaStr, param.MarcacionEntity.Hora) },
+				new MySqlParameter(){ ParameterName = "P_FECHA_HORA", Value = Conversor.getDateTimeConcatenate(param.FechaDate.ToShortDateString(), param.MarcacionEntity.Hora) },
 				new MySqlParameter(){ ParameterName = "P_ID_USUARIO",Value = param.IdUsuario },
 				new MySqlParameter(){ ParameterName = "P_ID_MARCACION_FUENTE",Value = param.MarcacionEntity.IdMarcacionFuente },
 				new MySqlParameter(){ ParameterName = "P_ID_MARCACION_TIPO",Value = param.MarcacionEntity.IdMarcacionTipo },
