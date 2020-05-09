@@ -130,11 +130,17 @@ export class ParteDiarioComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.getNovedades(result);
-      }
+    //dialogRef.afterClosed().subscribe((result) => {
+    //  if (result) {
+    //    this.getNovedades(result);
+    //  }
+    //});
 
-    });
+      dialogRef.beforeClosed().subscribe((result) => {
+        if (result) {
+          this.getNovedades(result);
+        }
+      });
+ 
   }
 }

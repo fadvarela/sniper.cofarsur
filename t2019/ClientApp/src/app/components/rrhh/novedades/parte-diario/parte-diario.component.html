@@ -1,6 +1,6 @@
 <div class="container-fluid mt-1">
   <div class="row">
-    <div class="col-6 mx-auto text-center">
+    <div class="col-6 mx-auto text-center text-white">
       <app-alert [titulo]="titulo"></app-alert>
       <div *ngIf="mostrarProgressBar">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -30,72 +30,74 @@
         <table mat-table [dataSource]="dataSource" class="tabla-home">
 
           <ng-container matColumnDef="SECCION">
-            <th mat-header-cell *matHeaderCellDef> SECCION </th>
-            <td mat-cell *matCellDef="let element"> {{element.Seccion}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> SECCION </th>
+            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.Seccion}} </td>
           </ng-container>
 
           <ng-container matColumnDef="ID_LEGAJO">
-            <th mat-header-cell *matHeaderCellDef> ID_LEGAJO </th>
-            <td mat-cell *matCellDef="let element"> {{element.IdLegajo}} </td>
+            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> LEGAJO </th>
+            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.IdLegajo}} </td>
           </ng-container>
 
           <ng-container matColumnDef="APELLIDO">
-            <th mat-header-cell *matHeaderCellDef> APELLIDO </th>
-            <td mat-cell *matCellDef="let element"> {{element.Apellido}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> APELLIDO </th>
+            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.Apellido}} </td>
           </ng-container>
 
           <ng-container matColumnDef="NOMBRE">
-            <th mat-header-cell *matHeaderCellDef> NOMBRE </th>
-            <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
+            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> NOMBRE </th>
+            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
           </ng-container>
 
           <ng-container matColumnDef="N_JORNADA">
-            <th mat-header-cell *matHeaderCellDef> N_JORNADA </th>
-            <td mat-cell *matCellDef="let element"> {{element.Njornada}} </td>
+            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> JORNADA </th>
+            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.Njornada}} </td>
           </ng-container>
 
           <ng-container matColumnDef="N_INCIDENCIA">
-            <th mat-header-cell *matHeaderCellDef> N_INCIDENCIA </th>
-            <td mat-cell *matCellDef="let element"> {{element.Nincidencia}} </td>
+            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> INCIDENCIA </th>
+            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.Nincidencia}} </td>
           </ng-container>
 
 
           <ng-container matColumnDef="MARCACIONES">
-            <th mat-header-cell *matHeaderCellDef> MARCACIONES </th>
-            <td mat-cell *matCellDef="let element"> {{element.Marcaciones}} </td>
+            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> MARCACIONES </th>
+            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.Marcaciones}} </td>
           </ng-container>
 
 
           <ng-container matColumnDef="H_TEORICAS">
-            <th mat-header-cell *matHeaderCellDef> H_TEORICAS </th>
-            <td mat-cell *matCellDef="let element"> {{element.Hteoricas}} </td>
+            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> H_TEORICAS </th>
+            <td class="border text-center"  mat-cell *matCellDef="let element"> {{element.Hteoricas}} </td>
           </ng-container>
 
 
           <ng-container matColumnDef="H_TRABAJADAS">
-            <th mat-header-cell *matHeaderCellDef> H_TRABAJADAS </th>
-            <td mat-cell *matCellDef="let element"> {{element.Htrabajadas}} </td>
+            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> H_TRABAJADAS </th>
+            <td class="border text-center"  mat-cell *matCellDef="let element"> {{element.Htrabajadas}} </td>
           </ng-container>
 
 
           <ng-container matColumnDef="I_IMPARES">
-            <th mat-header-cell *matHeaderCellDef> I_IMPARES </th>
-            <td mat-cell *matCellDef="let element"> {{element.Iimpares}} </td>
+            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> IMPARES </th>
+            <td class="border text-center"  mat-cell *matCellDef="let element"
+            [ngClass]="{'css_anomalia': element.Iimpares === 1}"> {{element.Iimpares}} </td>
           </ng-container>
 
           <ng-container matColumnDef="I_SIN_INCIDENCIAS">
-            <th mat-header-cell *matHeaderCellDef> I_SIN_INCIDENCIAS </th>
-            <td mat-cell *matCellDef="let element"> {{element.IsinIncidencias}} </td>
+            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> SIN_INCIDENCIAS </th>
+            <td class="border text-center"  mat-cell *matCellDef="let element"
+            [ngClass]="{'css_anomalia': element.IsinIncidencias === 1}"> {{element.IsinIncidencias}} </td>
           </ng-container>
 
           <ng-container matColumnDef="H_ADICIONALES">
-            <th mat-header-cell *matHeaderCellDef> H_ADICIONALES </th>
-            <td mat-cell *matCellDef="let element"> {{element.Hadicionales}} </td>
+            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> HS_ADICIONALES </th>
+            <td class="border text-center"  mat-cell *matCellDef="let element"> {{element.Hadicionales}} </td>
           </ng-container>
 
           <ng-container matColumnDef="H_AUSENCIA">
-            <th mat-header-cell *matHeaderCellDef> H_AUSENCIA </th>
-            <td mat-cell *matCellDef="let element"> {{element.Hausencia}} </td>
+            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> HS_AUSENCIA </th>
+            <td class="border text-center"  mat-cell *matCellDef="let element"> {{element.Hausencia}} </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

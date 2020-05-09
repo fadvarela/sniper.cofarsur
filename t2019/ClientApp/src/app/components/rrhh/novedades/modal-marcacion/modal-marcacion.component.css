@@ -92,3 +92,8 @@
 .menu-marcacion {
   z-index: 999;
 }
+
+.css_anulado{
+  background-color:rgba(233, 170, 170, 0.781);
+  font-weight: bold;
+  }

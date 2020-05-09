@@ -93,7 +93,9 @@ export class ModalMarcacionComponent implements OnInit {
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
   }
 
-  cerrarModal() { this.dialogRef.close(this.objeto.Fecha); }
+  cerrarModal() {
+    this.dialogRef.close(this.objeto.FechaDate);
+  }
 
   calcularMovimientos() {
     if (this.objeto.Marcaciones && this.objeto.Nincidencia) {
@@ -127,6 +129,7 @@ export class ModalMarcacionComponent implements OnInit {
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }
+
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
     this.isBtnGuardarJornada = false;
   }
@@ -164,6 +167,7 @@ export class ModalMarcacionComponent implements OnInit {
     paramEntity.MarcacionEntity.IdEstado = 0;
     paramEntity.MarcacionEntity.IdIncidencia = null;
     paramEntity.MarcacionEntity.IdMarcacion = marcacion.IdMarcacion;
+
 
     this.novedadesService.anularMarcacion(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {

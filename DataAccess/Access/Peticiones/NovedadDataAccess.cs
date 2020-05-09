@@ -78,7 +78,7 @@ namespace DataAccess.Access.Peticiones
 			{
 				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa},
 				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
-				new MySqlParameter(){ ParameterName = "P_FECHA", Value = Conversor.toDateTimeFromString(param.Fecha.Dia, param.Fecha.Mes, param.Fecha.Anio) },
+				new MySqlParameter(){ ParameterName = "P_FECHA", Value = param.FechaDate.Date},
 				new MySqlParameter(){ ParameterName = "P_ID_JORNADA",Value = param.IdJornada },
 				new MySqlParameter(){ ParameterName = "P_ID_USUARIO",Value = param.IdUsuario }
 			};
@@ -96,7 +96,7 @@ namespace DataAccess.Access.Peticiones
 			{
 				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa},
 				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
-				new MySqlParameter(){ ParameterName = "P_FECHA", Value = Conversor.toDateTimeFromString(param.Fecha.Dia, param.Fecha.Mes, param.Fecha.Anio) },
+				new MySqlParameter(){ ParameterName = "P_FECHA", Value = param.FechaDate.Date },
 				new MySqlParameter(){ ParameterName = "P_ID_INCIDENCIA",Value = param.IdIncidencia },
 				new MySqlParameter(){ ParameterName = "P_ID_USUARIO",Value = param.IdUsuario }
 			};

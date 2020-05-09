@@ -62,4 +62,9 @@ th.mat-column-position, td.mat-column-position {
   margin-right: auto !important;
 }
 
+.css_anomalia{
+  color:red;
+  background-color: lightgoldenrodyellow;
+  font-weight: bold;
+  }
 

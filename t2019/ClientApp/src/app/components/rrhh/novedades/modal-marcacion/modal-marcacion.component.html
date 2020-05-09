@@ -97,7 +97,7 @@
 
                 <ng-container matColumnDef="Tipo Marcación">
                   <th mat-header-cell *matHeaderCellDef> Tipo Marcación </th>
-                  <td mat-cell *matCellDef="let element"> {{element.IdMarcacionTipo}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.NmarcacionTipo}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Fuente Marcación">
@@ -127,7 +127,8 @@
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-                  [ngClass]="{hovered: row.hovered, sombreado: row.Seleccionado}" (click)="getRowData(row)"
+                  [ngClass]="{'css_anulado': row.IdEstado === 0, hovered: row.hovered, sombreado: row.Seleccionado}"
+                  (click)="getRowData(row)"
                   (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
               </table>
 

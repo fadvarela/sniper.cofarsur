@@ -32,37 +32,37 @@ export class NovedadesEndPoint {
     return throwError(error);
   }
 
-  getNovedades(filtro?): Observable<Novedades[]> {
+  getNovedades(filtro) {
     let endpointUrl = this._urlNovedades + '/getnovedades';
     const params = new HttpParams()
       .set('filtro', JSON.stringify(filtro));
 
-    return this.http.get<Novedades[]>(endpointUrl, { params: params }).pipe<Novedades[]>(
-      catchError(error => {
-        return this.handleError(error);
-      }));
+      return this.http.get(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe(
+        catchError(error => {
+          return this.handleError(error);
+        }));
   }
 
-  getListJornadasEndPoint<T>(filtro?): Observable<T> {
+  getListJornadasEndPoint(filtro) {
     let endpointUrl = this._urlNovedades + '/getListJornadas';
     const params = new HttpParams()
       .set('filtro', (filtro) ? filtro : '');
 
-    return this.http.get<T>(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe<T>(
-      catchError(error => {
-        return this.handleError(error);
-      }));
+      return this.http.get(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe(
+        catchError(error => {
+          return this.handleError(error);
+        }));
   }
 
-  getListIncidenciasEndPoint<T>(filtro?): Observable<T> {
+  getListIncidenciasEndPoint(filtro?){
     let endpointUrl = this._urlNovedades + '/getListIncidencias';
     const params = new HttpParams()
       .set('filtro', (filtro) ? JSON.stringify(filtro) : '');
 
-    return this.http.get<T>(endpointUrl, { headers:  this.getRequestHeaders(), params: params }).pipe<T>(
-      catchError(error => {
-        return this.handleError(error);
-      }));
+      return this.http.get(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe(
+        catchError(error => {
+          return this.handleError(error);
+        }));
   }
 
   getListMarcacionesEndPoint<T>(param?: ParamEntity): Observable<T> {
