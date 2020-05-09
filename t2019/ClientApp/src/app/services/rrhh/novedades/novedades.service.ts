@@ -19,11 +19,11 @@ export class NovedadesService {
       return result;
   }
 
-  getListJornadas(filtro?): Observable<CmbEntity[]> {
+  getListJornadas(filtro?) {
     return this.novedadesEndPoint.getListJornadasEndPoint(filtro);
   }
 
-  getListIncidencias(filtro?): Observable<CmbEntity[]> {
+  getListIncidencias(filtro?) {
     return this.novedadesEndPoint.getListIncidenciasEndPoint(filtro);
   }
 
