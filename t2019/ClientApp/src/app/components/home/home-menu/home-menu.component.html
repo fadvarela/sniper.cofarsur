@@ -78,7 +78,8 @@
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item dropdown d-flex">
-          <mat-icon class="ico-logout" (click)="cerrarSesion()">exit_to_app</mat-icon>
+          <mat-icon matTooltip="Cerrar sesión" [matTooltipPosition]="'left'"  matTooltipClass="tooltip-logout"
+          class="ico-logout" (click)="cerrarSesion()">exit_to_app</mat-icon>
         </li>
       </ul>
 

@@ -5,7 +5,9 @@
   z-index: 20;
 } */
 
-.navbar { height: 40px }
+.navbar {
+  height: 40px
+}
 
 a.navbar-brand {
   white-space: normal;
@@ -74,7 +76,8 @@ button {
   cursor: pointer;
 }
 
-#navbarNavDropdown ul, #navbarNavDropdown a {
+#navbarNavDropdown ul,
+#navbarNavDropdown a {
   font-size: 14px;
 }
 
@@ -86,4 +89,9 @@ button {
 
 .ico-logout:hover {
   box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.3), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
+}
+
+::ng-deep .tooltip-logout {
+  position: relative;
+  bottom: 14px;
 }

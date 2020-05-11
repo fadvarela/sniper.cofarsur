@@ -11,7 +11,7 @@
     <div class="col-1 text-center m-0 p-0">
       <button [matMenuTriggerFor]="datepickerMenu" (menuOpened)="toggleDatepickerMenuOpened()"
         (menuClosed)="toggleDatepickerMenuOpened()" #dtpMenuTrigger="matMenuTrigger" mat-mini-fab
-        aria-label="Datepicker" [disabled]="isLoaderOpened">
+        aria-label="Datepicker">
         <mat-icon>today</mat-icon>
       </button>
       <mat-menu #datepickerMenu="matMenu" yPosition="below">
