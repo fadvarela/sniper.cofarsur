@@ -46,8 +46,6 @@ export class ModalMarcacionComponent implements OnInit {
   isBtnHabilitarMarcacion = true;
   timePickerValue: string;
 
-
-
   constructor(
     public dialogRef: MatDialogRef<ModalMarcacionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -165,7 +163,7 @@ export class ModalMarcacionComponent implements OnInit {
     paramEntity.MarcacionEntity.IdMarcacionFuente = 2;
     paramEntity.MarcacionEntity.IdMarcacionTipo = 2;
     paramEntity.MarcacionEntity.IdEstado = 0;
-    paramEntity.MarcacionEntity.IdIncidencia = null;
+    paramEntity.MarcacionEntity.IdIncidencia = 0;
     paramEntity.MarcacionEntity.IdMarcacion = marcacion.IdMarcacion;
 
 
