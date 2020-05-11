@@ -1,0 +1,23 @@
+<!-- <mat-card class="login-card-recuperar p-0" [ngClass]="matCardRecuperar"> -->
+  <div class="card-inner-padding">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="p-2 mb-0">
+      <!-- <mat-form-field>
+        <input matInput [formControl]="nomUsuarioFormControl" [(ngModel)]="usuario.NomUsuario" placeholder="Usuario"
+          name="username" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [formControl]="passFormControl" [(ngModel)]="usuario.Pass" placeholder="Contraseña"
+          type="password" name="password" required>
+      </mat-form-field> -->
+    </mat-card-content>
+    <mat-card-actions class="p-2 text-center">
+      <button class="btn-block" mat-raised-button (click)="recuperarPass()" color="primary"
+        [disabled]="mostrarProgressBar">Ingresar</button>
+      <button (click)="setIngresoLogin.emit()" type="button" class="btn btn-link btn-link-rec-pass">Iniciar sesión</button>
+    </mat-card-actions>
+  </div>
+  <mat-progress-bar mode="indeterminate" *ngIf="mostrarProgressBar"></mat-progress-bar>
+<!-- </mat-card> -->

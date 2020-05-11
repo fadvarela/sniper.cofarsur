@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { DateAdapter } from '@angular/material';
+import { LoadingInterceptorService } from './services/utils/loader-interceptor.service';
+
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,10 @@ import { DateAdapter } from '@angular/material';
 })
 export class AppComponent {
 
-  constructor(private dateAdapter?: DateAdapter<any>) {
+  constructor(
+    private dateAdapter?: DateAdapter<any>,
+    private spinnerService: LoadingInterceptorService
+  ) {
     this.dateAdapter.setLocale('es');
   }
 

@@ -28,10 +28,6 @@ html {
   }
 }
 
-/* .box-shadow {
-  box-shadow: 0 .25rem .75rem #0B0040;
-} */
-
 .menustyle {
   color: white;
   background-color: #0B0040;
@@ -80,4 +76,14 @@ button {
 
 #navbarNavDropdown ul, #navbarNavDropdown a {
   font-size: 14px;
+}
+
+.ico-logout {
+  cursor: pointer;
+  transition: 0.1s all;
+  -webkit-transition: 0.3s all;
+}
+
+.ico-logout:hover {
+  box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.3), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
 }

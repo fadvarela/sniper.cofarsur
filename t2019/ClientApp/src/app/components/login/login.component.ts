@@ -14,20 +14,16 @@ import { SnackBarService } from 'src/app/services/utils/snackBar.service';
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   bgImage = '../../../assets/images/bg/recursoHumano-min.jpg';
-  nomUsuarioFormControl = new FormControl('');
-  passFormControl = new FormControl('');
-  usuario: Usuario = new Usuario();
 
   username: string;
   password: string;
 
   valid: boolean;
   Login_Wait_prm: number;
-  mostrarProgressBar = false;
 
-  /*--------Styles---------*/
   sideNavWidth = '';
-  matCardLogin = 'mat-card-login';
+  recuperaCuenta = false;
+  showLoaderLogin = false;
 
   @Input() public set Login_ReciveLoginId_Void(IdAccion: number) {
     this.Login_Recibe_LoginAccion(IdAccion);
@@ -37,7 +33,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
   @Output() autenticadoEmit = new EventEmitter();
 
   constructor(
-    private _sanitizer: DomSanitizer,
     private userValuesService: UserValuesService,
     private _snackBar: SnackBarService,
     private router: Router) {
@@ -45,40 +40,25 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.showHideNavbar(1000);
+  }
+
+  ngAfterViewInit() { }
+
+  switchBoxLogin() {
+    this.showLoaderLogin = true;
+    this.recuperaCuenta = !this.recuperaCuenta;
+  }
+
+  toggleSpinner(event) {
+    this.showLoaderLogin = event;
+  }
+
+  showHideNavbar(tiempo: number) {
     setTimeout(() => {
       this.sideNavWidth = '18%';
-      this.matCardLogin = '';
-    }, 1000);
+    }, tiempo);
   }
-
-  ngAfterViewInit() {
-
-  }
-
-  loginSubmit() {
-    this.mostrarProgressBar = this.validarForm();
-    this.userValuesService.setLogin(this.usuario.NomUsuario, this.usuario.Pass).then((result) => {
-      if (result) {
-        this._snackBar.openSnackBar('snack-success', 'Bienvenido ' + this.userValuesService.getUsuarioValues.NomUsuario + '!', 4000);
-      } else {
-        this._snackBar.openSnackBar('snack-danger', this.userValuesService.getUsuarioValues.Mensaje, 5000);
-      }
-      this.mostrarProgressBar = false;
-    });
-  }
-
-  validarForm() {
-    if (!this.usuario.NomUsuario) {
-      this._snackBar.openSnackBar('snack-danger', 'Debe ingresar un nombre de usuario', 4000);
-      return false;
-    }
-    if (!this.usuario.Pass) {
-      this._snackBar.openSnackBar('snack-danger', 'Debe ingresar una contraseña', 4000);
-      return false;
-    }
-    return true;
-  }
-
 
   Login_Recibe_LoginAccion(idAccion: number) {
     if (idAccion == 1) {

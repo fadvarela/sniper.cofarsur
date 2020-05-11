@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RouterModule, RouterStateSnapshot } from '@angular/router';
 
 // Components
 import { AppComponent } from './app.component';
@@ -74,6 +74,10 @@ import { LoginComponent } from './components/login/login.component';
 import { SnackBarService } from './services/utils/snackBar.service';
 import { HomeFooterComponent } from './components/home/home-footer/home-footer/home-footer.component';
 import { AlertComponent } from './components/utils/alert/alert/alert.component';
+import { LoginIngresoComponent } from './components/login/login-ingreso/login-ingreso.component';
+import { LoginRecuperarPassComponent } from './components/login/login-recuperar-pass/login-recuperar-pass.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoadingInterceptorService } from './services/utils/loader-interceptor.service';
 
 declare var $: any;
 registerLocaleData(localeEsAr, 'es-AR');
@@ -91,7 +95,9 @@ registerLocaleData(localeEsAr, 'es-AR');
     ModalMarcacionComponent,
     DatepickerComponent,
     TimepickerComponent,
-    AlertComponent
+    AlertComponent,
+    LoginIngresoComponent,
+    LoginRecuperarPassComponent
   ],
   entryComponents: [
     ModalMarcacionComponent
@@ -141,7 +147,8 @@ registerLocaleData(localeEsAr, 'es-AR');
     DragDropModule,
     MatBadgeModule,
     NgxMaterialTimepickerModule.setLocale('es-AR'),
-    StorageModule.forRoot({ IDBNoWrap: true })
+    StorageModule.forRoot({ IDBNoWrap: true }),
+    NgxSpinnerModule
   ],
   providers: [ // Se declaran los servicios
     LoginService,
@@ -153,7 +160,16 @@ registerLocaleData(localeEsAr, 'es-AR');
     UserValuesService,
     AuthGuard,
     SenderService,
-    SnackBarService
+    SnackBarService,
+    LoadingInterceptorService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptorService,
+      multi: true
+    }
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   bootstrap: [AppComponent]
 })

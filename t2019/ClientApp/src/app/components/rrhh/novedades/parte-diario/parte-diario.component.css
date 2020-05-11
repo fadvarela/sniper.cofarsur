@@ -43,6 +43,14 @@ th.mat-column-position, td.mat-column-position {
   padding-left: 8px;
 }
 
+th.mat-header-cell {
+  text-align: center;
+}
+
+td {
+  text-align: center;
+}
+
 
 .mat-row {
   transition: 0.2s all;

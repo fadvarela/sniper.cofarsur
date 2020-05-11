@@ -7,7 +7,7 @@ import { StorageMap, JSONSchemaObject } from '@ngx-pwa/local-storage';
 import { CookieService } from 'ngx-cookie-service';
 import { Idle } from 'idlejs/dist';
 import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 
 @Injectable()
 export class UserValuesService {
@@ -17,7 +17,7 @@ export class UserValuesService {
   private status = false;
   idle = new Idle()
     .whenNotInteractive()
-    .within(15)
+    .within(10, 1000)
     .do(() => {
       if (this.checkCookieExists) {
         this.setLogout();
@@ -29,7 +29,8 @@ export class UserValuesService {
     private storage: StorageMap,
     private cookieService: CookieService,
     private route: Router,
-    private _snackBar: SnackBarService) {
+    private _snackBar: SnackBarService,
+    private dialogRef: MatDialog) {
     this.usuarioLogueado = new Usuario();
     this.setLoggedIn(this.cookieService.check('logueado'));
     if (this.isLogueado) {
@@ -79,6 +80,7 @@ export class UserValuesService {
   }
 
   setLogout() {
+    this.dialogRef.closeAll();
     this._snackBar.openSnackBar('snack-warning', 'Redirigiendo al login', 3000);
     this.removeLogoutData().subscribe((result) => {
       if (result) {
