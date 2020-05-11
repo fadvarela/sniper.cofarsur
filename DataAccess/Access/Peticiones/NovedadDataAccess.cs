@@ -136,7 +136,7 @@ namespace DataAccess.Access.Peticiones
 			{
 				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa},
 				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
-				new MySqlParameter(){ ParameterName = "P_FECHA_HORA", Value = Conversor.getDateTimeConcatenate(param.FechaDate.ToShortDateString(), param.MarcacionEntity.Hora) },
+				new MySqlParameter(){ ParameterName = "P_FECHA_HORA", Value = Conversor.getDateTimeConcatenate(param.FechaDate.ToString("dd/MM/yyyy"), param.MarcacionEntity.Hora) },
 				new MySqlParameter(){ ParameterName = "P_ID_USUARIO",Value = param.IdUsuario },
 				new MySqlParameter(){ ParameterName = "P_ID_MARCACION_FUENTE",Value = param.MarcacionEntity.IdMarcacionFuente },
 				new MySqlParameter(){ ParameterName = "P_ID_MARCACION_TIPO",Value = param.MarcacionEntity.IdMarcacionTipo },
