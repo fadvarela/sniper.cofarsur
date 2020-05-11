@@ -11,8 +11,8 @@ import { LoadingInterceptorService } from './services/utils/loader-interceptor.s
 export class AppComponent {
 
   constructor(
+    private spinnerService: LoadingInterceptorService,
     private dateAdapter?: DateAdapter<any>,
-    private spinnerService: LoadingInterceptorService
   ) {
     this.dateAdapter.setLocale('es');
   }

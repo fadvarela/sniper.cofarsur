@@ -15,6 +15,7 @@ import { DatepickerComponent } from 'src/app/components/utils/datepicker/datepic
 import { UserValuesService } from 'src/app/services/utils/user-values.service';
 import { SnackBarService } from 'src/app/services/utils/snackBar.service';
 import { ParamEntity } from 'src/app/models/general/param.model';
+import { LoadingInterceptorService } from 'src/app/services/utils/loader-interceptor.service';
 
 
 @Component({
@@ -52,7 +53,6 @@ export class ParteDiarioComponent implements OnInit {
   setDatePickerEmit: any;
   txtParam: any;
   isDatePickerMenuOpened = false;
-  // mostrarProgressBar: boolean;
   fechaLabel: any;
   suscribe: any;
   initialDate: any;
@@ -61,7 +61,8 @@ export class ParteDiarioComponent implements OnInit {
     private userValuesService: UserValuesService,
     private novedadesService: NovedadesService,
     public dialog: MatDialog,
-    private _snackBar: SnackBarService
+    private _snackBar: SnackBarService,
+    private loadingInterceptorService: LoadingInterceptorService
   ) {
     this.datePickerComponent = new DatepickerComponent();
   }
@@ -79,9 +80,7 @@ export class ParteDiarioComponent implements OnInit {
     if (this.isDatePickerMenuOpened) {
       this.datepickerMenuTrigger.closeMenu();
     }
-
     this.fechaLabel = valor;
-
     let paramEntity = new ParamEntity();
     paramEntity.IdEmpresa = 1;
     paramEntity.FechaDate = valor;
@@ -91,7 +90,6 @@ export class ParteDiarioComponent implements OnInit {
       if (result) {
         this.dataSource.data = [...result];
       }
-      // this.mostrarProgressBar = false;
     }, (error) => { this._snackBar.openSnackBar('snack-danger', 'Backend error: ' + error.error, 5000); });
   }
 
@@ -116,9 +114,7 @@ export class ParteDiarioComponent implements OnInit {
     }
   }
 
-
   openModalData(row: Novedades) {
-
     row.FechaDate = this.setDatePickerEmit;
     const dialogRef = this.dialog.open(ModalMarcacionComponent, {
       width: '1000px',
@@ -129,18 +125,10 @@ export class ParteDiarioComponent implements OnInit {
         obj: row,
       }
     });
-
-    //dialogRef.afterClosed().subscribe((result) => {
-    //  if (result) {
-    //    this.getNovedades(result);
-    //  }
-    //});
-
-      dialogRef.beforeClosed().subscribe((result) => {
-        if (result) {
-          this.getNovedades(result);
-        }
-      });
-
+    dialogRef.beforeClosed().subscribe((result) => {
+      if (result) {
+        this.getNovedades(result);
+      }
+    });
   }
 }

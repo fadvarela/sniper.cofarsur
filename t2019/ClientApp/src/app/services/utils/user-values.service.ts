@@ -17,7 +17,7 @@ export class UserValuesService {
   private status = false;
   idle = new Idle()
     .whenNotInteractive()
-    .within(10, 1000)
+    .within(15)
     .do(() => {
       if (this.checkCookieExists) {
         this.setLogout();
