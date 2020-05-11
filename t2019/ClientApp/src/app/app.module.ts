@@ -6,7 +6,6 @@ import { RouterModule, RouterStateSnapshot } from '@angular/router';
 
 // Components
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeMenuComponent } from './components/home/home-menu/home-menu.component';
@@ -86,7 +85,6 @@ registerLocaleData(localeEsAr, 'es-AR');
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
     HomeComponent,
     LoginComponent,
     HomeMenuComponent,

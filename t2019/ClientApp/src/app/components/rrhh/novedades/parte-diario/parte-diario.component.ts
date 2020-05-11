@@ -52,7 +52,7 @@ export class ParteDiarioComponent implements OnInit {
   setDatePickerEmit: any;
   txtParam: any;
   isDatePickerMenuOpened = false;
-  mostrarProgressBar: boolean;
+  // mostrarProgressBar: boolean;
   fechaLabel: any;
   suscribe: any;
   initialDate: any;
@@ -75,7 +75,7 @@ export class ParteDiarioComponent implements OnInit {
   // si el menu flotante (donde esta el datepicker) esta abierto (valor)
   // lo cierro luego de seleccionar una fecha
   getNovedades(valor: Date) {
-    this.mostrarProgressBar = true;
+    // this.mostrarProgressBar = true;
     if (this.isDatePickerMenuOpened) {
       this.datepickerMenuTrigger.closeMenu();
     }
@@ -91,7 +91,7 @@ export class ParteDiarioComponent implements OnInit {
       if (result) {
         this.dataSource.data = [...result];
       }
-      this.mostrarProgressBar = false;
+      // this.mostrarProgressBar = false;
     }, (error) => { this._snackBar.openSnackBar('snack-danger', 'Backend error: ' + error.error, 5000); });
   }
 
@@ -141,6 +141,6 @@ export class ParteDiarioComponent implements OnInit {
           this.getNovedades(result);
         }
       });
- 
+
   }
 }
