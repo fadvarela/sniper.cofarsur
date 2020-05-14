@@ -38,6 +38,10 @@ ul.navbar-nav {
   cursor: pointer;
 }
 
+.dropdown-menu {
+  min-width: 11rem;
+}
+
 .dropdown-item {
   font-size: 13px;
 }
@@ -49,24 +53,29 @@ ul.navbar-nav {
 }
 
 .dropdown-menu .dropdown-menu {
-	left: 100%;
-	margin: 0;
-	right: auto;
-	top: -1px;
+  left: 100%;
+  margin: 0;
+  right: auto;
+  top: -1px;
 }
+
 .dropdown-menu-right .dropdown-menu,
 .navbar-right .dropdown-menu .dropdown-menu,
 .pull-right .dropdown-menu .dropdown-menu {
-	left: auto;
-	right: 100%;
+  left: auto;
+  right: 100%;
 }
+
 .dropdown-menu.animated {
   -webkit-animation-duration: 0.3s;
-          animation-duration: 0.3s;
+  animation-duration: 0.3s;
 }
 
 .nav-menu-link {
-  color: rgba(5,5,5,0.8);
+  position: relative;
+  width: inherit;
+  display: block;
+  color: rgba(5, 5, 5, 0.8);
   font-size: 13px;
   transition: 0.2s all;
   -webkit-transition: 0.2s all;
@@ -81,7 +90,11 @@ ul.navbar-nav {
 }
 
 .dropdown-submenu .nav-item:hover {
-  background-color: rgba(5,5,5,0.2);
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+}
+
+.dropdown-submenu .nav-item:hover {
+  background-color: rgba(5, 5, 5, 0.2);
   cursor: pointer;
 }
 
@@ -94,7 +107,7 @@ ul.navbar-nav {
 }
 
 .ico-logout {
-  color: rgba(255,255,255,0.8)
+  color: rgba(255, 255, 255, 0.8)
 }
 
 /*  */
@@ -171,4 +184,10 @@ ul.navbar-nav {
 
 .mat-row.sombreado {
   background: #999;
+}
+
+/* Modal background content */
+
+.cdk-overlay-dark-backdrop {
+  background: rgba(0, 0, 0, 0.7);
 }

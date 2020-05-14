@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   Login_Wait_prm: number;
 
   sideNavWidth = '';
-  recuperaCuenta = false;
+  recuperaCuenta: boolean;
   showLoaderLogin = false;
 
   @Input() public set Login_ReciveLoginId_Void(IdAccion: number) {
@@ -44,7 +44,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.showHideNavbar(1000);
   }
 
-  ngAfterViewInit() { }
+  ngAfterViewInit() {
+    this.recuperaCuenta = false;
+  }
 
   switchBoxLogin() {
     this.showLoaderLogin = true;
