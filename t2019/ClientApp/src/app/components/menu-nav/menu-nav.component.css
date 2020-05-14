@@ -1,0 +1,25 @@
+@media (min-width: 979px) {
+  ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+  }
+}
+
+#navbarNavDropdown ul,
+#navbarNavDropdown a {
+  font-size: 14px;
+}
+
+.ico-logout {
+  cursor: pointer;
+  transition: 0.1s all;
+  -webkit-transition: 0.3s all;
+}
+
+.ico-logout:hover {
+  box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.3), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
+}
+
+::ng-deep .tooltip-logout {
+  position: relative;
+  bottom: 14px;
+}

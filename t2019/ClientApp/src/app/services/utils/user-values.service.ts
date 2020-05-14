@@ -11,7 +11,7 @@ import { MatSnackBar, MatDialog } from '@angular/material';
 
 @Injectable()
 export class UserValuesService {
-  private routerInfo: BehaviorSubject<boolean>;
+  private loggedInBehavior = new BehaviorSubject<boolean>(false);
   private usuarioLogueado: Usuario;
   private loggedInStatus = false;
   private status = false;
@@ -55,6 +55,7 @@ export class UserValuesService {
     return this.loginService.ValidarUsuario(userName, pass).toPromise().then((result: Usuario) => {
       this.usuarioLogueado = result;
       if (this.usuarioLogueado.Ok) {
+        this.loggedInBehavior.next(true); // Seteo la variable en TRUE para el navbar (logueado)
         this.cookieService.set('logueado', JSON.stringify(true));
         this.storage.set('user', this.getUsuarioSuccess(true)).subscribe();
         this.setLoggedIn(true);
@@ -78,6 +79,7 @@ export class UserValuesService {
         usuarioCookie.IdRol = result.IdRol;
         usuarioCookie.IdUsuario = result.IdUsuario;
         usuarioCookie.Ok = result.Ok;
+        this.loggedInBehavior.next(true); // Seteo la variable en TRUE para el navbar (logueado)
         Object.assign(this.usuarioLogueado, usuarioCookie);
       });
     }
@@ -116,6 +118,7 @@ export class UserValuesService {
     if (!this.checkCookieExists) {
       return of(false);
     }
+    this.loggedInBehavior.next(false); // Seteo la variable en FALSE para el navbar (no logueado)
     this.cookieService.delete('logueado');
     this.setLoggedIn(false);
     this.storage.get('user').subscribe((result) => { // verifico si hay un usuario cargado en el storage del navegador
@@ -137,6 +140,8 @@ export class UserValuesService {
     return this.usuarioLogueado;
   }
 
-
+  get isLoggedInBehavior() {
+    return this.loggedInBehavior.asObservable(); // {2}
+  }
 
 }

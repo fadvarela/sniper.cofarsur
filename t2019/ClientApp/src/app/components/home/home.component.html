@@ -1,24 +1,4 @@
-<app-home-menu *ngIf="autenticado" (HomeMenu_ComponentShow_prm)="Home_ComponentShow_void($event)"
-  [HomeMenu_SetOpcionesXRol_void]="Home_IdRol_Prm" (HomeMenu_LoginAccion_prm)="Home_Get_LoginAccion_Void($event)">
-</app-home-menu>
-
 <div class="container-fluid" id="contenedor">
-
-  <div class="mainbody">
-    <!--Sitio en construcción-->
-    <div class="container-fluid mt-10 mb-10 text-center box" *ngIf="Home_ComponentShow_prm!=='ParteDiario' && Home_ComponentShow_prm!=='Home'  ">
-      <br />
-      <br />
-      <img class="responsive-image mt-3" src="../../../assets/images/animados/web_construccion.png" />
-    </div>
-
-  
-    <app-parte-diario (ParteDiario_WaitHome_prm)="Home_Wait_void($event)"
-      *ngIf="Home_ComponentShow_prm==='ParteDiario'"></app-parte-diario>
-    <!-- <mat-progress-bar mode="indeterminate" *ngIf="Home_Wait_prm===1"></mat-progress-bar> -->
-  </div>
-
-
 
 
 </div>

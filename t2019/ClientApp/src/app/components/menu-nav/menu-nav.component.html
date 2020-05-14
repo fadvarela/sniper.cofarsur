@@ -1,0 +1,49 @@
+<div class="mainheader" id="MenuHeader">
+  <nav class="navbar navbar-expand-lg menustyle">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav multi-level">
+        <div *ngFor="let element of navMenuList">
+          <!-- Muestra todos los botones padres del menu -->
+          <!-- Si tiene dropdown: true y disabled: false
+              entonces es un boton que tiene submenu incluido
+              Para los botones si el disabled: true
+              entonces aplicamos una clase css para inhabilitar ese boton -->
+          <li class="nav-item" [ngClass]="(element.dropdown && !element.disabled) ? 'dropdown' : ''">
+            <a class="nav-link" [ngClass]="{'disable-a' : element.disabled}" href="{{ element.link }}"
+              id="{{ (element.dropdown) ? 'dropdownMenuLink' : element.id }}"
+              [attr.data-toggle]="(element.dropdown) ? 'dropdown' : ''"
+              [attr.aria-haspopup]="(element.dropdown) ? true : false"
+              [attr.aria-expanded]="(element.dropdown) ? false : true">
+              {{ element.header }}
+            </a>
+            <!-- Iteración para mostrar todos los botones incluidos como submenu
+                y aplicamos la misma logica que en los botones padres -->
+            <ul class="dropdown-menu dropdown-submenu shadow-sm">
+              <li class="nav-item" *ngFor="let subElement of element.submenu"
+                [ngClass]="(subElement.dropdown && !subElement.disabled) ? 'dropdown' : ''">
+                <a class="nav-menu-link" [ngClass]="{'disable-a' : subElement.disabled}"
+                routerLink="{{ subElement.link }}">
+                  {{ subElement.header }}
+                </a>
+                <!-- Iteración para mostrar los los elementos como segundo nivel
+                    del submenu y aplicamos la misma logica anterior -->
+                <ul class="dropdown-menu dropdown-submenu-level shadow-sm">
+                  <li class="nav-item" *ngFor="let subMenuElement of subElement.submenu">
+                    <a class="nav-menu-link" [ngClass]="{'disable-a' : subMenuElement.disabled}"
+                    routerLink="{{ subMenuElement.link }}">
+                      {{ subMenuElement.header }}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </div>
+        <li class="nav-item d-flex align-items-center ml-auto">
+          <mat-icon matTooltip="Cerrar sesión" [matTooltipPosition]="'left'" matTooltipClass="tooltip-logout"
+            class="ico-logout" (click)="cerrarSesion()">exit_to_app</mat-icon>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

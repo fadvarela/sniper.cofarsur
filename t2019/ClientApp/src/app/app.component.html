@@ -2,4 +2,6 @@
   type="timer" [fullScreen]="true">
 </ngx-spinner>
 
+<app-menu-nav *ngIf="isLoggedIn | async"></app-menu-nav>
+
 <router-outlet></router-outlet>

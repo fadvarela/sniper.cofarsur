@@ -1,18 +1,14 @@
-import { Marcacion } from './../../../../models/rrhh/marcacion.model';
-import { Usuario } from 'src/app/models/general/usuario.model';
-import { CmbEntity } from './../../../../models/general/cmbEntity.model';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Marcacion } from 'src/app/models/rrhh/marcacion.model';
 import { Novedades } from 'src/app/models/rrhh/novedades/novedades.model';
+import { CmbEntity } from 'src/app/models/general/cmbEntity.model';
+import { Usuario } from 'src/app/models/general/usuario.model';
 import { NovedadesService } from 'src/app/services/rrhh/novedades/novedades.service';
-
-import { MatTableDataSource } from '@angular/material';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserValuesService } from 'src/app/services/utils/user-values.service';
 import { SnackBarService } from 'src/app/services/utils/snackBar.service';
-import { ResponseHelper } from 'src/app/models/sistema/responseHelper';
 import { ParamEntity } from 'src/app/models/general/param.model';
-import { SelectionModel } from '@angular/cdk/collections';
+import { ResponseHelper } from 'src/app/models/sistema/responseHelper';
 
 @Component({
   selector: 'app-modal-marcacion',
@@ -20,6 +16,7 @@ import { SelectionModel } from '@angular/cdk/collections';
   styleUrls: ['./modal-marcacion.component.css']
 })
 export class ModalMarcacionComponent implements OnInit {
+
   displayedColumns: string[] = [
     'Hora',
     'Tipo Marcación',
@@ -242,5 +239,3 @@ export interface DialogData {
   titulo: string;
   obj: any;
 }
-
-

@@ -1,0 +1,207 @@
+body,
+h3,
+.mat-card,
+.mat-button,
+.mat-toolbar,
+.mat-list-item,
+.mat-checkbox,
+.mat-tooltip,
+.mat-dialog-title,
+.mat-tab-group,
+.mat-paginator,
+.mat-form-field,
+.mat-option,
+.mat-menu-item .mat-table,
+.mat-expansion-panel-header,
+.mat-simple-snackbar,
+.mat-radio-button,
+.mat-slide-toggle-content {
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+  font-size: 18px;
+}
+
+h2 {
+  font-size: 12px;
+
+}
+
+h3 {
+  font-size: 14px;
+
+}
+
+p {
+  font-size: 13px;
+}
+
+button {
+  font-size: 10px;
+}
+
+input[type=text] {
+  font-size: 13px;
+}
+
+/* Margin */
+
+
+.mb-px-5 {
+  margin-bottom: 5px !important;
+}
+
+.mt-px-5 {
+  margin-top: 5px !important;
+}
+
+.mb-px-10 {
+  margin-bottom: 10px !important;
+}
+
+.mt-px-10 {
+  margin-top: 10px !important;
+}
+
+.mb-px-15 {
+  margin-bottom: 15px !important;
+}
+
+.mt-px-15 {
+  margin-top: 15px !important;
+}
+
+.mb-px-20 {
+  margin-bottom: 20px !important;
+}
+
+.mt-px-20 {
+  margin-top: 20px !important;
+}
+
+.mb-px-30 {
+  margin-bottom: 30px !important;
+}
+
+.mb-px-40 {
+  margin-bottom: 40px !important;
+}
+
+.mb-px-50 {
+  margin-bottom: 50px !important;
+}
+
+.mt-px-30 {
+  margin-top: 30px !important;
+}
+
+.mt-px-40 {
+  margin-top: 40px !important;
+}
+
+.mt-px-50 {
+  margin-top: 50px !important;
+}
+
+.mr-px-10 {
+  margin-right: 10px !important;
+}
+
+.ml-px-10 {
+  margin-left: 10px !important;
+}
+
+.mr-px-20 {
+  margin-right: 20px !important;
+}
+
+.mr-px-40 {
+  margin-right: 40px !important;
+}
+
+/* Padding */
+
+.pb-px-5 {
+  padding-bottom: 5px !important;
+}
+
+.pt-px-5 {
+  padding-top: 5px !important;
+}
+
+.pb-px-10 {
+  padding-bottom: 10px !important;
+}
+
+.pt-px-10 {
+  padding-top: 10px !important;
+}
+
+.pb-px-20 {
+  padding-bottom: 20px !important;
+}
+
+.pt-px-20 {
+  padding-top: 20px !important;
+}
+
+.pb-px-30 {
+  padding-bottom: 30px !important;
+}
+
+.pt-px-30 {
+  padding-top: 30px !important;
+}
+
+.pb-px-40 {
+  padding-bottom: 40px !important;
+}
+
+.pt-px-40 {
+  padding-top: 40px !important;
+}
+
+.pb-px-50 {
+  padding-bottom: 50px !important;
+}
+
+.pt-px-50 {
+  padding-top: 50px !important;
+}
+
+.pl-px-0 {
+  padding-left: 0;
+}
+
+.pr-px-5 {
+  padding-bottom: 5px !important;
+}
+
+/* Table */
+
+table {
+  width: 100%;
+}
+
+/* Spinner */
+.mat-progress-spinner circle {
+  stroke: #0090C2;
+}
+
+
+/* Truncate line text  (Line clamp)*/
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+/* Disable <a> tag */
+
+a.disable-a {
+  pointer-events: none !important;
+  cursor: default !important;
+  opacity: 0.6 !important;
+}

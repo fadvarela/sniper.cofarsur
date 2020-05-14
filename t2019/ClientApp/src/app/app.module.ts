@@ -8,9 +8,6 @@ import { RouterModule, RouterStateSnapshot } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeMenuComponent } from './components/home/home-menu/home-menu.component';
-import { ParteDiarioComponent } from './components/rrhh/novedades/parte-diario/parte-diario.component';
-import { ModalMarcacionComponent } from './components/rrhh/novedades/modal-marcacion/modal-marcacion.component';
 
 
 // Angular Material Components
@@ -71,12 +68,14 @@ import { AuthGuard } from './services/utils/auth.guard';
 import { SenderService } from './services/utils/sender.service';
 import { LoginComponent } from './components/login/login.component';
 import { SnackBarService } from './services/utils/snackBar.service';
-import { HomeFooterComponent } from './components/home/home-footer/home-footer/home-footer.component';
 import { AlertComponent } from './components/utils/alert/alert/alert.component';
 import { LoginIngresoComponent } from './components/login/login-ingreso/login-ingreso.component';
 import { LoginRecuperarPassComponent } from './components/login/login-recuperar-pass/login-recuperar-pass.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptorService } from './services/utils/loader-interceptor.service';
+import { MenuNavComponent } from './components/menu-nav/menu-nav.component';
+import { ModalMarcacionComponent } from './components/modals/modal-marcacion/modal-marcacion.component';
+import { ParteDiarioComponent } from './components/novedades/parte-diario/parte-diario.component';
 
 declare var $: any;
 registerLocaleData(localeEsAr, 'es-AR');
@@ -87,8 +86,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     AppComponent,
     HomeComponent,
     LoginComponent,
-    HomeMenuComponent,
-    HomeFooterComponent,
+    MenuNavComponent,
     ParteDiarioComponent,
     ModalMarcacionComponent,
     DatepickerComponent,

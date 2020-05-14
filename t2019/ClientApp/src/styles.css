@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'assets/styles/sniper-bootstrap.css';
 
-body{
+body {
   margin: 0;
   padding: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -11,8 +12,92 @@ html {
   height: 100%;
 }
 
-/*Colores*/
+/* Client Config */
 
+/* Navbar */
+
+nav {
+  background-color: #0B0040;
+  height: 40px;
+}
+
+ul.navbar-nav {
+  width: 100%;
+}
+
+.nav-link {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8) !important;
+  transition: 0.2s all;
+  -webkit-transition: 0.2s all;
+  -moz-transition: 0.2s all;
+}
+
+.nav-link:hover {
+  color: aqua !important;
+  cursor: pointer;
+}
+
+.dropdown-item {
+  font-size: 13px;
+}
+
+.dropdown-menu a {
+  transition: 0.2s all;
+  -webkit-transition: 0.2s all;
+  text-decoration: none;
+}
+
+.dropdown-menu .dropdown-menu {
+	left: 100%;
+	margin: 0;
+	right: auto;
+	top: -1px;
+}
+.dropdown-menu-right .dropdown-menu,
+.navbar-right .dropdown-menu .dropdown-menu,
+.pull-right .dropdown-menu .dropdown-menu {
+	left: auto;
+	right: 100%;
+}
+.dropdown-menu.animated {
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+}
+
+.nav-menu-link {
+  color: rgba(5,5,5,0.8);
+  font-size: 13px;
+  transition: 0.2s all;
+  -webkit-transition: 0.2s all;
+  -moz-transition: 0.2s all;
+}
+
+.dropdown-submenu .nav-item {
+  padding: 0 5px;
+  transition: 0.2s all;
+  -webkit-transition: 0.2s all;
+  -moz-transition: 0.2s all;
+}
+
+.dropdown-submenu .nav-item:hover {
+  background-color: rgba(5,5,5,0.2);
+  cursor: pointer;
+}
+
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+  pointer-events: none;
+}
+
+.ico-logout {
+  color: rgba(255,255,255,0.8)
+}
+
+/*  */
 .box {
   display: flex;
   flex-flow: column;

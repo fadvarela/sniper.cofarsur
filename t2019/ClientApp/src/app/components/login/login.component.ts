@@ -13,7 +13,8 @@ import { SnackBarService } from 'src/app/services/utils/snackBar.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-  bgImage = '../../../assets/images/bg/recursoHumano-min.jpg';
+  bgImage = '../../../assets/images/bg/loginBg.jpg';
+  logoSniper = '../../../assets/images/SBOT/SBOT_LOGO.png';
 
   username: string;
   password: string;

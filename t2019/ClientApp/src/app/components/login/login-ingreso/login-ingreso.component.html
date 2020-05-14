@@ -1,8 +1,9 @@
 <!-- <mat-card class="login-card p-0" [ngClass]="matCardLogin"> -->
-  <div class="card-inner-padding">
-    <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
-    </mat-card-header>
+<div class="card-inner-padding">
+  <mat-card-header>
+    <mat-card-title class="login-title">Bienvenido</mat-card-title>
+  </mat-card-header>
+  <form>
     <mat-card-content class="p-2 mb-0">
       <mat-form-field>
         <input matInput [formControl]="nomUsuarioFormControl" [(ngModel)]="usuario.NomUsuario" placeholder="Usuario"
@@ -16,8 +17,10 @@
     <mat-card-actions class="p-2 text-center">
       <button class="btn-block" mat-raised-button (click)="loginSubmit()" color="primary"
         [disabled]="mostrarProgressBar">Ingresar</button>
-      <button (click)="setRecuperarCuenta()" type="button" class="btn btn-link btn-link-rec-pass">Olvidé mi contraseña</button>
+      <button (click)="setRecuperarCuenta()" type="button" class="btn btn-link btn-link-rec-pass">Olvidé mi
+        contraseña</button>
     </mat-card-actions>
-  </div>
-  <mat-progress-bar mode="indeterminate" *ngIf="mostrarProgressBar"></mat-progress-bar>
+  </form>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="mostrarProgressBar"></mat-progress-bar>
 <!-- </mat-card> -->
