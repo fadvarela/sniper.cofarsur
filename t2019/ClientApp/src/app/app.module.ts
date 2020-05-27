@@ -76,6 +76,8 @@ import { LoadingInterceptorService } from './services/utils/loader-interceptor.s
 import { MenuNavComponent } from './components/menu-nav/menu-nav.component';
 import { ModalMarcacionComponent } from './components/modals/modal-marcacion/modal-marcacion.component';
 import { ParteDiarioComponent } from './components/novedades/parte-diario/parte-diario.component';
+import { JornadasHabitualesComponent } from './components/novedades/jornadas-habituales/jornadas-habituales.component';
+import { ModalJornadasHabitualesComponent } from './components/modals/modal-jornadas-habituales/modal-jornadas-habituales.component';
 
 declare var $: any;
 registerLocaleData(localeEsAr, 'es-AR');
@@ -93,10 +95,13 @@ registerLocaleData(localeEsAr, 'es-AR');
     TimepickerComponent,
     AlertComponent,
     LoginIngresoComponent,
-    LoginRecuperarPassComponent
+    LoginRecuperarPassComponent,
+    JornadasHabitualesComponent,
+    ModalJornadasHabitualesComponent
   ],
   entryComponents: [
-    ModalMarcacionComponent
+    ModalMarcacionComponent,
+    ModalJornadasHabitualesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

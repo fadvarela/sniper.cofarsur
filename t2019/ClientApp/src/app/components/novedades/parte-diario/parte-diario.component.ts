@@ -73,8 +73,8 @@ export class ParteDiarioComponent implements OnInit {
       this.datepickerMenuTrigger.closeMenu();
     }
     this.fechaLabel = valor;
-    let paramEntity = new ParamEntity();
-    paramEntity.IdEmpresa = 1;
+    let paramEntity = new ParamEntity<any>();
+    paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.FechaDate = valor;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
 
@@ -112,6 +112,7 @@ export class ParteDiarioComponent implements OnInit {
       width: '1000px',
       height: '500px',
       panelClass: 'modal-marcacion',
+      autoFocus: false,
       data: {
         titulo: 'Novedades',
         obj: row,

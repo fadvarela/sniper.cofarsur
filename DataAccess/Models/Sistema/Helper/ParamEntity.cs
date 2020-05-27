@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataAccess.Models.Sistema.Helper
 {
-	public class ParamEntity
+	public class ParamEntity<T>
 	{
 		public long IdUsuario { get; set; }
 		public string FechaStr { get; set; }
@@ -16,12 +16,13 @@ namespace DataAccess.Models.Sistema.Helper
 		public long IdJornada { get; set; }
 		public long IdIncidencia { get; set; }
 		public long IdMarcacion { get; set; }
-		public Marcacion MarcacionEntity { get; set; }
+		public T GenericEntity { get; set; }
+		//public Marcacion MarcacionEntity { get; set; }
 
-		public ParamEntity()
-		{
-			MarcacionEntity = new Marcacion();
-		}
+		//public ParamEntity()
+		//{
+		//	MarcacionEntity = new Marcacion();
+		//}
 
 		
 	}

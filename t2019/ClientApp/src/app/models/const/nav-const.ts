@@ -78,7 +78,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
         {
           id: 1,
           header: 'Jornadas Habituales',
-          link: '#',
+          link: '/jornadas-habituales',
           disabled: false,
           tooltip: ''
         },

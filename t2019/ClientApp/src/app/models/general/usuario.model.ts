@@ -7,4 +7,5 @@ export class Usuario extends ResponseHelper {
   public Pass: string;
   public IdRol: any;
   public Cuit: string;
+  public IdEmpresa: number;
 }

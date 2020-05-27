@@ -71,15 +71,15 @@ export class ModalMarcacionComponent implements OnInit {
     let params = [];
     params.push(null);
     params.push(this.usuario.IdRol);
-    params.push(1); // idEmpresa luego obtener el valido
+    params.push(this.userValuesService.getUsuarioValues); // idEmpresa luego obtener el valido
     this.novedadesService.getListIncidencias(params).subscribe((result: CmbEntity[]) => {
       this.lstIncidencias = result;
     });
   }
 
   loadMarcaciones() {
-    let paramEntity = new ParamEntity();
-    paramEntity.IdEmpresa = 1;
+    let paramEntity = new ParamEntity<object>();
+    paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
     paramEntity.FechaDate = this.objeto.FechaDate;
     this.novedadesService.getListMarcaciones(paramEntity).subscribe((result: Marcacion[]) => {
@@ -108,8 +108,8 @@ export class ModalMarcacionComponent implements OnInit {
   guardarJornada() {
     this.isBtnGuardarJornada = true; // deshabilito en boton
 
-    let paramEntity = new ParamEntity();
-    paramEntity.IdEmpresa = 1;
+    let paramEntity = new ParamEntity<object>();
+    paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
     paramEntity.FechaDate = this.objeto.FechaDate;
     paramEntity.IdJornada = this.objeto.IdJornada;
@@ -131,8 +131,8 @@ export class ModalMarcacionComponent implements OnInit {
   guardarIncidencia() {
     this.isBtnGuardarIncidencia = true; // deshabilito en boton
 
-    let paramEntity = new ParamEntity();
-    paramEntity.IdEmpresa = 1;
+    let paramEntity = new ParamEntity<object>();
+    paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
     paramEntity.FechaDate = this.objeto.FechaDate;
     paramEntity.IdIncidencia = this.objeto.IdIncidencia;
@@ -151,16 +151,16 @@ export class ModalMarcacionComponent implements OnInit {
 
   anularMarcacion() {
     let marcacion = this.dataSource.data.find(x => x.Seleccionado);
-    let paramEntity = new ParamEntity();
-    paramEntity.IdEmpresa = 1;
+    let paramEntity = new ParamEntity<Marcacion>();
+    paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
-    paramEntity.MarcacionEntity.Hora = '';
+    paramEntity.GenericEntity.Hora = '';
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
-    paramEntity.MarcacionEntity.IdMarcacionFuente = 2;
-    paramEntity.MarcacionEntity.IdMarcacionTipo = 2;
-    paramEntity.MarcacionEntity.IdEstado = 0;
-    paramEntity.MarcacionEntity.IdIncidencia = 0;
-    paramEntity.MarcacionEntity.IdMarcacion = marcacion.IdMarcacion;
+    paramEntity.GenericEntity.IdMarcacionFuente = 2;
+    paramEntity.GenericEntity.IdMarcacionTipo = 2;
+    paramEntity.GenericEntity.IdEstado = 0;
+    paramEntity.GenericEntity.IdIncidencia = 0;
+    paramEntity.GenericEntity.IdMarcacion = marcacion.IdMarcacion;
 
 
     this.novedadesService.anularMarcacion(paramEntity).subscribe((result: ResponseHelper) => {
@@ -181,18 +181,18 @@ export class ModalMarcacionComponent implements OnInit {
       return false;
     }
 
-    let paramEntity = new ParamEntity();
-    paramEntity.MarcacionEntity = new Marcacion();
-    paramEntity.IdEmpresa = 1;
+    let paramEntity = new ParamEntity<Marcacion>();
+    paramEntity.GenericEntity = new Marcacion();
+    paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
     paramEntity.FechaDate = this.objeto.FechaDate;
-    paramEntity.MarcacionEntity.Hora = this.timePickerValue;
-    paramEntity.MarcacionEntity.IdMarcacionFuente = 2;
-    paramEntity.MarcacionEntity.IdMarcacionTipo = 2;
-    paramEntity.MarcacionEntity.IdEstado = 1;
-    paramEntity.MarcacionEntity.IdIncidencia = 0;
-    paramEntity.MarcacionEntity.IdMarcacion = null;
+    paramEntity.GenericEntity.Hora = this.timePickerValue;
+    paramEntity.GenericEntity.IdMarcacionFuente = 2;
+    paramEntity.GenericEntity.IdMarcacionTipo = 2;
+    paramEntity.GenericEntity.IdEstado = 1;
+    paramEntity.GenericEntity.IdIncidencia = 0;
+    paramEntity.GenericEntity.IdMarcacion = null;
 
     this.novedadesService.guardarMarcacion(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {

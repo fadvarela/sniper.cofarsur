@@ -1,4 +1,5 @@
 ﻿using Backend.RRHH.Consultas;
+using DataAccess.Models.RRHH;
 using DataAccess.Models.Sistema.Helper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace t2019.Controllers
 		{
 			try
 			{
-				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity>(filtro) : null;
+				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity<object>>(filtro) : null;
 				var result = novedadBackend.GetNovedades(paramObj);
 
 				return Ok(result);
@@ -85,8 +86,28 @@ namespace t2019.Controllers
 			{
 				// Si el objeto que viene por parametro contiene algun valor, lo convierto con la funcion de JSON.
 				// sino lo guardo como NULL
-				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity>(filtro) : null;
+				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity<object>>(filtro) : null;
 				var result = novedadBackend.getListMarcaciones(paramObj);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpGet("getListJornadasHabituales")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult getListJornadasHabituales([FromQuery]string filtro)
+		{
+			try
+			{
+				// Si el objeto que viene por parametro contiene algun valor, lo convierto con la funcion de JSON.
+				// sino lo guardo como NULL
+				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity<object>>(filtro) : null;
+				var result = novedadBackend.getListJornadasHabituales(paramObj);
 				return Ok(result);
 			}
 			catch (Exception ex)
@@ -101,7 +122,7 @@ namespace t2019.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[Consumes(MediaTypeNames.Application.Json)]
-		public IActionResult guardarJornada([FromBody]ParamEntity param)
+		public IActionResult guardarJornada([FromBody]ParamEntity<object> param)
 		{
 			try
 			{
@@ -118,7 +139,7 @@ namespace t2019.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[Consumes(MediaTypeNames.Application.Json)]
-		public IActionResult guardarIncidencia([FromBody]ParamEntity param)
+		public IActionResult guardarIncidencia([FromBody]ParamEntity<object> param)
 		{
 			try
 			{
@@ -135,7 +156,7 @@ namespace t2019.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[Consumes(MediaTypeNames.Application.Json)]
-		public IActionResult anularMarcacion([FromBody]ParamEntity param)
+		public IActionResult anularMarcacion([FromBody]ParamEntity<Marcacion> param)
 		{
 			try
 			{
@@ -152,11 +173,28 @@ namespace t2019.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[Consumes(MediaTypeNames.Application.Json)]
-		public IActionResult guardarMarcacion([FromBody]ParamEntity param)
+		public IActionResult guardarMarcacion([FromBody]ParamEntity<Marcacion> param)
 		{
 			try
 			{
 				var result = novedadBackend.guardarMarcacion(param);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpPost("guardarJornadaHabitual")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult guardarJornadaHabitual([FromBody]ParamEntity<JornadaHabitual> param)
+		{
+			try
+			{
+				var result = novedadBackend.guardarJornadaHabitual(param);
 				return Ok(result);
 			}
 			catch (Exception ex)

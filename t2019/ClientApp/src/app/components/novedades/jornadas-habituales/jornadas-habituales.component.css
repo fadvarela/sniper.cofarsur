@@ -16,7 +16,6 @@
   background-color: #F5DEB3;
 }
 
-
 .gilla-container {
   width: 100%;
   overflow: auto;
@@ -61,19 +60,4 @@ td {
 .mat-row:hover {
   background-color: rgba(200, 200, 200, 0.8);
   cursor: pointer;
-}
-
-.menu-opciones {
-  color: skyblue !important;
-  justify-content: center;
-  /* margin-top: auto !important; */
-  margin-bottom: auto !important;
-  margin-left: 5px !important;
-  margin-right: auto !important;
-}
-
-.css_anomalia {
-  color: red;
-  background-color: lightgoldenrodyellow;
-  font-weight: bold;
 }

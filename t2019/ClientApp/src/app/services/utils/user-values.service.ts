@@ -12,7 +12,7 @@ import { MatSnackBar, MatDialog } from '@angular/material';
 @Injectable()
 export class UserValuesService {
   private loggedInBehavior = new BehaviorSubject<boolean>(false);
-  private usuarioLogueado: Usuario;
+  usuarioLogueado: Usuario;
   private loggedInStatus = false;
   private status = false;
 
@@ -29,12 +29,13 @@ export class UserValuesService {
 
   constructor(
     private loginService: LoginService,
-    private storage: StorageMap,
+    // private storage: StorageMap,
     private cookieService: CookieService,
     private route: Router,
     private _snackBar: SnackBarService,
     private dialogRef: MatDialog) {
     this.usuarioLogueado = new Usuario();
+    this.usuarioLogueado.IdEmpresa = 1; // BORRAR UNA VEZ QUE ESTE LISTO EL MULTIEMPRESA
     this.setLoggedIn(this.cookieService.check('logueado'));
     if (this.isLogueado) {
       this.getUsuarioSuccess(false);
@@ -54,10 +55,11 @@ export class UserValuesService {
   loadLoginUser(userName: string, pass: string) {
     return this.loginService.ValidarUsuario(userName, pass).toPromise().then((result: Usuario) => {
       this.usuarioLogueado = result;
+      this.usuarioLogueado.IdEmpresa = 1; // BORRAR UNA VEZ QUE ESTE LISTO EL MULTIEMPRESA
       if (this.usuarioLogueado.Ok) {
         this.loggedInBehavior.next(true); // Seteo la variable en TRUE para el navbar (logueado)
         this.cookieService.set('logueado', JSON.stringify(true));
-        this.storage.set('user', this.getUsuarioSuccess(true)).subscribe();
+        localStorage.setItem('user', JSON.stringify(this.getUsuarioSuccess(true)));
         this.setLoggedIn(true);
         this.route.navigate(['home']);
       }
@@ -70,18 +72,16 @@ export class UserValuesService {
    en las cookies y los obtenemos. */
   getUsuarioSuccess(nuevoLogin) {
     let usuarioCookie = new Usuario();
+
     if (nuevoLogin) {
+      usuarioCookie.IdEmpresa = this.usuarioLogueado.IdEmpresa;
       usuarioCookie.IdRol = this.usuarioLogueado.IdRol;
       usuarioCookie.IdUsuario = this.usuarioLogueado.IdUsuario;
       usuarioCookie.Ok = this.usuarioLogueado.Ok;
     } else {
-      this.storage.get('user').subscribe((result: Usuario) => {
-        usuarioCookie.IdRol = result.IdRol;
-        usuarioCookie.IdUsuario = result.IdUsuario;
-        usuarioCookie.Ok = result.Ok;
-        this.loggedInBehavior.next(true); // Seteo la variable en TRUE para el navbar (logueado)
-        Object.assign(this.usuarioLogueado, usuarioCookie);
-      });
+      usuarioCookie = JSON.parse(localStorage.getItem('user'));
+      this.loggedInBehavior.next(true); // Seteo la variable en TRUE para el navbar (logueado)
+      Object.assign(this.usuarioLogueado, usuarioCookie);
     }
     return usuarioCookie;
   }
@@ -121,11 +121,7 @@ export class UserValuesService {
     this.loggedInBehavior.next(false); // Seteo la variable en FALSE para el navbar (no logueado)
     this.cookieService.delete('logueado');
     this.setLoggedIn(false);
-    this.storage.get('user').subscribe((result) => { // verifico si hay un usuario cargado en el storage del navegador
-      if (result) {
-        this.storage.delete('user').subscribe(() => { });
-      }
-    });
+    localStorage.removeItem('user');
     return of(true);
   }
 

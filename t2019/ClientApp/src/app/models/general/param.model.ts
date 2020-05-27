@@ -1,7 +1,7 @@
 
 import { Marcacion } from './../rrhh/marcacion.model';
 import { DateTimeEntity } from './../sistema/dateTimeEntity';
-export class ParamEntity {
+export class ParamEntity<T> {
   IdUsuario: number;
   FechaStr: string;
   FechaDate: Date;
@@ -10,5 +10,6 @@ export class ParamEntity {
   IdLegajo: number;
   IdJornada: number;
   IdIncidencia: number;
-  MarcacionEntity: Marcacion = new Marcacion();
+  GenericEntity: T;
+  // JornadaHabitualEntity: JornadaHab
 }

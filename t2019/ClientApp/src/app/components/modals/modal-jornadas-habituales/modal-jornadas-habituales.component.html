@@ -1,0 +1,30 @@
+<h1 mat-dialog-title class="bg-primary titulo-modal">Jornadas Habituales
+  <mat-icon class="btn-close" (click)="cerrarModal()">clear</mat-icon>
+</h1>
+<div mat-dialog-content>
+  <p class="p-nombre w-100">
+    <span>Leg. <b>{{ ' ' + objeto.IdLegajo }}</b> {{' - ' + objeto.Nombre + ' ' + objeto.Apellido }}</span>
+  </p>
+  <p class="p-nombre w-100 mb-1">
+    <span>Sección {{ ' ' + objeto.Seccion }}</span>
+  </p>
+  <div class="container h-100">
+    <div class="row" *ngFor="let item of diasList">
+      <div class="col-10 mx-auto">
+        <div class="input-container">
+          <mat-form-field class="w-100 select-form-field">
+            <mat-label>{{ item.Header }}</mat-label>
+            <mat-select [(ngModel)]="item.id">
+              <mat-option *ngFor="let item of lstJornadas" [matTooltip]="item.Detalle" [value]="item.Id">
+                {{ item.Detalle }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="p-2 text-right">
+      <button mat-raised-button (click)="guardarJornada()">Guardar</button>
+    </div>
+  </div>
+</div>
