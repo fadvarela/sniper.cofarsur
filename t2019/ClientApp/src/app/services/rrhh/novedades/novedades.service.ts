@@ -26,11 +26,11 @@ export class NovedadesService {
     return this.novedadesEndPoint.getListIncidenciasEndPoint(filtro);
   }
 
-  getListMarcaciones(params?: ParamEntity): Observable<Marcacion[]> {
+  getListMarcaciones(params?: ParamEntity<any>): Observable<Marcacion[]> {
     return this.novedadesEndPoint.getListMarcacionesEndPoint(params);
   }
 
-  getListJornadasHabituales(params?: ParamEntity) {
+  getListJornadasHabituales(params?: ParamEntity<any>) {
     return this.novedadesEndPoint.getListJornadasHabitualesEndPoint(params);
   }
 
