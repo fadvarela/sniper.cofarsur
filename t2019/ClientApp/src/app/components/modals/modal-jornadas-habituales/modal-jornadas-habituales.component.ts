@@ -2,12 +2,12 @@ import { ParamEntity } from 'src/app/models/general/param.model';
 import { ResponseHelper } from './../../../models/sistema/responseHelper';
 import { JornadaHabitual } from './../../../models/rrhh/novedades/jornada-habitual.model';
 import { Component, OnInit, Inject } from '@angular/core';
-import { DialogData } from '../modal-marcacion/modal-marcacion.component';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { UserValuesService } from 'src/app/services/utils/user-values.service';
 import { NovedadesService } from 'src/app/services/rrhh/novedades/novedades.service';
 import { SnackBarService } from 'src/app/services/utils/snackBar.service';
 import { CmbEntity } from 'src/app/models/general/cmbEntity.model';
+import { ModalConfirmacionComponent } from '../modal-confirmacion/modal-confirmacion.component';
 
 @Component({
   selector: 'app-modal-jornadas-habituales',
@@ -91,4 +91,25 @@ export class ModalJornadasHabitualesComponent implements OnInit {
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
   }
 
+  openModalData() {
+    const dialogRef = this.dialog.open(ModalConfirmacionComponent, {
+      width: '500px',
+      height: '120px',
+      autoFocus: false,
+      data: {
+        titulo: '¿Desea modificar las jornadas habituales?'
+      }
+    });
+    dialogRef.beforeClosed().subscribe((result) => {
+      if (result) {
+        this.guardarJornada();
+      }
+    });
+  }
+
+}
+
+export interface DialogData {
+  titulo: string;
+  obj: any;
 }

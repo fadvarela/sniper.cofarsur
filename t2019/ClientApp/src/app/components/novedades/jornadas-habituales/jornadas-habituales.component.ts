@@ -82,7 +82,6 @@ export class JornadasHabitualesComponent implements OnInit {
       }
     });
   }
-
 }
 
 export interface DialogData {

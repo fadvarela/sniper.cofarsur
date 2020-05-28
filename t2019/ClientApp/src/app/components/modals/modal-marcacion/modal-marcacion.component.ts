@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Marcacion } from 'src/app/models/rrhh/marcacion.model';
 import { Novedades } from 'src/app/models/rrhh/novedades/novedades.model';
 import { CmbEntity } from 'src/app/models/general/cmbEntity.model';
@@ -9,6 +9,7 @@ import { UserValuesService } from 'src/app/services/utils/user-values.service';
 import { SnackBarService } from 'src/app/services/utils/snackBar.service';
 import { ParamEntity } from 'src/app/models/general/param.model';
 import { ResponseHelper } from 'src/app/models/sistema/responseHelper';
+import { ModalConfirmacionComponent } from '../modal-confirmacion/modal-confirmacion.component';
 
 @Component({
   selector: 'app-modal-marcacion',
@@ -45,6 +46,7 @@ export class ModalMarcacionComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ModalMarcacionComponent>,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private novedadesService: NovedadesService,
     private userValuesService: UserValuesService,
@@ -71,7 +73,8 @@ export class ModalMarcacionComponent implements OnInit {
     let params = [];
     params.push(null);
     params.push(this.usuario.IdRol);
-    params.push(this.userValuesService.getUsuarioValues); // idEmpresa luego obtener el valido
+    params.push(this.userValuesService.getUsuarioValues.IdEmpresa); // idEmpresa luego obtener el valido
+
     this.novedadesService.getListIncidencias(params).subscribe((result: CmbEntity[]) => {
       this.lstIncidencias = result;
     });
@@ -231,6 +234,49 @@ export class ModalMarcacionComponent implements OnInit {
 
   getTimePickerValue(value) {
     this.timePickerValue = value;
+  }
+
+  openModalData(tipo) {
+    let titulo = '¿Desea guardar la ';
+    switch (tipo) {
+      case 'jornada':
+        titulo += 'jornada?';
+        break;
+      case 'marcacion':
+        titulo += 'marcación?';
+        break;
+      case 'incidencia':
+        titulo += 'incidencia?';
+        break;
+      default:
+        break;
+    }
+
+    const dialogRef = this.dialog.open(ModalConfirmacionComponent, {
+      width: '500px',
+      height: '120px',
+      autoFocus: false,
+      data: {
+        titulo: titulo
+      }
+    });
+    dialogRef.beforeClosed().subscribe((result) => {
+      if (result) {
+        switch (tipo) {
+          case 'jornada':
+            this.guardarJornada();
+            break;
+          case 'marcacion':
+            this.guardarMarcacion();
+            break;
+          case 'incidencia':
+            this.guardarIncidencia();
+            break;
+          default:
+            break;
+        }
+      }
+    });
   }
 
 }
