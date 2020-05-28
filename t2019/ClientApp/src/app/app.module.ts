@@ -63,7 +63,6 @@ import { DatepickerComponent } from './components/utils/datepicker/datepicker.co
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { TimepickerComponent } from './components/utils/timepicker/timepicker.component';
 import { UserValuesService } from './services/utils/user-values.service';
-import { StorageModule } from '@ngx-pwa/local-storage';
 import { AuthGuard } from './services/utils/auth.guard';
 import { SenderService } from './services/utils/sender.service';
 import { LoginComponent } from './components/login/login.component';

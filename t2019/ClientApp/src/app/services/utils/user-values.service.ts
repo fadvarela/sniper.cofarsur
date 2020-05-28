@@ -3,7 +3,6 @@ import { Usuario } from './../../models/general/usuario.model';
 import { Injectable, AfterViewInit, OnInit } from '@angular/core';
 import { LoginService } from '../login/login.service';
 import { Observable, of, BehaviorSubject } from 'rxjs';
-import { StorageMap, JSONSchemaObject } from '@ngx-pwa/local-storage';
 import { CookieService } from 'ngx-cookie-service';
 import { Idle } from 'idlejs/dist';
 import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
