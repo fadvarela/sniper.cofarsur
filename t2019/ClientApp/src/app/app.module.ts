@@ -147,7 +147,6 @@ registerLocaleData(localeEsAr, 'es-AR');
     DragDropModule,
     MatBadgeModule,
     NgxMaterialTimepickerModule.setLocale('es-AR'),
-    StorageModule.forRoot({ IDBNoWrap: true }),
     NgxSpinnerModule
   ],
   providers: [ // Se declaran los servicios
