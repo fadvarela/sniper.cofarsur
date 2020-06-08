@@ -155,6 +155,7 @@ export class ModalMarcacionComponent implements OnInit {
   anularMarcacion() {
     let marcacion = this.dataSource.data.find(x => x.Seleccionado);
     let paramEntity = new ParamEntity<Marcacion>();
+    paramEntity.GenericEntity = new Marcacion();
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
     paramEntity.GenericEntity.Hora = '';
