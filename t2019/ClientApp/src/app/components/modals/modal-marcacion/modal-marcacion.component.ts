@@ -158,7 +158,7 @@ export class ModalMarcacionComponent implements OnInit {
     paramEntity.GenericEntity = new Marcacion();
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
-    paramEntity.GenericEntity.Hora = '';
+    paramEntity.GenericEntity.Hora = this.timePickerValue;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
     paramEntity.GenericEntity.IdMarcacionFuente = 2;
     paramEntity.GenericEntity.IdMarcacionTipo = 2;
