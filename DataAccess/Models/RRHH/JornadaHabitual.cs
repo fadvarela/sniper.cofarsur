@@ -7,9 +7,6 @@ namespace DataAccess.Models.RRHH
 {
 	public class JornadaHabitual: Nomina
 	{
-		[Column("SECCION")]
-		public string Seccion { get; set; }
-
 		[Column("ID_JORNADA_LUNES")]
 		public long IdJlunes { get; set; }
 

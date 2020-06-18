@@ -56,12 +56,6 @@ export class JornadasHabitualesComponent implements OnInit {
     this.novedadesService.getListJornadasHabituales(paramEntity).subscribe((result: JornadaHabitual[]) => {
       if (result) {
         this.dataSource.data = [...result];
-        let j = new JornadaHabitual();
-        j.Apellido = 'ajwndbiad';
-        j.IdLegajo = 3894;
-        j.Nombre = 'uuueuye';
-        this.dataSource.data.push(j);
-        this.dataSource.data = [...this.dataSource.data]
       }
     }, (error) => { this._snackBar.openSnackBar('snack-danger', 'Backend error: ' + error.error, 5000); });
   }

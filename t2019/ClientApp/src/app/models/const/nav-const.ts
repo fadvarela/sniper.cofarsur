@@ -85,7 +85,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
         {
           id: 2,
           header: 'Justificaciones',
-          link: '#',
+          link: '/justificaciones',
           disabled: false,
           tooltip: ''
         },

@@ -17,13 +17,7 @@ namespace DataAccess.Models.Sistema.Helper
 		public long IdIncidencia { get; set; }
 		public long IdMarcacion { get; set; }
 		public T GenericEntity { get; set; }
-		//public Marcacion MarcacionEntity { get; set; }
-
-		//public ParamEntity()
-		//{
-		//	MarcacionEntity = new Marcacion();
-		//}
-
+		public T Tipo { get; set; }
 		
 	}
 }

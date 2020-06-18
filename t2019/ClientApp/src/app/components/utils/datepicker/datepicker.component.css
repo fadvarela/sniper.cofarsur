@@ -1,3 +1,7 @@
 .date-picker-container {
   color: black !important
 }
+
+:host .datePickerMargin {
+  margin: 0 !important;
+}

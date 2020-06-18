@@ -116,6 +116,67 @@ namespace t2019.Controllers
 			}
 		}
 
+		[HttpGet("getIncidenciasJustificaciones")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult getIncidenciasJustificaciones([FromQuery]string filtro)
+		{
+			try
+			{
+				// Si el objeto que viene por parametro contiene algun valor, lo convierto con la funcion de JSON.
+				// sino lo guardo como NULL
+				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity<object>>(filtro) : null;
+				var result = novedadBackend.getIncidenciasJustificaciones(paramObj);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpGet("getNominaGrilla")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult getNominaGrilla([FromQuery]string filtro)
+		{
+			try
+			{
+				// Si el objeto que viene por parametro contiene algun valor, lo convierto con la funcion de JSON.
+				// sino lo guardo como NULL
+				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity<object>>(filtro) : null;
+				var result = novedadBackend.getNominaGrilla(paramObj);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpGet("getJustificacionGrilla")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult getJustificacionGrilla([FromQuery]string filtro)
+		{
+			try
+			{
+				// Si el objeto que viene por parametro contiene algun valor, lo convierto con la funcion de JSON.
+				// sino lo guardo como NULL
+				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity<Justificacion>>(filtro) : null;
+				var result = novedadBackend.getJustificacionGrilla(paramObj);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+		
+
 		/*-------------------------POST-----------------------------*/
 
 		[HttpPost("guardarJornada")]
@@ -195,6 +256,23 @@ namespace t2019.Controllers
 			try
 			{
 				var result = novedadBackend.guardarJornadaHabitual(param);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpPost("updJustificacion")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult updJustificacion([FromBody]ParamEntity<Justificacion> param)
+		{
+			try
+			{
+				var result = novedadBackend.updJustificacion(param);
 				return Ok(result);
 			}
 			catch (Exception ex)

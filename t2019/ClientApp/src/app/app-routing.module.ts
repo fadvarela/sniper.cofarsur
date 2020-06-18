@@ -6,6 +6,7 @@ import { AuthGuard } from './services/utils/auth.guard';
 import { LoginComponent } from './components/login/login.component';
 import { ParteDiarioComponent } from './components/novedades/parte-diario/parte-diario.component';
 import { JornadasHabitualesComponent } from './components/novedades/jornadas-habituales/jornadas-habituales.component';
+import { JustificacionesComponent } from './components/novedades/justificaciones/justificaciones.component';
 
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, data: { title: 'Login' } },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard], data: { title: 'Home'} },
   { path: 'parte-diario', component: ParteDiarioComponent, canActivate: [AuthGuard], data: { title: 'Parte Diario'} },
-  { path: 'jornadas-habituales', component: JornadasHabitualesComponent, canActivate: [AuthGuard], data: { title: 'Jornadas Habituales'} }
+  { path: 'jornadas-habituales', component: JornadasHabitualesComponent, canActivate: [AuthGuard], data: { title: 'Jornadas Habituales'} },
+  { path: 'justificaciones', component: JustificacionesComponent, canActivate: [AuthGuard], data: { title: 'Justificaciones'} }
 ];
 
 @NgModule({

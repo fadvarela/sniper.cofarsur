@@ -11,5 +11,5 @@ export class ParamEntity<T> {
   IdJornada: number;
   IdIncidencia: number;
   GenericEntity: T;
-  // JornadaHabitualEntity: JornadaHab
+  Tipo: any;
 }

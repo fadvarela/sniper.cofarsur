@@ -21,5 +21,23 @@ namespace DataAccess.Models.RRHH
 
 		[Column("CUIL")]
 		public long Cuil { get; set; }
+
+		[Column("DNI")]
+		public long Dni { get; set; }
+
+		[Column("F_INGRESO")]
+		public DateTime FechaIngreso { get; set; }
+
+		[Column("F_EGRESO")]
+		public DateTime FechaEgreso { get; set; }
+
+		[Column("SECCION")]
+		public string Seccion { get; set; }
+
+		[Column("ANTIGUEDAD")]
+		public long Antiguedad { get; set; }
+
+		[Column("EDAD")]
+		public long Edad { get; set; }
 	}
 }

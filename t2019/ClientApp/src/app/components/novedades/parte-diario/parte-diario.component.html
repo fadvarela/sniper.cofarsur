@@ -5,96 +5,107 @@
     </div>
   </div>
   <div class="row mt-3">
-    <div class="col-1 text-center m-0 p-0">
-      <button [matMenuTriggerFor]="datepickerMenu" (menuOpened)="toggleDatepickerMenuOpened()"
+    <div class="col-2">
+      <mat-form-field class="w-100">
+        <mat-label>Filtrar</mat-label>
+        <input matInput (keyup)="applyFilter($event)">
+      </mat-form-field>
+    </div>
+    <div class="col-2 d-flex justify-content-center align-items-center text-center">
+      <button class="menu-btn" [matMenuTriggerFor]="datepickerMenu" (menuOpened)="toggleDatepickerMenuOpened()"
         (menuClosed)="toggleDatepickerMenuOpened()" #dtpMenuTrigger="matMenuTrigger" mat-mini-fab
         aria-label="Datepicker">
         <mat-icon>today</mat-icon>
       </button>
       <mat-menu #datepickerMenu="matMenu" yPosition="below">
         <ng-template matMenuContent>
-          <app-datepicker (dateEmit)="getDateFromPickerEmit($event, true)" [dateInput]="fechaLabel"></app-datepicker>
+          <app-datepicker (dateEmit)="getDateFromPickerEmit($event, true)" [dateInput]="fechaLabel"
+            [dateLabel]="'Seleccione fecha'"></app-datepicker>
         </ng-template>
       </mat-menu>
-      <mat-chip-list>
-        <mat-chip class="mx-auto mt-3">{{ fechaLabel | date:'dd/MM/yyyy' }}</mat-chip>
+      <mat-chip-list class="d-inline-block ml-3">
+        <mat-chip class="d-inline-block">{{ fechaLabel | date:'dd/MM/yyyy' }}</mat-chip>
       </mat-chip-list>
-
     </div>
-
-    <div class="col-10">
+  </div>
+  <div class="row mt-1">
+    <div class="col">
       <div class="mat-elevation-z8 table-container">
+
         <table mat-table [dataSource]="dataSource" class="tabla-home">
 
           <ng-container matColumnDef="SECCION">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> SECCION </th>
-            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.Seccion}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Sección </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"> {{element.Seccion}} </td>
           </ng-container>
 
           <ng-container matColumnDef="ID_LEGAJO">
-            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> LEGAJO </th>
-            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.IdLegajo}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Legajo </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"> {{element.IdLegajo}} </td>
           </ng-container>
 
           <ng-container matColumnDef="APELLIDO">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> APELLIDO </th>
-            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.Apellido}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Apellido </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"> {{element.Apellido}} </td>
           </ng-container>
 
           <ng-container matColumnDef="NOMBRE">
-            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> NOMBRE </th>
-            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
           </ng-container>
 
           <ng-container matColumnDef="N_JORNADA">
-            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> JORNADA </th>
-            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.Njornada}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Jornada </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"> {{element.Njornada}} </td>
           </ng-container>
 
           <ng-container matColumnDef="N_INCIDENCIA">
-            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> INCIDENCIA </th>
-            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.Nincidencia}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Incidencia </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"> {{element.Nincidencia}} </td>
           </ng-container>
 
 
           <ng-container matColumnDef="MARCACIONES">
-            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> MARCACIONES </th>
-            <td class="border text-left"  mat-cell *matCellDef="let element"> {{element.Marcaciones}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Marcaciones </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"> {{element.Marcaciones}} </td>
           </ng-container>
 
 
           <ng-container matColumnDef="H_TEORICAS">
-            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> H_TEORICAS </th>
-            <td class="border text-center"  mat-cell *matCellDef="let element"> {{element.Hteoricas}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Hs Teoricas </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"> {{element.Hteoricas}} </td>
           </ng-container>
 
 
           <ng-container matColumnDef="H_TRABAJADAS">
-            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> H_TRABAJADAS </th>
-            <td class="border text-center"  mat-cell *matCellDef="let element"> {{element.Htrabajadas}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Hs Trabajadas
+            </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"> {{element.Htrabajadas}} </td>
           </ng-container>
 
 
           <ng-container matColumnDef="I_IMPARES">
-            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> IMPARES </th>
-            <td class="border text-center"  mat-cell *matCellDef="let element"
-            [ngClass]="{'css_anomalia': element.Iimpares === 1}"> {{element.Iimpares}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> IMPARES </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"
+              [ngClass]="{'anomalia-bg': element.Iimpares === 1}"> {{element.Iimpares}} </td>
           </ng-container>
 
           <ng-container matColumnDef="I_SIN_INCIDENCIAS">
-            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> SIN_INCIDENCIAS </th>
-            <td class="border text-center"  mat-cell *matCellDef="let element"
-            [ngClass]="{'css_anomalia': element.IsinIncidencias === 1}"> {{element.IsinIncidencias}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> SIN_INCIDENCIAS
+            </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"
+              [ngClass]="{'anomalia-bg': element.IsinIncidencias === 1}"> {{element.IsinIncidencias}} </td>
           </ng-container>
 
           <ng-container matColumnDef="H_ADICIONALES">
-            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> HS_ADICIONALES </th>
-            <td class="border text-center"  mat-cell *matCellDef="let element"> {{element.Hadicionales}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> HS_ADICIONALES
+            </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"> {{element.Hadicionales}} </td>
           </ng-container>
 
           <ng-container matColumnDef="H_AUSENCIA">
-            <th class="border bg-secondary  text-white text-center"  mat-header-cell *matHeaderCellDef> HS_AUSENCIA </th>
-            <td class="border text-center"  mat-cell *matCellDef="let element"> {{element.Hausencia}} </td>
+            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> HS_AUSENCIA </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"> {{element.Hausencia}} </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
@@ -102,6 +113,6 @@
         </table>
 
       </div>
-      <mat-paginator [pageSizeOptions]="[20, 10, 5]"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[100]"></mat-paginator>
     </div>
   </div>

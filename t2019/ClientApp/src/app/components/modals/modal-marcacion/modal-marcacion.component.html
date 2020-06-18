@@ -1,11 +1,11 @@
-<div [ngClass]="{'bg-opacity': menuMarcacionOpened}"></div>
+<div [ngClass]="{'bg-opacity-modal': menuMarcacionOpened}"></div>
 <h1 mat-dialog-title class="bg-primary titulo-modal">{{ titulo }}
   <mat-icon class="btn-close" (click)="cerrarModal()">clear</mat-icon>
 </h1>
 <div mat-dialog-content>
 
   <p class="p-nombre">
-    <span>Leg. <b>{{ objeto.IdLegajo }}</b> {{' - ' + objeto.Nombre + ' ' + objeto.Apellido }}</span>
+    <span>Leg. <b>{{ objeto.IdLegajo }}</b> {{' - ' + objeto.Nombre + ' ' + objeto.Apellido  }}</span>
   </p>
 
   <mat-card class="mb-3">

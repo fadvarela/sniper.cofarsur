@@ -86,7 +86,54 @@ namespace DataAccess.Access.Peticiones
 
 			return result;
 		}
-		
+
+		public IEnumerable<CmbEntity> getIncidenciasJustificaciones(ParamEntity<object> param)
+		{
+			var parametros = new List<object>()
+			{
+				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa},
+				new MySqlParameter(){ ParameterName = "P_ID_INCIDENCIA", Value = param.IdIncidencia},
+				new MySqlParameter(){ ParameterName = "P_ID_USUARIO", Value = param.IdUsuario }
+			};
+
+			var sqlQuery = "SP_JUSTIF_INCIDENCIAS_GET";
+			var result = MAccess.GetSavantList<MySqlConnection, CmbEntity>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+
+			return result;
+		}
+
+		public IEnumerable<Nomina> getNominaGrilla(ParamEntity<object> param)
+		{
+			var parametros = new List<object>()
+			{
+				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
+				new MySqlParameter(){ ParameterName = "P_ID_USUARIO", Value = param.IdUsuario },
+				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa},
+				new MySqlParameter(){ ParameterName = "P_TIPO", Value = param.Tipo}
+			};
+
+			var sqlQuery = "SP_NOMINA_GET";
+			var result = MAccess.GetSavantList<MySqlConnection, Nomina>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+
+			return result;
+		}
+
+		public IEnumerable<Justificacion> getJustificacionGrilla(ParamEntity<Justificacion> param)
+		{
+			var parametros = new List<object>()
+			{
+				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
+				new MySqlParameter(){ ParameterName = "P_ID_USUARIO", Value = param.IdUsuario },
+				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa}
+			};
+
+			var sqlQuery = "SP_JUSTIF_GET";
+			var result = MAccess.GetSavantList<MySqlConnection, Justificacion>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+
+			return result;
+		}
+
+		/*-----------------------------POST----------------------------------*/
 
 		public ResponseHelper guardarJornada(ParamEntity<object> param)
 		{
@@ -190,6 +237,29 @@ namespace DataAccess.Access.Peticiones
 
 			return responseHelper;
 		}
+
+		public ResponseHelper updJustificacion(ParamEntity<Justificacion> param)
+		{
+			var parametros = new List<object>()
+			{
+				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
+				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa },
+				new MySqlParameter(){ ParameterName = "P_ID_USUARIO", Value = param.IdUsuario },
+				new MySqlParameter(){ ParameterName = "P_FECHA_DESDE", Value = param.GenericEntity.FechaDesde },
+				new MySqlParameter(){ ParameterName = "P_DIAS", Value = param.GenericEntity.Dias },
+				new MySqlParameter(){ ParameterName = "P_OBSERVACIONES", Value = param.GenericEntity.Observaciones },
+				new MySqlParameter(){ ParameterName = "P_ID_JUSTIFICACION", Value = param.GenericEntity.IdJustificacion },
+				new MySqlParameter(){ ParameterName = "P_ID_ESTADO", Value = param.GenericEntity.IdEstado },
+				new MySqlParameter(){ ParameterName = "P_ID_INCIDENCIA", Value = param.GenericEntity.IdIncidencia }
+			};
+
+			var sqlQuery = "SP_JUSTIF_UPD";
+			var responseHelper = new ResponseHelper();
+			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+
+			return responseHelper;
+		}
 		
+
 	}
 }

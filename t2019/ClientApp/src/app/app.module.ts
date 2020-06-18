@@ -78,6 +78,8 @@ import { ParteDiarioComponent } from './components/novedades/parte-diario/parte-
 import { JornadasHabitualesComponent } from './components/novedades/jornadas-habituales/jornadas-habituales.component';
 import { ModalJornadasHabitualesComponent } from './components/modals/modal-jornadas-habituales/modal-jornadas-habituales.component';
 import { ModalConfirmacionComponent } from './components/modals/modal-confirmacion/modal-confirmacion.component';
+import { JustificacionesComponent } from './components/novedades/justificaciones/justificaciones.component';
+import { ModalNominaComponent } from './components/modals/modal-nomina/modal-nomina.component';
 
 declare var $: any;
 registerLocaleData(localeEsAr, 'es-AR');
@@ -98,12 +100,15 @@ registerLocaleData(localeEsAr, 'es-AR');
     LoginRecuperarPassComponent,
     JornadasHabitualesComponent,
     ModalJornadasHabitualesComponent,
-    ModalConfirmacionComponent
+    ModalConfirmacionComponent,
+    JustificacionesComponent,
+    ModalNominaComponent
   ],
   entryComponents: [
     ModalMarcacionComponent,
     ModalJornadasHabitualesComponent,
-    ModalConfirmacionComponent
+    ModalConfirmacionComponent,
+    ModalNominaComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

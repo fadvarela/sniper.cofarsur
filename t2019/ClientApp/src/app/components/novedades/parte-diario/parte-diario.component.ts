@@ -90,10 +90,6 @@ export class ParteDiarioComponent implements OnInit {
     this.isDatePickerMenuOpened = !this.isDatePickerMenuOpened;
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
   // recibo el valor que viene del Datepicker (HTML)
   // y lo capturo en mi variable
   // si necesito llamar a la BD, seteo el segundo parametro
@@ -123,6 +119,11 @@ export class ParteDiarioComponent implements OnInit {
         this.getNovedades(result);
       }
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

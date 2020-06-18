@@ -1,3 +1,4 @@
+import { Justificacion } from 'src/app/models/rrhh/justificacion.model';
 import { ParamEntity } from 'src/app/models/general/param.model';
 import { Marcacion } from './../../../models/rrhh/marcacion.model';
 import { CmbEntity } from './../../../models/general/cmbEntity.model';
@@ -34,6 +35,18 @@ export class NovedadesService {
     return this.novedadesEndPoint.getListJornadasHabitualesEndPoint(params);
   }
 
+  getIncidenciasJustificaciones(params?: ParamEntity<any>) {
+    return this.novedadesEndPoint.getIncidenciasJustificacionesEndPoint(params);
+  }
+
+  getNominaGrilla(params?: ParamEntity<any>) {
+    return this.novedadesEndPoint.getNominaGrillaEndPoint(params);
+  }
+
+  getJustificacionGrilla(params?: ParamEntity<any>) {
+    return this.novedadesEndPoint.getJustificacionGrillaEndPoint(params);
+  }
+
   /*--------POST-----------*/
 
   guardarJornada(params: ParamEntity<any>) {
@@ -54,6 +67,10 @@ export class NovedadesService {
 
   guardarJornadaHabitual(params: ParamEntity<any>) {
     return this.novedadesEndPoint.guardarJornadaHabitualEndPoint(params);
+  }
+
+  updJustificacion(params: ParamEntity<Justificacion>) {
+    return this.novedadesEndPoint.updJustificacionEndPoint(params);
   }
 
 }

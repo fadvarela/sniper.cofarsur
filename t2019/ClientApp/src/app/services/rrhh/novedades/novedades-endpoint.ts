@@ -19,7 +19,7 @@ export class NovedadesEndPoint {
   constructor(private http: HttpClient) { }
 
   protected getRequestHeaders() {
-    let headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + '',
       'Content-Type': 'application/json',
       'Accept': `application/json, text/plain, */*`,
@@ -34,7 +34,7 @@ export class NovedadesEndPoint {
   }
 
   getNovedades(filtro) {
-    let endpointUrl = this._urlNovedades + '/getnovedades';
+    const endpointUrl = this._urlNovedades + '/getnovedades';
     const params = new HttpParams()
       .set('filtro', JSON.stringify(filtro));
 
@@ -45,7 +45,7 @@ export class NovedadesEndPoint {
   }
 
   getListJornadasEndPoint(filtro) {
-    let endpointUrl = this._urlNovedades + '/getListJornadas';
+    const endpointUrl = this._urlNovedades + '/getListJornadas';
     const params = new HttpParams()
       .set('filtro', (filtro) ? filtro : '');
 
@@ -56,7 +56,7 @@ export class NovedadesEndPoint {
   }
 
   getListIncidenciasEndPoint(filtro?) {
-    let endpointUrl = this._urlNovedades + '/getListIncidencias';
+    const endpointUrl = this._urlNovedades + '/getListIncidencias';
     const params = new HttpParams()
       .set('filtro', (filtro) ? JSON.stringify(filtro) : '');
 
@@ -67,7 +67,7 @@ export class NovedadesEndPoint {
   }
 
   getListMarcacionesEndPoint<T>(param?): Observable<T> {
-    let endpointUrl = this._urlNovedades + '/getListMarcaciones';
+    const endpointUrl = this._urlNovedades + '/getListMarcaciones';
     const params = new HttpParams()
       .set('filtro', JSON.stringify(param));
 
@@ -78,7 +78,7 @@ export class NovedadesEndPoint {
   }
 
   getListJornadasHabitualesEndPoint(param?) {
-    let endpointUrl = this._urlNovedades + '/getListJornadasHabituales';
+    const endpointUrl = this._urlNovedades + '/getListJornadasHabituales';
     const params = new HttpParams()
       .set('filtro', JSON.stringify(param));
 
@@ -88,12 +88,43 @@ export class NovedadesEndPoint {
       }));
   }
 
+  getIncidenciasJustificacionesEndPoint(param?) {
+    const endpointUrl = this._urlNovedades + '/getIncidenciasJustificaciones';
+    const params = new HttpParams()
+      .set('filtro', JSON.stringify(param));
+
+    return this.http.get(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
+  getNominaGrillaEndPoint(param?) {
+    const endpointUrl = this._urlNovedades + '/getNominaGrilla';
+    const params = new HttpParams()
+      .set('filtro', JSON.stringify(param));
+
+    return this.http.get(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
+  getJustificacionGrillaEndPoint(param?) {
+    const endpointUrl = this._urlNovedades + '/getJustificacionGrilla';
+    const params = new HttpParams()
+      .set('filtro', JSON.stringify(param));
+
+    return this.http.get(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
 
   /*------------POST--------------*/
 
   guardarJornada(param): Observable<any> {
-
-    let endPointUrl = this._urlNovedades + '/guardarJornada';
+    const endPointUrl = this._urlNovedades + '/guardarJornada';
 
     return this.http.post(endPointUrl, JSON.stringify(param), { headers: this.getRequestHeaders() }).pipe(
       catchError(error => {
@@ -102,7 +133,7 @@ export class NovedadesEndPoint {
   }
 
   guardarIncidencia(param): Observable<any> {
-    let endPointUrl = this._urlNovedades + '/guardarIncidencia';
+    const endPointUrl = this._urlNovedades + '/guardarIncidencia';
 
     return this.http.post(endPointUrl, JSON.stringify(param), { headers: this.getRequestHeaders() }).pipe(
       catchError(error => {
@@ -111,7 +142,7 @@ export class NovedadesEndPoint {
   }
 
   anularMarcacionEndPoint(param): Observable<any> {
-    let endPointUrl = this._urlNovedades + '/anularMarcacion';
+    const endPointUrl = this._urlNovedades + '/anularMarcacion';
 
     return this.http.post(endPointUrl, JSON.stringify(param), { headers: this.getRequestHeaders() }).pipe(
       catchError(error => {
@@ -120,7 +151,8 @@ export class NovedadesEndPoint {
   }
 
   guardarMarcacion(param) {
-    let endPointUrl = this._urlNovedades + '/guardarMarcacion';
+    const endPointUrl = this._urlNovedades + '/guardarMarcacion';
+
     return this.http.post(endPointUrl, JSON.stringify(param), { headers: this.getRequestHeaders() }).pipe(
       catchError(error => {
         return this.handleError(error);
@@ -128,7 +160,17 @@ export class NovedadesEndPoint {
   }
 
   guardarJornadaHabitualEndPoint(params) {
-    let endPointUrl = this._urlNovedades + '/guardarJornadaHabitual';
+    const endPointUrl = this._urlNovedades + '/guardarJornadaHabitual';
+
+    return this.http.post(endPointUrl, JSON.stringify(params), { headers: this.getRequestHeaders() }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
+  updJustificacionEndPoint(params) {
+    const endPointUrl = this._urlNovedades + '/updJustificacion';
+
     return this.http.post(endPointUrl, JSON.stringify(params), { headers: this.getRequestHeaders() }).pipe(
       catchError(error => {
         return this.handleError(error);

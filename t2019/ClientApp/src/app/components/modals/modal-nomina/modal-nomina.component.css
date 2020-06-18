@@ -1,0 +1,50 @@
+.contenedor-modal {
+  position: relative;
+  width: 900px;
+  margin: 0 auto;
+}
+
+.mat-dialog-content {
+  margin: 0;
+  max-height: 100%;
+  overflow: inherit;
+}
+
+.btn-close {
+  top: 3px;
+  width: 30px;
+  position: absolute;
+  right: 3px;
+  transition: 0.2s all;
+  border-radius: none;
+}
+
+.btn-close:hover {
+  cursor: pointer;
+  background-color: rgba(200, 200, 200, 0.6);
+  border-radius: 25px;
+}
+
+.filter-input {
+  font-size: 12px;
+}
+
+.ico-seleccion {
+  opacity: 0;
+  transition: 0.2s all;
+  padding: 18px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 19px;
+  left: 13px;
+  position: relative;
+}
+
+.ico-seleccionado {
+  opacity: 1;
+  color: white;
+  background: #007bff !important;
+  border-radius: 18px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+}

@@ -33,8 +33,22 @@ namespace Backend.RRHH.Consultas
 		{
 			return novedadDataAccess.getListJornadasHabituales(param);
 		}
-		
 
+		public IEnumerable<CmbEntity> getIncidenciasJustificaciones(ParamEntity<object> param)
+		{
+			return novedadDataAccess.getIncidenciasJustificaciones(param);
+		}
+
+		public IEnumerable<Nomina> getNominaGrilla(ParamEntity<object> param)
+		{
+			return novedadDataAccess.getNominaGrilla(param);
+		}
+
+		public IEnumerable<Justificacion> getJustificacionGrilla(ParamEntity<Justificacion> param)
+		{
+			return novedadDataAccess.getJustificacionGrilla(param);
+		}
+		
 		/*-------------------------POST-----------------------------*/
 
 		public ResponseHelper guardarJornada(ParamEntity<object> param)
@@ -91,6 +105,18 @@ namespace Backend.RRHH.Consultas
 			}
 			return responseHelper;
 		}
+
+		public ResponseHelper updJustificacion(ParamEntity<Justificacion> param)
+		{
+			var responseHelper = new ResponseHelper();
+			responseHelper = novedadDataAccess.updJustificacion(param);
+			if (!responseHelper.Ok)
+			{
+				responseHelper.Mensaje = "Hubo un problema al guardar los datos";
+			}
+			return responseHelper;
+		}
+		
 
 	}
 }

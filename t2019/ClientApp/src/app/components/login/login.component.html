@@ -1,9 +1,6 @@
 <div class="bg-img-login w-100 d-inline-block h-100 position-absolute" [style.background]="'url(' + bgImage + ')'">
 </div>
 
-<!-- <div class="d-flex justify-content-center align-item-center img-logo position-absolute">
-  <img [src]="logoSniper" alt="">
-</div> -->
 <div id="mySidenav" class="sidenav d-inline-block position-absolute h-100 p-3" [ngStyle]="{'width' : sideNavWidth }">
   <div class="d-flex">
     <mat-card class="login-card p-0">
@@ -14,8 +11,8 @@
       <app-login-ingreso *ngIf="!recuperaCuenta" (setRecuperaCuenta)="switchBoxLogin()"
       (toggleSpinnerEmit)="toggleSpinner($event)"></app-login-ingreso>
 
-      <app-login-recuperar-pass *ngIf="recuperaCuenta" (setIngresoLogin)="switchBoxLogin()"
-      (toggleSpinnerEmit)="toggleSpinner($event)"></app-login-recuperar-pass>
+      <!-- <app-login-recuperar-pass *ngIf="recuperaCuenta" (setIngresoLogin)="switchBoxLogin()"
+      (toggleSpinnerEmit)="toggleSpinner($event)"></app-login-recuperar-pass> -->
     </mat-card>
   </div>
 </div>

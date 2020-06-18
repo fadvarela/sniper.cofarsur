@@ -153,8 +153,9 @@ export class ModalMarcacionComponent implements OnInit {
   }
 
   anularMarcacion() {
-    let marcacion = this.dataSource.data.find(x => x.Seleccionado);
-    let paramEntity = new ParamEntity<Marcacion>();
+    const marcacion = this.dataSource.data.find(x => x.Seleccionado);
+    const paramEntity = new ParamEntity<Marcacion>();
+    paramEntity.GenericEntity = new Marcacion();
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
     paramEntity.GenericEntity.Hora = '';
@@ -164,7 +165,6 @@ export class ModalMarcacionComponent implements OnInit {
     paramEntity.GenericEntity.IdEstado = 0;
     paramEntity.GenericEntity.IdIncidencia = 0;
     paramEntity.GenericEntity.IdMarcacion = marcacion.IdMarcacion;
-
 
     this.novedadesService.anularMarcacion(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {
@@ -184,7 +184,7 @@ export class ModalMarcacionComponent implements OnInit {
       return false;
     }
 
-    let paramEntity = new ParamEntity<Marcacion>();
+    const paramEntity = new ParamEntity<Marcacion>();
     paramEntity.GenericEntity = new Marcacion();
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdLegajo = this.objeto.IdLegajo;

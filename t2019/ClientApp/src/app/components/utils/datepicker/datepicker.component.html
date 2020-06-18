@@ -1,8 +1,8 @@
-<mat-form-field class="date-picker-container m-2">
-  <mat-label>Seleccione fecha</mat-label>
-  <input matInput #inputDate [max]="hoyDate"
+<mat-form-field class="date-picker-container m-2" [ngClass]="dateClass">
+  <mat-label>{{ dateLabel }}</mat-label>
+  <input matInput #inputDate [min]="minDate" [max]="maxDate"
   [matDatepicker]="picker" (dateChange)="getDateEmit()"
      [formControl]="fechaCtrl">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
+  <mat-datepicker #picker [disabled]="disabled"></mat-datepicker>
 </mat-form-field>
