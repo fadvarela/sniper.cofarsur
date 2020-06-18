@@ -16,10 +16,10 @@ import { ParamEntity } from 'src/app/models/general/param.model';
 export class JornadasHabitualesComponent implements OnInit {
   dataSource = new MatTableDataSource<JornadaHabitual>([]);
   displayedColumns: string[] = [
-    'Id Legajo',
     'Sección',
-    'Nombre',
+    'Id Legajo',
     'Apellido',
+    'Nombre',
     'Lunes',
     'Martes',
     'Miércoles',

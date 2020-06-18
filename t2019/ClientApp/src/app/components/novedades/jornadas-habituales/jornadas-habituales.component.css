@@ -58,6 +58,28 @@ td {
 }
 
 .mat-row:hover {
-  background-color: rgba(200, 200, 200, 0.8);
-  cursor: pointer;
+  background-color: rgba(200, 200, 200, 0.8) !important;;
+  cursor: pointer !important;;
+}
+
+.css_hsemanales_mayoracero{
+  background-color: LightGoldenRodYellow;
+  font-weight: bold;
+}
+
+
+.css_jornada_franco{
+  background-color: rgb(202, 215, 233);
+  font-weight: bold;
+}
+
+.css_jornada_libre{
+  background-color: rgb(214, 211, 166);
+  font-style: oblique;
+}
+
+
+
+.css_hsemanales_cero{
+  background-color: rgb(214, 211, 166);
 }
