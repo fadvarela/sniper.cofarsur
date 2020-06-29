@@ -8,7 +8,7 @@ export class Nomina {
   public IdUsuario: number;
   public Dni: number;
   public FechaIngreso: Date;
-  public FechaEgreso: Date;
+  public FechaEgreso?: Date;
   public Seccion: string;
   public Antiguedad: number;
   public Edad: number;

@@ -40,6 +40,7 @@ export class JustificacionesComponent implements OnInit {
   justificacionesList: Justificacion[] = [];
   menuMarcacionOpened = false;
   dateInput: any = '';
+  fechaPicker: Date;
 
   constructor(
     private userValuesService: UserValuesService,
@@ -54,8 +55,8 @@ export class JustificacionesComponent implements OnInit {
   }
 
   getStartDatePickerEmit(value?) {
-    this.justificacion.FechaDesde = value;
-    this.calculaFecha();
+    this.fechaPicker = value;
+    this.calculaFecha(this.fechaPicker);
   }
 
   getEndDatePickerEmit(value?) {
@@ -90,6 +91,7 @@ export class JustificacionesComponent implements OnInit {
 
   postJustificacion() {
     const paramEntity = new ParamEntity<Justificacion>();
+    this.justificacion.FechaDesde = this.fechaPicker;
     paramEntity.GenericEntity = this.justificacion;
     paramEntity.GenericEntity.IdEstado = 0;
     paramEntity.GenericEntity.IdJustificacion = 0;
@@ -101,9 +103,9 @@ export class JustificacionesComponent implements OnInit {
       if (result.Ok) {
         this._snackBar.openSnackBar('snack-success', 'Justificación guardada correctamente', 3000);
         this.getJustificacionesGrilla(paramEntity.IdLegajo);
-        this.justificacion = new Justificacion();
-        this.dateInput = new Date();
-        this.calculaFecha();
+        this.limpiarObjeto();
+        this.dateInput = this.dateInput = new Date();
+        this.calculaFecha(this.fechaPicker);
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }
@@ -124,10 +126,21 @@ export class JustificacionesComponent implements OnInit {
       if (result.Ok) {
         this._snackBar.openSnackBar('snack-success', 'Justificación anulada correctamente', 3000);
         this.getJustificacionesGrilla(paramEntity.IdLegajo);
+        this.limpiarObjeto();
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
+  }
+
+  limpiarObjeto() {
+    const nuevaJustificacion = new Justificacion();
+    Object.assign(nuevaJustificacion, this.justificacion);
+    this.justificacion = new Justificacion();
+    this.justificacion.IdLegajo = nuevaJustificacion.IdLegajo;
+    this.justificacion.Nombre = nuevaJustificacion.Nombre;
+    this.justificacion.Apellido = nuevaJustificacion.Apellido;
+    this.justificacion.Seccion = nuevaJustificacion.Seccion;
   }
 
   openModalNomina() {
@@ -145,9 +158,10 @@ export class JustificacionesComponent implements OnInit {
     });
   }
 
-  calculaFecha() {
+  calculaFecha(fechaPicker?) {
+    fechaPicker = (!fechaPicker) ? this.fechaPicker : fechaPicker;
     if (this.justificacion.Dias > 0 && this.justificacion.Dias < 1000) {
-      const result = new Date(this.justificacion.FechaDesde);
+      const result = new Date(fechaPicker);
       result.setDate(result.getDate() + Number(this.justificacion.Dias));
       this.fechaCalculadaLbl = result.toISOString();
       return;

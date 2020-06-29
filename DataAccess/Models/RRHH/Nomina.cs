@@ -29,7 +29,7 @@ namespace DataAccess.Models.RRHH
 		public DateTime FechaIngreso { get; set; }
 
 		[Column("F_EGRESO")]
-		public DateTime FechaEgreso { get; set; }
+		public DateTime? FechaEgreso { get; set; }
 
 		[Column("SECCION")]
 		public string Seccion { get; set; }

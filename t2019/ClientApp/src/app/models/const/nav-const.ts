@@ -11,14 +11,14 @@ export const getNavMenuList = (): Array<NavEntity> => {
       dropdown: true,
       submenu: [
         {
-          id: 1,
+          id: 2,
           header: 'Configuraciones',
           link: '#',
           disabled: false,
           tooltip: ''
         },
         {
-          id: 1,
+          id: 3,
           header: 'Soporte',
           link: '#',
           disabled: false,
@@ -26,21 +26,21 @@ export const getNavMenuList = (): Array<NavEntity> => {
           dropdown: true,
           submenu: [
             {
-              id: 1,
+              id: 4,
               header: 'ABM Sistema',
               link: '#',
               disabled: false,
               tooltip: ''
             },
             {
-              id: 1,
+              id: 5,
               header: 'ABM Estructuras',
               link: '#',
               disabled: false,
               tooltip: ''
             },
             {
-              id: 1,
+              id: 6,
               header: 'ABM Novedades',
               link: '#',
               disabled: false,
@@ -51,7 +51,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
       ]
     },
     {
-      id: 1,
+      id: 7,
       header: 'Nómina',
       link: '#',
       disabled: false,
@@ -59,7 +59,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
       dropdown: true,
       submenu: [
         {
-          id: 1,
+          id: 8,
           header: 'ABM Personas',
           link: '#',
           disabled: false,
@@ -68,7 +68,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
       ]
     },
     {
-      id: 2,
+      id: 9,
       header: 'Novedades',
       link: '#',
       disabled: false,
@@ -76,21 +76,21 @@ export const getNavMenuList = (): Array<NavEntity> => {
       dropdown: true,
       submenu: [
         {
-          id: 1,
+          id: 10,
           header: 'Jornadas Habituales',
           link: '/jornadas-habituales',
           disabled: false,
           tooltip: ''
         },
         {
-          id: 2,
+          id: 11,
           header: 'Justificaciones',
           link: '/justificaciones',
           disabled: false,
           tooltip: ''
         },
         {
-          id: 3,
+          id: 12,
           header: 'Parte diario',
           link: '/parte-diario',
           disabled: false,
@@ -99,7 +99,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
       ]
     },
     {
-      id: 3,
+      id: 13,
       header: 'Reportes',
       link: '',
       disabled: false,
@@ -107,14 +107,14 @@ export const getNavMenuList = (): Array<NavEntity> => {
       dropdown: true,
       submenu: [
         {
-          id: 1,
+          id: 14,
           header: 'Novedades Consolidadas',
           link: '#',
           disabled: false,
           tooltip: ''
         },
         {
-          id: 2,
+          id: 15,
           header: 'Anomalías',
           link: '#',
           disabled: false,
