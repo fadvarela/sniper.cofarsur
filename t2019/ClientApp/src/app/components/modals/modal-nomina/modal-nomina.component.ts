@@ -14,10 +14,10 @@ import { Marcacion } from 'src/app/models/rrhh/marcacion.model';
 })
 export class ModalNominaComponent implements OnInit {
   displayedColumns: string[] = [
+    'Seccion',
     'IdLegajo',
     'Apellido',
     'Nombre',
-    'Seccion',
     'Cuil',
     'Fingreso',
     'Fegreso',

@@ -10,3 +10,8 @@
   padding: 5px 45px;
   border-radius: 5px;
 }
+
+.css_anulado {
+  background-color: rgba(233, 170, 170, 0.781);
+  font-weight: bold;
+}
