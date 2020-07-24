@@ -4,97 +4,122 @@
       <app-alert [titulo]="'Jornadas Habituales'"></app-alert>
     </div>
   </div>
-  <div class="row mt-3">
-    <div class="col">
-      <div class="mat-elevation-z8 table-container">
-        <table mat-table [dataSource]="dataSource" class="tabla-home">
-
-          <ng-container matColumnDef="Sección">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Sección </th>
-            <td class="border text-left" mat-cell *matCellDef="let element"> {{element.Seccion}} </td>
-          </ng-container>
-
-
-          <ng-container matColumnDef="Id Legajo">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Id Legajo </th>
-            <td class="border text-center" mat-cell *matCellDef="let element"> {{element.IdLegajo}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Apellido">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Apellido </th>
-            <td class="border text-left" mat-cell *matCellDef="let element"> {{element.Apellido}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Nombre">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td class="border text-left" mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Lunes">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Lunes </th>
-            <td class="border text-center" mat-cell *matCellDef="let element"
-            [ngClass]="{'css_jornada_franco': element.NjLunes == 'FRANCO',
-            'css_jornada_libre': element.NjLunes == 'LIBRE'}"> {{element.NjLunes}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Martes">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Martes </th>
-            <td class="border text-center" mat-cell *matCellDef="let element"
-            [ngClass]="{'css_jornada_franco': element.NjMartes == 'FRANCO',
-            'css_jornada_libre': element.NjMartes == 'LIBRE'}"> {{element.NjMartes}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Miércoles">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Miércoles </th>
-            <td class="border text-center" mat-cell *matCellDef="let element"
-            [ngClass]="{'css_jornada_franco': element.NjMiercoles == 'FRANCO',
-            'css_jornada_libre': element.NjMiercoles == 'LIBRE'}"> {{element.NjMiercoles}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Jueves">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Jueves </th>
-            <td class="border text-center" mat-cell *matCellDef="let element"
-            [ngClass]="{'css_jornada_franco': element.NjJueves == 'FRANCO',
-            'css_jornada_libre': element.NjJueves == 'LIBRE'}"> {{element.NjJueves}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Viernes">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Viernes </th>
-            <td class="border text-center" mat-cell *matCellDef="let element"
-            [ngClass]="{'css_jornada_franco': element.NjViernes == 'FRANCO',
-            'css_jornada_libre': element.NjViernes == 'LIBRE'}"> {{element.NjViernes}} </td>
-          </ng-container>
-
-
-          <ng-container matColumnDef="Sábado">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Sábado </th>
-            <td class="border text-center" mat-cell *matCellDef="let element"
-            [ngClass]="{'css_jornada_franco': element.NjSabado == 'FRANCO',
-            'css_jornada_libre': element.NjSabado == 'LIBRE'}"> {{element.NjSabado}} </td>
-          </ng-container>
-
-
-          <ng-container matColumnDef="Domingo">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Domingo </th>
-            <td class="border text-center" mat-cell *matCellDef="let element"
-            [ngClass]="{'css_jornada_franco': element.NjDomingo == 'FRANCO',
-            'css_jornada_libre': element.NjDomingo == 'LIBRE'}"> {{element.NjDomingo}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Hs Semanales">
-            <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Hs Semanales </th>
-            <td class="border text-center" mat-cell *matCellDef="let element"
-            [ngClass]="{'css_hsemanales_cero': element.HsSemanales == 0,
-            'css_hsemanales_mayoracero': element.HsSemanales > 0}"
-            > {{element.HsSemanales}} </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openModalData(row)"></tr>
-        </table>
-
-      </div>
-      <mat-paginator [pageSizeOptions]="[20, 10, 5]"></mat-paginator>
+  <div class="row">
+    <div class="col-2">
+      <mat-form-field class="w-100">
+        <mat-label>Filtrar</mat-label>
+        <input matInput (keyup)="applyFilter($event)">
+      </mat-form-field>
     </div>
   </div>
-</div>
+    <div class="row mt-3">
+      <div class="col">
+        <div class="mat-elevation-z8 table-container">
+          <table mat-table [dataSource]="dataSource" class="tabla-home">
+
+            <ng-container matColumnDef="Sección">
+              <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Sección </th>
+              <td class="border text-left" mat-cell *matCellDef="let element" matTooltip="{{ element.Nombre }}"> {{element.Seccion}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Id Legajo">
+              <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Id Legajo </th>
+              <td class="border text-center" mat-cell *matCellDef="let element" matTooltip="{{ element.IdLegajo }}"> {{element.IdLegajo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Apellido">
+              <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Apellido </th>
+              <td class="border text-left" mat-cell *matCellDef="let element" matTooltip="{{ element.Apellido }}"> {{element.Apellido}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Nombre">
+              <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Nombre </th>
+              <td class="border text-left" mat-cell *matCellDef="let element" matTooltip="{{ element.Nombre }}"> {{element.Nombre}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Lunes">
+              <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Lunes </th>
+              <td class="border text-center" mat-cell *matCellDef="let element"
+                  [ngClass]="{'css_jornada_franco': element.NjLunes == 'FRANCO',
+            'css_jornada_libre': element.NjLunes == 'LIBRE'}" matTooltip="{{ element.NjLunes }}">
+                {{element.NjLunes}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Martes">
+              <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Martes </th>
+              <td class="border text-center" mat-cell *matCellDef="let element"
+                  [ngClass]="{'css_jornada_franco': element.NjMartes == 'FRANCO',
+            'css_jornada_libre': element.NjMartes == 'LIBRE'}" matTooltip="{{ element.NjMartes }}">
+                {{element.NjMartes}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Miércoles">
+              <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Miércoles </th>
+              <td class="border text-center" mat-cell *matCellDef="let element"
+                  [ngClass]="{'css_jornada_franco': element.NjMiercoles == 'FRANCO',
+            'css_jornada_libre': element.NjMiercoles == 'LIBRE'}" matTooltip="{{ element.NjMiercoles }}">
+                {{element.NjMiercoles}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Jueves">
+              <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Jueves </th>
+              <td class="border text-center" mat-cell *matCellDef="let element"
+                  [ngClass]="{'css_jornada_franco': element.NjJueves == 'FRANCO',
+            'css_jornada_libre': element.NjJueves == 'LIBRE'}" matTooltip="{{ element.NjJueves }}">
+                {{element.NjJueves}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Viernes">
+              <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Viernes </th>
+              <td class="border text-center" mat-cell *matCellDef="let element"
+                  [ngClass]="{'css_jornada_franco': element.NjViernes == 'FRANCO',
+            'css_jornada_libre': element.NjViernes == 'LIBRE'}" matTooltip="{{ element.NjViernes }}">
+                {{element.NjViernes}}
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Sábado">
+              <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Sábado </th>
+              <td class="border text-center" mat-cell *matCellDef="let element"
+                  [ngClass]="{'css_jornada_franco': element.NjSabado == 'FRANCO',
+            'css_jornada_libre': element.NjSabado == 'LIBRE'}" matTooltip="{{ element.NjSabado }}">
+                {{element.NjSabado}}
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Domingo">
+              <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Domingo </th>
+              <td class="border text-center" mat-cell *matCellDef="let element"
+                  [ngClass]="{'css_jornada_franco': element.NjDomingo == 'FRANCO',
+            'css_jornada_libre': element.NjDomingo == 'LIBRE'}" matTooltip="{{ element.NjDomingo }}">
+                {{element.NjDomingo}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Hs Semanales">
+              <th class="border bg-secondary  text-white text-center" mat-header-cell *matHeaderCellDef> Hs Semanales </th>
+              <td class="border text-center" mat-cell *matCellDef="let element"
+                  [ngClass]="{'css_hsemanales_cero': element.HsSemanales == 0,
+                  'css_hsemanales_mayoracero' : element.HsSemanales>
+                0}"
+                matTooltip="{{ element.HsSemanales }}"
+                > {{element.HsSemanales}}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openModalData(row)"></tr>
+          </table>
+
+        </div>
+        <mat-paginator [pageSizeOptions]="[100,50,10]"></mat-paginator>
+      </div>
+    </div>
+  </div>

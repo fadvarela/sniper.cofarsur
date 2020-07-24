@@ -134,11 +134,11 @@
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-          [ngClass]="{'css_anulado': row.IdEstado === 0, hovered: row.hovered, sombreado: row.Seleccionado}"
+          [ngClass]="{'css_anulado': row.Nestado === 'Anulado', hovered: row.hovered, sombreado: row.Seleccionado}"
           (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[20, 10]"></mat-paginator>
     </div>
   </div>
 </div>

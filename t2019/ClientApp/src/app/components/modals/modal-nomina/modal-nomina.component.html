@@ -10,24 +10,24 @@
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
+    <ng-container matColumnDef="Seccion">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Seccion </th>
+      <td mat-cell *matCellDef="let element" class="text-left"> {{element.Seccion}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="IdLegajo">
       <th mat-header-cell *matHeaderCellDef class="text-center"> Id Legajo </th>
-      <td mat-cell *matCellDef="let element" class="text-center"> {{element.IdLegajo}} </td>
+      <td mat-cell *matCellDef="let element" class="text-left"> {{element.IdLegajo}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Apellido">
       <th mat-header-cell *matHeaderCellDef class="text-center"> Apellido </th>
-      <td mat-cell *matCellDef="let element" class="text-center"> {{element.Apellido}} </td>
+      <td mat-cell *matCellDef="let element" class="text-left"> {{element.Apellido}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Nombre">
       <th mat-header-cell *matHeaderCellDef class="text-center"> Nombre </th>
-      <td mat-cell *matCellDef="let element" class="text-center"> {{element.Nombre}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Seccion">
-      <th mat-header-cell *matHeaderCellDef class="text-center"> Seccion </th>
-      <td mat-cell *matCellDef="let element" class="text-center"> {{element.Seccion}} </td>
+      <td mat-cell *matCellDef="let element" class="text-left"> {{element.Nombre}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Cuil">
@@ -54,10 +54,11 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-    [ngClass]="{sombreado: row.Seleccionado, hovered: row.Hovered}" (mouseover)="row.Hovered = true" (mouseout)="row.Hovered = false"
-    (click)="getRowData(row)"></tr>
+        [ngClass]="{'css_anulado': row.FechaEgreso !== null, hovered: row.hovered, sombreado: row.Seleccionado}"
+        (mouseover)="row.Hovered = true" (mouseout)="row.Hovered = false"
+        (click)="getRowData(row)"></tr>
 
   </table>
-  <mat-paginator [pageSizeOptions]="[6, 10]"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[100, 50, 10]"></mat-paginator>
 
 </div>
