@@ -66,6 +66,17 @@ export class NovedadesEndPoint {
       }));
   }
 
+  getListPatologiasEndPoint(filtro) {
+    const endpointUrl = this._urlNovedades + '/getListPatologias';
+    const params = new HttpParams()
+      .set('filtro', (filtro) ? JSON.stringify(filtro) : '');
+
+    return this.http.get(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
   getListMarcacionesEndPoint<T>(param?): Observable<T> {
     const endpointUrl = this._urlNovedades + '/getListMarcaciones';
     const params = new HttpParams()
@@ -112,6 +123,17 @@ export class NovedadesEndPoint {
 
   getJustificacionGrillaEndPoint(param?) {
     const endpointUrl = this._urlNovedades + '/getJustificacionGrilla';
+    const params = new HttpParams()
+      .set('filtro', JSON.stringify(param));
+
+    return this.http.get(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
+  getIncidenciasGrillaEndPoint(param?) {
+    const endpointUrl = this._urlNovedades + '/getIncidenciasGrillaModal';
     const params = new HttpParams()
       .set('filtro', JSON.stringify(param));
 

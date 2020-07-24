@@ -80,6 +80,7 @@ import { ModalJornadasHabitualesComponent } from './components/modals/modal-jorn
 import { ModalConfirmacionComponent } from './components/modals/modal-confirmacion/modal-confirmacion.component';
 import { JustificacionesComponent } from './components/novedades/justificaciones/justificaciones.component';
 import { ModalNominaComponent } from './components/modals/modal-nomina/modal-nomina.component';
+import { AvisosComponent } from './components/novedades/avisos/avisos.component';
 
 declare var $: any;
 registerLocaleData(localeEsAr, 'es-AR');
@@ -102,7 +103,8 @@ registerLocaleData(localeEsAr, 'es-AR');
     ModalJornadasHabitualesComponent,
     ModalConfirmacionComponent,
     JustificacionesComponent,
-    ModalNominaComponent
+    ModalNominaComponent,
+    AvisosComponent
   ],
   entryComponents: [
     ModalMarcacionComponent,

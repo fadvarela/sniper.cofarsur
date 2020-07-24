@@ -18,6 +18,8 @@ namespace DataAccess.Models.Sistema.Helper
 		public long IdMarcacion { get; set; }
 		public T GenericEntity { get; set; }
 		public T Tipo { get; set; }
+		public long IdPatologia { get; set; }
+		
 		
 	}
 }

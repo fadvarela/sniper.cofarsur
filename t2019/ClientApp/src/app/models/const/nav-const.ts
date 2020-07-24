@@ -84,13 +84,20 @@ export const getNavMenuList = (): Array<NavEntity> => {
         },
         {
           id: 11,
+          header: 'Avisos',
+          link: '/avisos',
+          disabled: false,
+          tooltip: ''
+        },
+        {
+          id: 12,
           header: 'Justificaciones',
           link: '/justificaciones',
           disabled: false,
           tooltip: ''
         },
         {
-          id: 12,
+          id: 13,
           header: 'Parte diario',
           link: '/parte-diario',
           disabled: false,
@@ -99,7 +106,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
       ]
     },
     {
-      id: 13,
+      id: 14,
       header: 'Reportes',
       link: '',
       disabled: false,
@@ -107,14 +114,14 @@ export const getNavMenuList = (): Array<NavEntity> => {
       dropdown: true,
       submenu: [
         {
-          id: 14,
+          id: 15,
           header: 'Novedades Consolidadas',
           link: '#',
           disabled: false,
           tooltip: ''
         },
         {
-          id: 15,
+          id: 16,
           header: 'Anomalías',
           link: '#',
           disabled: false,

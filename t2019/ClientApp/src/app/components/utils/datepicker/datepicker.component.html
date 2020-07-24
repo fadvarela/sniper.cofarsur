@@ -1,4 +1,4 @@
-<mat-form-field class="date-picker-container m-2" [ngClass]="dateClass">
+<mat-form-field class="date-picker-container" [ngClass]="{ dateClass: dateClass, 'w-100': fullWidth }">
   <mat-label>{{ dateLabel }}</mat-label>
   <input matInput #inputDate [min]="minDate" [max]="maxDate"
   [matDatepicker]="picker" (dateChange)="getDateEmit()"

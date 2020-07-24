@@ -27,6 +27,10 @@ export class NovedadesService {
     return this.novedadesEndPoint.getListIncidenciasEndPoint(filtro);
   }
 
+  getListPatologias(params?: ParamEntity<any>) {
+    return this.novedadesEndPoint.getListPatologiasEndPoint(params);
+  }
+
   getListMarcaciones(params?: ParamEntity<any>): Observable<Marcacion[]> {
     return this.novedadesEndPoint.getListMarcacionesEndPoint(params);
   }
@@ -45,6 +49,10 @@ export class NovedadesService {
 
   getJustificacionGrilla(params?: ParamEntity<any>) {
     return this.novedadesEndPoint.getJustificacionGrillaEndPoint(params);
+  }
+
+  getIncidenciasGrilla(params?: ParamEntity<any>) {
+    return this.novedadesEndPoint.getIncidenciasGrillaEndPoint(params);
   }
 
   /*--------POST-----------*/

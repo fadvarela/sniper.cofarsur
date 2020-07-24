@@ -14,14 +14,19 @@ namespace Backend.RRHH.Consultas
 			return novedadDataAccess.GetNovedades(filtro);
 		}
 
-		public IEnumerable<CmbEntity> getListJornadas(long? filtro)
+		public IEnumerable<CmbEntity<object>> getListJornadas(long? filtro)
 		{
 			return novedadDataAccess.getListJornadas(filtro);
 		}
 
-		public IEnumerable<CmbEntity> getListIncidencias(List<string> filtros)
+		public IEnumerable<CmbEntity<long>> getListIncidencias(List<string> filtros)
 		{
 			return novedadDataAccess.getListIncidencias(filtros);
+		}
+
+		public IEnumerable<CmbEntity<long>> getListPatologias(ParamEntity<object> filtros)
+		{
+			return novedadDataAccess.getListPatologias(filtros);
 		}
 
 		public IEnumerable<Marcacion> getListMarcaciones(ParamEntity<object> param)
@@ -34,7 +39,7 @@ namespace Backend.RRHH.Consultas
 			return novedadDataAccess.getListJornadasHabituales(param);
 		}
 
-		public IEnumerable<CmbEntity> getIncidenciasJustificaciones(ParamEntity<object> param)
+		public IEnumerable<CmbEntity<object>> getIncidenciasJustificaciones(ParamEntity<object> param)
 		{
 			return novedadDataAccess.getIncidenciasJustificaciones(param);
 		}
@@ -48,7 +53,12 @@ namespace Backend.RRHH.Consultas
 		{
 			return novedadDataAccess.getJustificacionGrilla(param);
 		}
-		
+
+		public IEnumerable<Incidencia> getIncidenciasGrillaModal(ParamEntity<object> param)
+		{
+			return novedadDataAccess.getIncidenciasGrillaModal(param);
+		}
+
 		/*-------------------------POST-----------------------------*/
 
 		public ResponseHelper guardarJornada(ParamEntity<object> param)
@@ -62,10 +72,32 @@ namespace Backend.RRHH.Consultas
 			return responseHelper;
 		}
 
-		public ResponseHelper guardarIncidencia(ParamEntity<object> param)
+		public ResponseHelper guardarIncidencia(ParamEntity<Novedad> param)
 		{
 			var responseHelper = new ResponseHelper();
 			responseHelper = novedadDataAccess.guardarIncidencia(param);
+			if (!responseHelper.Ok)
+			{
+				responseHelper.Mensaje = "Hubo un problema al guardar los datos";
+			}
+			return responseHelper;
+		}
+
+		public ResponseHelper guardarObservacionIncidencia(ParamEntity<Novedad> param)
+		{
+			var responseHelper = new ResponseHelper();
+			responseHelper = novedadDataAccess.guardarObservacionIncidencia(param);
+			if (!responseHelper.Ok)
+			{
+				responseHelper.Mensaje = "Hubo un problema al guardar los datos";
+			}
+			return responseHelper;
+		}
+
+		public ResponseHelper guardarPatologiaIncidencia(ParamEntity<Novedad> param)
+		{
+			var responseHelper = new ResponseHelper();
+			responseHelper = novedadDataAccess.guardarPatologiaIncidencia(param);
 			if (!responseHelper.Ok)
 			{
 				responseHelper.Mensaje = "Hubo un problema al guardar los datos";

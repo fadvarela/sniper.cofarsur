@@ -9,7 +9,7 @@ import { NgxMaterialTimepickerModule, NgxMaterialTimepickerTheme } from 'ngx-mat
 export class TimepickerComponent implements OnInit {
   txtTimePicker;
   @Input() setDarkMode = false;
-  tiempoActual: string;
+  @Input() tiempoActual: string;
   @Input() isDisabled: boolean;
   @Output() timePickerEmit = new EventEmitter();
 
@@ -33,7 +33,6 @@ export class TimepickerComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   getTimeValueEmit(value) {

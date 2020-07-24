@@ -1,23 +1,22 @@
-import { ModalNominaComponent } from './../../modals/modal-nomina/modal-nomina.component';
-import { ParamEntity } from './../../../models/general/param.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
-import { Marcacion } from 'src/app/models/rrhh/marcacion.model';
+import { Justificacion } from 'src/app/models/rrhh/justificacion.model';
 import { UserValuesService } from 'src/app/services/utils/user-values.service';
 import { NovedadesService } from 'src/app/services/rrhh/novedades/novedades.service';
+import { SnackBarService } from 'src/app/services/utils/snackBar.service';
 import { CmbEntity } from 'src/app/models/general/cmbEntity.model';
-import { Justificacion } from 'src/app/models/rrhh/justificacion.model';
+import { ModalConfirmacionComponent } from '../../modals/modal-confirmacion/modal-confirmacion.component';
+import { ModalNominaComponent } from '../../modals/modal-nomina/modal-nomina.component';
 import { Nomina } from 'src/app/models/rrhh/nomina.model';
 import { ResponseHelper } from 'src/app/models/sistema/responseHelper';
-import { SnackBarService } from 'src/app/services/utils/snackBar.service';
-import { ModalConfirmacionComponent } from '../../modals/modal-confirmacion/modal-confirmacion.component';
+import { ParamEntity } from 'src/app/models/general/param.model';
 
 @Component({
-  selector: 'app-justificaciones',
-  templateUrl: './justificaciones.component.html',
-  styleUrls: ['./justificaciones.component.css']
+  selector: 'app-avisos',
+  templateUrl: './avisos.component.html',
+  styleUrls: ['./avisos.component.css']
 })
-export class JustificacionesComponent implements OnInit {
+export class AvisosComponent implements OnInit {
   startDateValue;
   endDateValue;
   displayedColumns: string[] = [

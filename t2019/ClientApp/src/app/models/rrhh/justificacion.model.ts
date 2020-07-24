@@ -11,4 +11,5 @@ export class Justificacion extends Nomina {
   Nestado: string;
   Dias: number;
   IdJustificacion: number;
+  IdPatologia: number;
 }

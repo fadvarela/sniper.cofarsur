@@ -19,6 +19,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
   @Input() emitOnInit: boolean;
   @Input() disabled = false;
   @Input() fechaCtrl: FormControl; //  = new FormControl((new Date()).toISOString());
+  @Input() fullWidth = false;
 
   constructor(private dateAdapter?: DateAdapter<any>) { }
 

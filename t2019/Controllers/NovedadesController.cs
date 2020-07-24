@@ -76,6 +76,26 @@ namespace t2019.Controllers
 			}
 		}
 
+		[HttpGet("getListPatologias")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult getListPatologias([FromQuery]string filtro)
+		{
+			try
+			{
+				// Si el objeto que viene por parametro contiene algun valor, lo convierto con la funcion de JSON.
+				// sino lo guardo como NULL
+				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity<object>>(filtro) : null;
+				var result = novedadBackend.getListPatologias(paramObj);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
 		[HttpGet("getListMarcaciones")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -175,7 +195,27 @@ namespace t2019.Controllers
 				return BadRequest(ex.Message);
 			}
 		}
-		
+
+		[HttpGet("getIncidenciasGrillaModal")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult getIncidenciasGrillaModal([FromQuery]string filtro)
+		{
+			try
+			{
+				// Si el objeto que viene por parametro contiene algun valor, lo convierto con la funcion de JSON.
+				// sino lo guardo como NULL
+				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity<object>>(filtro) : null;
+				var result = novedadBackend.getIncidenciasGrillaModal(paramObj);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
 
 		/*-------------------------POST-----------------------------*/
 
@@ -200,11 +240,20 @@ namespace t2019.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[Consumes(MediaTypeNames.Application.Json)]
-		public IActionResult guardarIncidencia([FromBody]ParamEntity<object> param)
+		public IActionResult guardarIncidencia([FromBody]ParamEntity<Novedad> param)
 		{
 			try
 			{
 				var result = novedadBackend.guardarIncidencia(param);
+				if(result.Ok)
+				{
+					var resultObservacion = novedadBackend.guardarObservacionIncidencia(param);
+					if(resultObservacion.Ok && param.IdPatologia != -1)
+					{
+						var resultPatologia = novedadBackend.guardarPatologiaIncidencia(param);
+						return Ok(resultPatologia);
+					}
+				}
 				return Ok(result);
 			}
 			catch (Exception ex)

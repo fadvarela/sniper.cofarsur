@@ -16,4 +16,7 @@ export class Novedades extends Nomina {
   public Hausencia: number;
   public Fecha: DateTimeEntity;
   public FechaDate: Date;
+  public Observaciones: string;
+  public IdPatologia: number;
+  public Npatologia: string;
 }

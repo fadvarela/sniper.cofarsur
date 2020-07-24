@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row mb-4">
     <div class="col-6 mx-auto text-center text-white">
-      <app-alert [titulo]="'Justificaciones'"></app-alert>
+      <app-alert [titulo]="'Avisos'"></app-alert>
     </div>
   </div>
   <div class="row">
@@ -38,9 +38,9 @@
     <div class="col-4">
       <mat-form-field class="w-100 select-form-field">
         <mat-label>Patología</mat-label>
-        <mat-select [disabled]="!justificacion.IdLegajo" [(ngModel)]="justificacion.IdIncidencia"
+        <mat-select [disabled]="!justificacion.IdPatologia" [(ngModel)]="justificacion.IdPatologia"
           (selectionChange)="getSeleccionPatologia($event)">
-          <mat-option *ngFor="let item of listPatologiasCmb" [matTooltip]="item.Detalle" [value]="item.Id">
+          <mat-option *ngFor="let item of listJustificacionesCmb" [matTooltip]="item.Detalle" [value]="item.Id">
             {{ item.Detalle }}
           </mat-option>
         </mat-select>

@@ -12,4 +12,5 @@ export class ParamEntity<T> {
   IdIncidencia: number;
   GenericEntity: T;
   Tipo: any;
+  IdPatologia: number;
 }

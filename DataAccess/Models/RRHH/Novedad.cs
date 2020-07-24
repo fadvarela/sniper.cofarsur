@@ -4,8 +4,6 @@ namespace DataAccess.Models.RRHH
 {
 	public class Novedad : Nomina
 	{
-		[Column("SECCION")]
-		public string Seccion { get; set; }
 
 		[Column("ID_JORNADA")]
 		public long IdJornada { get; set; }
@@ -39,5 +37,8 @@ namespace DataAccess.Models.RRHH
 
 		[Column("H_AUSENCIA")]
 		public decimal Hausencia { get; set; }
+
+		[Column("OBSERVACIONES")]
+		public string Observaciones { get; set; }
 	}
 }

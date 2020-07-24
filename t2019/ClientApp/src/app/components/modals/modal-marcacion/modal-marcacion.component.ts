@@ -1,3 +1,4 @@
+import { NovedadesEndPoint } from './../../../services/rrhh/novedades/novedades-endpoint';
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Marcacion } from 'src/app/models/rrhh/marcacion.model';
@@ -10,6 +11,7 @@ import { SnackBarService } from 'src/app/services/utils/snackBar.service';
 import { ParamEntity } from 'src/app/models/general/param.model';
 import { ResponseHelper } from 'src/app/models/sistema/responseHelper';
 import { ModalConfirmacionComponent } from '../modal-confirmacion/modal-confirmacion.component';
+import { Incidencia } from 'src/app/models/rrhh/incidencia.model';
 
 @Component({
   selector: 'app-modal-marcacion',
@@ -18,7 +20,7 @@ import { ModalConfirmacionComponent } from '../modal-confirmacion/modal-confirma
 })
 export class ModalMarcacionComponent implements OnInit {
 
-  displayedColumns: string[] = [
+  marcacionColumns: string[] = [
     'Hora',
     'Tipo Marcación',
     'Fuente Marcación',
@@ -27,13 +29,25 @@ export class ModalMarcacionComponent implements OnInit {
     'Incidencia',
     'Foto'
   ];
-  dataSource = new MatTableDataSource<Marcacion>([]);
+
+  incidenciaColumns: string[] = [
+    'Incidencia',
+    'Observaciones',
+    'Estado',
+    'Patologia',
+    'Fecha Modificacion',
+    'Id Usuario'
+  ];
+
+  dataSourceMarcacion = new MatTableDataSource<Marcacion>([]);
+  dataSourceIncidencia = new MatTableDataSource<Incidencia>([]);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   objeto: Novedades;
   titulo: string;
   novedad;
   lstJornadas: CmbEntity[] = [];
   lstIncidencias: CmbEntity[] = [];
+  lstPatologias: CmbEntity[] = [];
   usuario: Usuario;
   isBtnGuardarJornada = false;
   isBtnGuardarMarcacion = false;
@@ -43,6 +57,8 @@ export class ModalMarcacionComponent implements OnInit {
   isBtnAnularMarcacion = true;
   isBtnHabilitarMarcacion = true;
   timePickerValue: string;
+  tiempoActualReset: string;
+  cmbPatologiaHabilitado: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<ModalMarcacionComponent>,
@@ -53,14 +69,18 @@ export class ModalMarcacionComponent implements OnInit {
     private _snackBar: SnackBarService) {
     this.usuario = this.userValuesService.getUsuarioValues;
     this.objeto = data.obj;
+    this.objeto.IdIncidencia = null;
+    this.objeto.IdPatologia = -1; // seteo ese valor en caso de que no se guarde ningun dato al guardar la incidencia
     this.loadMarcaciones();
+    this.loadIncidencias();
     this.titulo = this.data.titulo;
   }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    this.dataSourceMarcacion.paginator = this.paginator;
     this.loadJornadasCmb();
     this.loadIncidenciasCmb();
+    this.loadPatologiasCmb();
   }
 
   loadJornadasCmb() {
@@ -73,10 +93,24 @@ export class ModalMarcacionComponent implements OnInit {
     let params = [];
     params.push(null);
     params.push(this.usuario.IdRol);
-    params.push(this.userValuesService.getUsuarioValues.IdEmpresa); // idEmpresa luego obtener el valido
+    params.push(this.userValuesService.getUsuarioValues.IdEmpresa);
 
     this.novedadesService.getListIncidencias(params).subscribe((result: CmbEntity[]) => {
       this.lstIncidencias = result;
+      this.setMostrarCmbPatologia();
+    });
+  }
+
+  loadPatologiasCmb() {
+    let paramEntity = new ParamEntity<object>();
+    paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
+    paramEntity.IdLegajo = this.objeto.IdLegajo;
+    paramEntity.FechaDate = this.objeto.FechaDate;
+    paramEntity.IdPatologia = 0;
+
+    this.novedadesService.getListPatologias(paramEntity).subscribe((result: CmbEntity[]) => {
+      this.lstPatologias = result;
+
     });
   }
 
@@ -86,7 +120,17 @@ export class ModalMarcacionComponent implements OnInit {
     paramEntity.IdLegajo = this.objeto.IdLegajo;
     paramEntity.FechaDate = this.objeto.FechaDate;
     this.novedadesService.getListMarcaciones(paramEntity).subscribe((result: Marcacion[]) => {
-      this.dataSource.data = result;
+      this.dataSourceMarcacion.data = result;
+    }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
+  }
+
+  loadIncidencias() {
+    let paramEntity = new ParamEntity<object>();
+    paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
+    paramEntity.IdLegajo = this.objeto.IdLegajo;
+    paramEntity.FechaDate = this.objeto.FechaDate;
+    this.novedadesService.getIncidenciasGrilla(paramEntity).subscribe((result: Incidencia[]) => {
+      this.dataSourceIncidencia.data = result;
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
   }
 
@@ -106,6 +150,13 @@ export class ModalMarcacionComponent implements OnInit {
 
   getSeleccionIncidencia(e) {
     this.objeto.IdIncidencia = e.value;
+    // valido si el objeto seleccionado del combo tiene
+    // el valor 1 para poder habilitar el combo de patologias
+    this.setMostrarCmbPatologia();
+  }
+
+  getSeleccionPatologia(e) {
+    this.objeto.IdPatologia = e.value;
   }
 
   guardarJornada() {
@@ -122,7 +173,6 @@ export class ModalMarcacionComponent implements OnInit {
     this.novedadesService.guardarJornada(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {
         this._snackBar.openSnackBar('snack-success', 'Jornada guardada correctamente', 3000);
-        this.cerrarModal();
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }
@@ -134,17 +184,22 @@ export class ModalMarcacionComponent implements OnInit {
   guardarIncidencia() {
     this.isBtnGuardarIncidencia = true; // deshabilito en boton
 
-    let paramEntity = new ParamEntity<object>();
+    let paramEntity = new ParamEntity<Novedades>();
+    paramEntity.GenericEntity = new Novedades();
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
     paramEntity.FechaDate = this.objeto.FechaDate;
     paramEntity.IdIncidencia = this.objeto.IdIncidencia;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
+    paramEntity.IdPatologia = this.objeto.IdPatologia;
+    paramEntity.GenericEntity.Observaciones = this.objeto.Observaciones;
 
     this.novedadesService.guardarIncidencia(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {
         this._snackBar.openSnackBar('snack-success', 'Incidencia guardada correctamente', 3000);
-        this.cerrarModal();
+        this.objeto.Observaciones = '';
+        this.objeto.IdIncidencia = null;
+        this.loadIncidencias();
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }
@@ -153,7 +208,7 @@ export class ModalMarcacionComponent implements OnInit {
   }
 
   anularMarcacion() {
-    const marcacion = this.dataSource.data.find(x => x.Seleccionado);
+    const marcacion = this.dataSourceMarcacion.data.find(x => x.Seleccionado);
     const paramEntity = new ParamEntity<Marcacion>();
     paramEntity.GenericEntity = new Marcacion();
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
@@ -206,11 +261,12 @@ export class ModalMarcacionComponent implements OnInit {
       }
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
     this.isBtnGuardarMarcacion = false;
-    this.setHorarioHabilitado = false;
+    this.setHorarioHabilitado = true;
+    this.tiempoActualReset = '';
   }
 
   getRowData(marcacion: Marcacion) {
-    this.dataSource.data.forEach(element => {
+    this.dataSourceMarcacion.data.forEach(element => {
       if (element && element !== marcacion) {
         element.Seleccionado = false;
       }
@@ -237,6 +293,7 @@ export class ModalMarcacionComponent implements OnInit {
   }
 
   openModalData(tipo) {
+
     let titulo = '¿Desea guardar la ';
     switch (tipo) {
       case 'jornada':
@@ -277,6 +334,10 @@ export class ModalMarcacionComponent implements OnInit {
         }
       }
     });
+  }
+
+  setMostrarCmbPatologia() {
+    this.cmbPatologiaHabilitado = this.objeto.IdIncidencia && this.lstIncidencias.find(x => x.Id === this.objeto.IdIncidencia).IdPreSet === 1;
   }
 
 }
