@@ -104,7 +104,7 @@ namespace DataAccess.Access.Peticiones
 			return result;
 		}
 
-		public IEnumerable<CmbEntity<object>> getIncidenciasJustificaciones(ParamEntity<object> param)
+		public IEnumerable<CmbEntity<long>> getIncidenciasJustificaciones(ParamEntity<long> param)
 		{
 			var parametros = new List<object>()
 			{
@@ -114,7 +114,7 @@ namespace DataAccess.Access.Peticiones
 			};
 
 			var sqlQuery = "SP_JUSTIF_INCIDENCIAS_GET";
-			var result = MAccess.GetSavantList<MySqlConnection, CmbEntity<object>>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+			var result = MAccess.GetSavantList<MySqlConnection, CmbEntity<long>>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
 			return result;
 		}
@@ -191,7 +191,7 @@ namespace DataAccess.Access.Peticiones
 			{
 				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa},
 				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
-				new MySqlParameter(){ ParameterName = "P_FECHA", Value = param.FechaDate.Date },
+				new MySqlParameter(){ ParameterName = "P_FECHA", Value = param.FechaDateArray[0].Date },
 				new MySqlParameter(){ ParameterName = "P_ID_INCIDENCIA",Value = param.IdIncidencia },
 				new MySqlParameter(){ ParameterName = "P_ID_USUARIO",Value = param.IdUsuario }
 			};
@@ -221,13 +221,14 @@ namespace DataAccess.Access.Peticiones
 			return responseHelper;
 		}
 
-		public ResponseHelper guardarPatologiaIncidencia(ParamEntity<Novedad> param)
+		public ResponseHelper guardarPatologiaIncidencia(ParamEntity<dynamic> param)
 		{
 			var parametros = new List<object>()
 			{
 				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa},
 				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
-				new MySqlParameter(){ ParameterName = "P_FECHA", Value = param.FechaDate.Date },
+				new MySqlParameter(){ ParameterName = "P_FECHA_DESDE", Value = param.FechaDateArray[0].Date },
+				new MySqlParameter(){ ParameterName = "P_FECHA_HASTA", Value = param.FechaDateArray[1].Date },
 				new MySqlParameter(){ ParameterName = "P_ID_PATOLOGIA",Value = param.IdPatologia },
 				new MySqlParameter(){ ParameterName = "P_ID_USUARIO",Value = param.IdUsuario }
 			};

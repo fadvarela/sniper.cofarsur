@@ -35,110 +35,110 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-4">
-      <mat-form-field class="w-100 select-form-field">
-        <mat-label>Patología</mat-label>
-        <mat-select [disabled]="!justificacion.IdLegajo" [(ngModel)]="justificacion.IdIncidencia"
-          (selectionChange)="getSeleccionPatologia($event)">
-          <mat-option *ngFor="let item of listPatologiasCmb" [matTooltip]="item.Detalle" [value]="item.Id">
-            {{ item.Detalle }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="col-4" *ngIf="cmbPatologiaHabilitado">
+        <mat-form-field class="w-100 select-form-field">
+          <mat-label>Patología</mat-label>
+          <mat-select [(ngModel)]="justificacion.IdPatologia" (selectionChange)="getSeleccionPatologia($event)">
+            <mat-option *ngFor="let item of listPatologiasCmb" [matTooltip]="item.Detalle" [value]="item.Id">
+              {{ item.Detalle }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4 text-center">
+        <app-datepicker (dateEmit)="getStartDatePickerEmit($event)" [dateClass]="'datePickerMargin'"
+          [dateLabel]="'Desde'" [emitOnInit]="true" [disabled]="!justificacion.IdLegajo" [dateInput]="dateInput"
+          [fullWidth]="true"></app-datepicker>
+      </div>
+      <div class="col-4 text-center">
+        <mat-form-field>
+          <mat-label>Días</mat-label>
+          <input [disabled]="!justificacion.IdLegajo" type="text" matInput placeholder="Ingrese hasta 3 dígitos"
+            [(ngModel)]="justificacion.Dias" (blur)="calculaFecha()" (keydown)="soloNumeros($event)" maxlength="3">
+        </mat-form-field>
+      </div>
+      <div class="col-4 text-center d-flex justify-content-center align-items-center" *ngIf="fechaCalculadaLbl">
+        <mat-label class="label-legajo shadow-sm">{{ fechaCalculadaLbl | date: 'dd/MM/yyyy' }}</mat-label>
+      </div>
+
+    </div>
+    <div class="row justify-content-center">
+      <div class="col">
+        <mat-form-field class="w-100">
+          <mat-label>Observaciones</mat-label>
+          <textarea [disabled]="!justificacion.IdLegajo" matInput [(ngModel)]="justificacion.Observaciones"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-4">
+        <button mat-stroked-button color="primary" (click)="openModalConfirmacion()"
+          [disabled]="!justificacion.IdLegajo">Guardar</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-parte-diario">
+          <ng-container matColumnDef="Id Justificación">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Id Justificación </th>
+            <td mat-cell *matCellDef="let element" class="text-center"> {{element.IdJustificacion}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Id Incidencia">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Id Incidencia </th>
+            <td mat-cell *matCellDef="let element" class="text-center"> {{element.IdIncidencia}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="N Incidencia">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> N Incidencia </th>
+            <td mat-cell *matCellDef="let element" matTooltip="{{ element.Nincidencia }}" class="text-left">
+              {{element.Nincidencia}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Desde">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Desde </th>
+            <td mat-cell *matCellDef="let element" class="text-center"> {{element.FechaDesde | date:'dd/MM/yyyy'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Hasta">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Hasta </th>
+            <td mat-cell *matCellDef="let element" class="text-center"> {{element.FechaHasta | date:'dd/MM/yyyy'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Estado">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Estado </th>
+            <td mat-cell *matCellDef="let element" class="text-center"> {{element.Nestado}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Observación">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Observación </th>
+            <td mat-cell *matCellDef="let element" matTooltip="{{element.Observaciones}}" class="text-left">
+              {{element.Observaciones}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Acción">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Acción </th>
+            <td mat-cell *matCellDef="let element" class="pl-0 text-center">
+              <mat-icon matTooltip="Anular" class="icon-action" [matMenuTriggerFor]="menu" *ngIf="element.IdEstado > 0"
+                (menuOpened)="toggleMenuOpened()" (menuClosed)="toggleMenuOpened()">close</mat-icon>
+              <mat-menu #menu="matMenu" class="p-3 text-center menu-marcacion">
+                <p>¿Anular justificación?</p>
+                <button cdkFocusInitial mat-stroked-button color="primary" class="m-2"
+                  (click)="anularJustificacion(element)">Si</button>
+                <button mat-stroked-button class="m-2">No</button>
+              </mat-menu>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            [ngClass]="{'css_anulado': row.Nestado === 'Anulado', hovered: row.hovered, sombreado: row.Seleccionado}"
+            (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[20, 10]"></mat-paginator>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-4 text-center">
-      <app-datepicker (dateEmit)="getStartDatePickerEmit($event)" [dateClass]="'datePickerMargin'" [dateLabel]="'Desde'"
-        [emitOnInit]="true" [disabled]="!justificacion.IdLegajo" [dateInput]="dateInput" [fullWidth]="true"></app-datepicker>
-    </div>
-    <div class="col-4 text-center">
-      <mat-form-field>
-        <mat-label>Días</mat-label>
-        <input [disabled]="!justificacion.IdLegajo" type="text" matInput placeholder="Ingrese hasta 3 dígitos"
-          [(ngModel)]="justificacion.Dias" (blur)="calculaFecha()" (keydown)="soloNumeros($event)" maxlength="3">
-      </mat-form-field>
-    </div>
-    <div class="col-4 text-center d-flex justify-content-center align-items-center" *ngIf="fechaCalculadaLbl">
-      <mat-label class="label-legajo shadow-sm">{{ fechaCalculadaLbl | date: 'dd/MM/yyyy' }}</mat-label>
-    </div>
-
-  </div>
-  <div class="row justify-content-center">
-    <div class="col">
-      <mat-form-field class="w-100">
-        <mat-label>Observaciones</mat-label>
-        <textarea [disabled]="!justificacion.IdLegajo" matInput [(ngModel)]="justificacion.Observaciones"></textarea>
-      </mat-form-field>
-    </div>
-  </div>
-  <div class="row mb-3">
-    <div class="col-4">
-      <button mat-stroked-button color="primary" (click)="openModalConfirmacion()"
-        [disabled]="!justificacion.IdLegajo">Guardar</button>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-parte-diario">
-        <ng-container matColumnDef="Id Justificación">
-          <th mat-header-cell *matHeaderCellDef class="text-center"> Id Justificación </th>
-          <td mat-cell *matCellDef="let element" class="text-center"> {{element.IdJustificacion}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="Id Incidencia">
-          <th mat-header-cell *matHeaderCellDef class="text-center"> Id Incidencia </th>
-          <td mat-cell *matCellDef="let element" class="text-center"> {{element.IdIncidencia}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="N Incidencia">
-          <th mat-header-cell *matHeaderCellDef class="text-center"> N Incidencia </th>
-          <td mat-cell *matCellDef="let element" matTooltip="{{ element.Nincidencia }}" class="text-left">
-            {{element.Nincidencia}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="Desde">
-          <th mat-header-cell *matHeaderCellDef class="text-center"> Desde </th>
-          <td mat-cell *matCellDef="let element" class="text-center"> {{element.FechaDesde | date:'dd/MM/yyyy'}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="Hasta">
-          <th mat-header-cell *matHeaderCellDef class="text-center"> Hasta </th>
-          <td mat-cell *matCellDef="let element" class="text-center"> {{element.FechaHasta | date:'dd/MM/yyyy'}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="Estado">
-          <th mat-header-cell *matHeaderCellDef class="text-center"> Estado </th>
-          <td mat-cell *matCellDef="let element" class="text-center"> {{element.Nestado}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="Observación">
-          <th mat-header-cell *matHeaderCellDef class="text-center"> Observación </th>
-          <td mat-cell *matCellDef="let element" matTooltip="{{element.Observaciones}}" class="text-left">
-            {{element.Observaciones}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="Acción">
-          <th mat-header-cell *matHeaderCellDef class="text-center"> Acción </th>
-          <td mat-cell *matCellDef="let element" class="pl-0 text-center">
-            <mat-icon matTooltip="Anular" class="icon-action" [matMenuTriggerFor]="menu" *ngIf="element.IdEstado > 0"
-              (menuOpened)="toggleMenuOpened()" (menuClosed)="toggleMenuOpened()">close</mat-icon>
-            <mat-menu #menu="matMenu" class="p-3 text-center menu-marcacion">
-              <p>¿Anular justificación?</p>
-              <button cdkFocusInitial mat-stroked-button color="primary" class="m-2"
-                (click)="anularJustificacion(element)">Si</button>
-              <button mat-stroked-button class="m-2">No</button>
-            </mat-menu>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-          [ngClass]="{'css_anulado': row.Nestado === 'Anulado', hovered: row.hovered, sombreado: row.Seleccionado}"
-          (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
-      </table>
-
-      <mat-paginator [pageSizeOptions]="[20, 10]"></mat-paginator>
-    </div>
-  </div>
-</div>

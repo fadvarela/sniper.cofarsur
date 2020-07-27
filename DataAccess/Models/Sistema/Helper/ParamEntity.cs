@@ -19,7 +19,6 @@ namespace DataAccess.Models.Sistema.Helper
 		public T GenericEntity { get; set; }
 		public T Tipo { get; set; }
 		public long IdPatologia { get; set; }
-		
-		
+		public DateTime[] FechaDateArray { get; set; }
 	}
 }

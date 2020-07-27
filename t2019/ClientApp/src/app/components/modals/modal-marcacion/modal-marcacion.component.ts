@@ -110,7 +110,6 @@ export class ModalMarcacionComponent implements OnInit {
 
     this.novedadesService.getListPatologias(paramEntity).subscribe((result: CmbEntity[]) => {
       this.lstPatologias = result;
-
     });
   }
 
@@ -188,7 +187,8 @@ export class ModalMarcacionComponent implements OnInit {
     paramEntity.GenericEntity = new Novedades();
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdLegajo = this.objeto.IdLegajo;
-    paramEntity.FechaDate = this.objeto.FechaDate;
+    paramEntity.FechaDateArray[0] = this.objeto.FechaDate;
+    paramEntity.FechaDateArray[1] = this.objeto.FechaDate;
     paramEntity.IdIncidencia = this.objeto.IdIncidencia;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
     paramEntity.IdPatologia = this.objeto.IdPatologia;

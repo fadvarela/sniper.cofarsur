@@ -42,6 +42,7 @@ export class JustificacionesComponent implements OnInit {
   menuMarcacionOpened = false;
   dateInput: any = '';
   fechaPicker: Date;
+  cmbPatologiaHabilitado: boolean;
 
   constructor(
     private userValuesService: UserValuesService,
@@ -53,6 +54,7 @@ export class JustificacionesComponent implements OnInit {
   ngOnInit() {
     this.justificacion = new Justificacion();
     this.getIncidenciasCmb();
+    this.getPatologiasCmb();
   }
 
   getStartDatePickerEmit(value?) {
@@ -66,6 +68,7 @@ export class JustificacionesComponent implements OnInit {
 
   getSeleccionIncidencia(e) {
     this.justificacion.IdIncidencia = e.value;
+    this.setMostrarCmbPatologia();
   }
 
   getSeleccionPatologia(e) {
@@ -80,6 +83,19 @@ export class JustificacionesComponent implements OnInit {
 
     this.novedadesService.getIncidenciasJustificaciones(paramEntity).subscribe((result: CmbEntity[]) => {
       this.listJustificacionesCmb = result;
+    });
+  }
+
+  getPatologiasCmb() {
+    let paramEntity = new ParamEntity<Justificacion>();
+    paramEntity.GenericEntity = new Justificacion();
+    paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
+    paramEntity.IdLegajo = this.justificacion.IdLegajo;
+    paramEntity.FechaDate = this.justificacion.FechaDesde;
+    paramEntity.IdPatologia = 0;
+
+    this.novedadesService.getListPatologias(paramEntity).subscribe((result: CmbEntity[]) => {
+      this.listPatologiasCmb = result;
     });
   }
 
@@ -103,6 +119,9 @@ export class JustificacionesComponent implements OnInit {
     paramEntity.IdLegajo = this.justificacion.IdLegajo;
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
+    paramEntity.GenericEntity.IdPatologia = this.justificacion.IdPatologia;
+    paramEntity.FechaDateArray[0] = this.fechaPicker;
+    paramEntity.FechaDateArray[1] = new Date(this.fechaCalculadaLbl);
 
     this.novedadesService.updJustificacion(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {
@@ -209,6 +228,10 @@ export class JustificacionesComponent implements OnInit {
         this.postJustificacion();
       }
     });
+  }
+
+  setMostrarCmbPatologia() {
+    this.cmbPatologiaHabilitado = this.justificacion.IdIncidencia && this.listJustificacionesCmb.find(x => x.Id === this.justificacion.IdIncidencia).IdPreSet === 1;
   }
 
 }

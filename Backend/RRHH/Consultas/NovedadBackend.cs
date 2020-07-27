@@ -39,7 +39,7 @@ namespace Backend.RRHH.Consultas
 			return novedadDataAccess.getListJornadasHabituales(param);
 		}
 
-		public IEnumerable<CmbEntity<object>> getIncidenciasJustificaciones(ParamEntity<object> param)
+		public IEnumerable<CmbEntity<long>> getIncidenciasJustificaciones(ParamEntity<long> param)
 		{
 			return novedadDataAccess.getIncidenciasJustificaciones(param);
 		}
@@ -94,7 +94,7 @@ namespace Backend.RRHH.Consultas
 			return responseHelper;
 		}
 
-		public ResponseHelper guardarPatologiaIncidencia(ParamEntity<Novedad> param)
+		public ResponseHelper guardarPatologiaIncidencia(ParamEntity<dynamic> param)
 		{
 			var responseHelper = new ResponseHelper();
 			responseHelper = novedadDataAccess.guardarPatologiaIncidencia(param);

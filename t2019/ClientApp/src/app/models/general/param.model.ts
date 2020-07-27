@@ -13,4 +13,5 @@ export class ParamEntity<T> {
   GenericEntity: T;
   Tipo: any;
   IdPatologia: number;
+  FechaDateArray: Date[] = [];
 }

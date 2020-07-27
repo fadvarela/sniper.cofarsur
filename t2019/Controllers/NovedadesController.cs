@@ -146,7 +146,7 @@ namespace t2019.Controllers
 			{
 				// Si el objeto que viene por parametro contiene algun valor, lo convierto con la funcion de JSON.
 				// sino lo guardo como NULL
-				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity<object>>(filtro) : null;
+				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity<long>>(filtro) : null;
 				var result = novedadBackend.getIncidenciasJustificaciones(paramObj);
 				return Ok(result);
 			}
@@ -250,7 +250,15 @@ namespace t2019.Controllers
 					var resultObservacion = novedadBackend.guardarObservacionIncidencia(param);
 					if(resultObservacion.Ok && param.IdPatologia != -1)
 					{
-						var resultPatologia = novedadBackend.guardarPatologiaIncidencia(param);
+						var paramDynamic = new ParamEntity<dynamic>();
+						paramDynamic.IdEmpresa = param.IdEmpresa;
+						paramDynamic.IdLegajo = param.IdLegajo;
+						paramDynamic.FechaDateArray = new DateTime[2];
+						paramDynamic.FechaDateArray[0] = param.FechaDateArray[0];
+						paramDynamic.FechaDateArray[1] = param.FechaDateArray[1];
+						paramDynamic.IdPatologia = param.IdPatologia;
+						paramDynamic.IdUsuario = param.IdUsuario;
+						var resultPatologia = novedadBackend.guardarPatologiaIncidencia(paramDynamic);
 						return Ok(resultPatologia);
 					}
 				}
@@ -322,6 +330,19 @@ namespace t2019.Controllers
 			try
 			{
 				var result = novedadBackend.updJustificacion(param);
+				if (result.Ok)
+				{
+					var paramDynamic = new ParamEntity<dynamic>();
+					paramDynamic.IdEmpresa = param.IdEmpresa;
+					paramDynamic.IdLegajo = param.IdLegajo;
+					paramDynamic.FechaDateArray = new DateTime[2];
+					paramDynamic.FechaDateArray[0] = param.FechaDateArray[0];
+					paramDynamic.FechaDateArray[1] = param.FechaDateArray[1];
+					paramDynamic.IdPatologia = param.IdPatologia;
+					paramDynamic.IdUsuario = param.IdUsuario;
+					var resultPatologia = novedadBackend.guardarPatologiaIncidencia(paramDynamic);
+					return Ok(resultPatologia);
+				}
 				return Ok(result);
 			}
 			catch (Exception ex)
