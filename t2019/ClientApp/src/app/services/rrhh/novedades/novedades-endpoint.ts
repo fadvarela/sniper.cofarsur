@@ -199,4 +199,13 @@ export class NovedadesEndPoint {
       }));
   }
 
+  guardarAvisoEndPoint(params) {
+    const endPointUrl = this._urlNovedades + '/guardarAviso';
+
+    return this.http.post(endPointUrl, JSON.stringify(params), { headers: this.getRequestHeaders() }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
 }

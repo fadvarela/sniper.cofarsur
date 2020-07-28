@@ -148,7 +148,18 @@ namespace Backend.RRHH.Consultas
 			}
 			return responseHelper;
 		}
-		
+
+		public ResponseHelper guardarAviso(ParamEntity<Aviso> param)
+		{
+			var responseHelper = new ResponseHelper();
+			responseHelper = novedadDataAccess.guardarAviso(param);
+			if (!responseHelper.Ok)
+			{
+				responseHelper.Mensaje = "Hubo un problema al guardar los datos";
+			}
+			return responseHelper;
+		}
+
 
 	}
 }

@@ -350,5 +350,22 @@ namespace t2019.Controllers
 				return BadRequest(ex.Message);
 			}
 		}
+
+		[HttpPost("guardarAviso")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult guardarAviso([FromBody]ParamEntity<Aviso> param)
+		{
+			try
+			{
+				var result = novedadBackend.guardarAviso(param);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 	}
 }

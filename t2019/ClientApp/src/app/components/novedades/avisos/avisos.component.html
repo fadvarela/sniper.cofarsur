@@ -8,17 +8,17 @@
   <div class="row">
     <div class="col-2 align-self-center">
       <mat-label class="label-legajo shadow-sm">
-        {{ (justificacion.IdLegajo) ? 'Leg. ' + justificacion.IdLegajo : 'Legajo' }}</mat-label>
+        {{ (aviso.IdLegajo) ? 'Leg. ' + aviso.IdLegajo : 'Legajo' }}</mat-label>
     </div>
     <div class="col-1 align-self-center">
       <button mat-mini-fab class="btn-open-nomina" color="primary" matTooltip="Buscar" (click)="openModalNomina()">
         <mat-icon>search</mat-icon>
       </button>
     </div>
-    <div class="col-6 align-self-center" *ngIf="justificacion.IdLegajo">
+    <div class="col-6 align-self-center" *ngIf="aviso.IdLegajo">
       <mat-chip-list>
         <mat-chip class="mx-auto position-relative">
-          <span>{{justificacion.Nombre + ' ' + justificacion.Apellido + ' (' + justificacion.Seccion + ')' }}</span>
+          <span>{{aviso.Nombre + ' ' + aviso.Apellido + ' (' + aviso.Seccion + ')' }}</span>
         </mat-chip>
       </mat-chip-list>
     </div>
@@ -27,20 +27,20 @@
     <div class="col-4">
       <mat-form-field class="w-100 select-form-field">
         <mat-label>Incidencia</mat-label>
-        <mat-select [disabled]="!justificacion.IdLegajo" [(ngModel)]="justificacion.IdIncidencia"
+        <mat-select [disabled]="!aviso.IdLegajo" [(ngModel)]="aviso.IdIncidencia"
           (selectionChange)="getSeleccionIncidencia($event)">
-          <mat-option *ngFor="let item of listJustificacionesCmb" [matTooltip]="item.Detalle" [value]="item.Id">
+          <mat-option *ngFor="let item of listIncidenciasCmb" [matTooltip]="item.Detalle" [value]="item.Id">
             {{ item.Detalle }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-4">
+    <div class="col-4" *ngIf="cmbPatologiaHabilitado">
       <mat-form-field class="w-100 select-form-field">
         <mat-label>Patología</mat-label>
-        <mat-select [disabled]="!justificacion.IdPatologia" [(ngModel)]="justificacion.IdPatologia"
+        <mat-select [(ngModel)]="aviso.IdPatologia"
           (selectionChange)="getSeleccionPatologia($event)">
-          <mat-option *ngFor="let item of listJustificacionesCmb" [matTooltip]="item.Detalle" [value]="item.Id">
+          <mat-option *ngFor="let item of listPatologiasCmb" [matTooltip]="item.Detalle" [value]="item.Id">
             {{ item.Detalle }}
           </mat-option>
         </mat-select>
@@ -50,13 +50,13 @@
   <div class="row">
     <div class="col-4 text-center">
       <app-datepicker (dateEmit)="getStartDatePickerEmit($event)" [dateClass]="'datePickerMargin'" [dateLabel]="'Desde'"
-        [emitOnInit]="true" [disabled]="!justificacion.IdLegajo" [dateInput]="dateInput" [fullWidth]="true"></app-datepicker>
+        [emitOnInit]="true" [disabled]="!aviso.IdLegajo" [dateInput]="dateInput" [fullWidth]="true"></app-datepicker>
     </div>
     <div class="col-4 text-center">
       <mat-form-field>
         <mat-label>Días</mat-label>
-        <input [disabled]="!justificacion.IdLegajo" type="text" matInput placeholder="Ingrese hasta 3 dígitos"
-          [(ngModel)]="justificacion.Dias" (blur)="calculaFecha()" (keydown)="soloNumeros($event)" maxlength="3">
+        <input [disabled]="!aviso.IdLegajo" type="text" matInput placeholder="Ingrese hasta 3 dígitos"
+          [(ngModel)]="aviso.Dias" (blur)="calculaFecha()" (keydown)="soloNumeros($event)" maxlength="3">
       </mat-form-field>
     </div>
     <div class="col-4 text-center d-flex justify-content-center align-items-center" *ngIf="fechaCalculadaLbl">
@@ -68,14 +68,14 @@
     <div class="col">
       <mat-form-field class="w-100">
         <mat-label>Observaciones</mat-label>
-        <textarea [disabled]="!justificacion.IdLegajo" matInput [(ngModel)]="justificacion.Observaciones"></textarea>
+        <textarea [disabled]="!aviso.IdLegajo" matInput [(ngModel)]="aviso.Observaciones"></textarea>
       </mat-form-field>
     </div>
   </div>
   <div class="row mb-3">
     <div class="col-4">
       <button mat-stroked-button color="primary" (click)="openModalConfirmacion()"
-        [disabled]="!justificacion.IdLegajo">Guardar</button>
+        [disabled]="!aviso.IdLegajo">Guardar</button>
     </div>
   </div>
   <div class="row">
@@ -126,7 +126,7 @@
             <mat-menu #menu="matMenu" class="p-3 text-center menu-marcacion">
               <p>¿Anular justificación?</p>
               <button cdkFocusInitial mat-stroked-button color="primary" class="m-2"
-                (click)="anularJustificacion(element)">Si</button>
+                (click)="anularAviso(element)">Si</button>
               <button mat-stroked-button class="m-2">No</button>
             </mat-menu>
           </td>

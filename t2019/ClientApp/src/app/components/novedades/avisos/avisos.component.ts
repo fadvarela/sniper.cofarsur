@@ -10,6 +10,7 @@ import { ModalNominaComponent } from '../../modals/modal-nomina/modal-nomina.com
 import { Nomina } from 'src/app/models/rrhh/nomina.model';
 import { ResponseHelper } from 'src/app/models/sistema/responseHelper';
 import { ParamEntity } from 'src/app/models/general/param.model';
+import { Aviso } from 'src/app/models/rrhh/aviso.model';
 
 @Component({
   selector: 'app-avisos',
@@ -33,14 +34,15 @@ export class AvisosComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) set matPaginator(paginator: MatPaginator) {
     this.dataSource.paginator = paginator;
   }
-  justificacion: Justificacion;
-  listJustificacionesCmb: CmbEntity[] = [];
+  aviso: Aviso;
+  listIncidenciasCmb: CmbEntity[] = [];
   listPatologiasCmb: CmbEntity[] = [];
   fechaCalculadaLbl = '';
   justificacionesList: Justificacion[] = [];
   menuMarcacionOpened = false;
   dateInput: any = '';
   fechaPicker: Date;
+  cmbPatologiaHabilitado: boolean;
 
   constructor(
     private userValuesService: UserValuesService,
@@ -50,8 +52,9 @@ export class AvisosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.justificacion = new Justificacion();
+    this.aviso = new Aviso();
     this.getIncidenciasCmb();
+    this.getPatologiasCmb();
   }
 
   getStartDatePickerEmit(value?) {
@@ -64,11 +67,25 @@ export class AvisosComponent implements OnInit {
   }
 
   getSeleccionIncidencia(e) {
-    this.justificacion.IdIncidencia = e.value;
+    this.aviso.IdIncidencia = e.value;
+    this.setMostrarCmbPatologia();
   }
 
   getSeleccionPatologia(e) {
-    this.justificacion.IdPatologia = e.value;
+    this.aviso.IdPatologia = e.value;
+  }
+
+  getPatologiasCmb() {
+    let paramEntity = new ParamEntity<Justificacion>();
+    paramEntity.GenericEntity = new Justificacion();
+    paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
+    paramEntity.IdLegajo = this.aviso.IdLegajo;
+    paramEntity.FechaDate = this.aviso.FechaDesde;
+    paramEntity.IdPatologia = 0;
+
+    this.novedadesService.getListPatologias(paramEntity).subscribe((result: CmbEntity[]) => {
+      this.listPatologiasCmb = result;
+    });
   }
 
   getIncidenciasCmb() {
@@ -78,7 +95,7 @@ export class AvisosComponent implements OnInit {
     paramEntity.IdIncidencia = 0;
 
     this.novedadesService.getIncidenciasJustificaciones(paramEntity).subscribe((result: CmbEntity[]) => {
-      this.listJustificacionesCmb = result;
+      this.listIncidenciasCmb = result;
     });
   }
 
@@ -93,17 +110,17 @@ export class AvisosComponent implements OnInit {
     });
   }
 
-  postJustificacion() {
-    const paramEntity = new ParamEntity<Justificacion>();
-    this.justificacion.FechaDesde = this.fechaPicker;
-    paramEntity.GenericEntity = this.justificacion;
+  guardarAviso() {
+    const paramEntity = new ParamEntity<Aviso>();
+    this.aviso.FechaDesde = this.fechaPicker;
+    paramEntity.GenericEntity = this.aviso;
     paramEntity.GenericEntity.IdEstado = 0;
-    paramEntity.GenericEntity.IdJustificacion = 0;
-    paramEntity.IdLegajo = this.justificacion.IdLegajo;
+    paramEntity.GenericEntity.IdAviso = 0;
+    paramEntity.IdLegajo = this.aviso.IdLegajo;
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
 
-    this.novedadesService.updJustificacion(paramEntity).subscribe((result: ResponseHelper) => {
+    this.novedadesService.guardarAviso(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {
         this._snackBar.openSnackBar('snack-success', 'Justificación guardada correctamente', 3000);
         this.getJustificacionesGrilla(paramEntity.IdLegajo);
@@ -116,35 +133,35 @@ export class AvisosComponent implements OnInit {
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
   }
 
-  anularJustificacion(row: Justificacion) {
-    const paramEntity = new ParamEntity<Justificacion>();
-    paramEntity.GenericEntity = this.justificacion;
-    paramEntity.GenericEntity.IdJustificacion = row.IdJustificacion;
+  anularAviso(row: Aviso) {
+    const paramEntity = new ParamEntity<Aviso>();
+    paramEntity.GenericEntity = this.aviso;
+    paramEntity.GenericEntity.IdAviso = row.IdAviso;
     paramEntity.GenericEntity.IdEstado = 0;
     paramEntity.GenericEntity.Dias = 0;
-    paramEntity.IdLegajo = this.justificacion.IdLegajo;
+    paramEntity.IdLegajo = this.aviso.IdLegajo;
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
 
-    this.novedadesService.updJustificacion(paramEntity).subscribe((result: ResponseHelper) => {
-      if (result.Ok) {
-        this._snackBar.openSnackBar('snack-success', 'Justificación anulada correctamente', 3000);
-        this.getJustificacionesGrilla(paramEntity.IdLegajo);
-        this.limpiarObjeto();
-      } else {
-        this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
-      }
-    }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
+    // this.novedadesService.updJustificacion(paramEntity).subscribe((result: ResponseHelper) => {
+    //   if (result.Ok) {
+    //     this._snackBar.openSnackBar('snack-success', 'Justificación anulada correctamente', 3000);
+    //     this.getJustificacionesGrilla(paramEntity.IdLegajo);
+    //     this.limpiarObjeto();
+    //   } else {
+    //     this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
+    //   }
+    // }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
   }
 
   limpiarObjeto() {
     const nuevaJustificacion = new Justificacion();
-    Object.assign(nuevaJustificacion, this.justificacion);
-    this.justificacion = new Justificacion();
-    this.justificacion.IdLegajo = nuevaJustificacion.IdLegajo;
-    this.justificacion.Nombre = nuevaJustificacion.Nombre;
-    this.justificacion.Apellido = nuevaJustificacion.Apellido;
-    this.justificacion.Seccion = nuevaJustificacion.Seccion;
+    Object.assign(nuevaJustificacion, this.aviso);
+    this.aviso = new Aviso();
+    this.aviso.IdLegajo = nuevaJustificacion.IdLegajo;
+    this.aviso.Nombre = nuevaJustificacion.Nombre;
+    this.aviso.Apellido = nuevaJustificacion.Apellido;
+    this.aviso.Seccion = nuevaJustificacion.Seccion;
   }
 
   openModalNomina() {
@@ -156,26 +173,26 @@ export class AvisosComponent implements OnInit {
     });
     dialogRef.beforeClosed().subscribe((result: Nomina) => {
       if (result) {
-        Object.assign(this.justificacion, result);
-        this.getJustificacionesGrilla(this.justificacion.IdLegajo);
+        Object.assign(this.aviso, result);
+        this.getJustificacionesGrilla(this.aviso.IdLegajo);
       }
     });
   }
 
   calculaFecha(fechaPicker?) {
     fechaPicker = (!fechaPicker) ? this.fechaPicker : fechaPicker;
-    if (this.justificacion.Dias > 0 && this.justificacion.Dias < 1000) {
+    if (this.aviso.Dias > 0 && this.aviso.Dias < 1000) {
       const result = new Date(fechaPicker);
-      result.setDate(result.getDate() + Number(this.justificacion.Dias));
+      result.setDate(result.getDate() + Number(this.aviso.Dias));
       this.fechaCalculadaLbl = result.toISOString();
       return;
     }
-    if (this.justificacion.Dias === 0) {
+    if (this.aviso.Dias === 0) {
       this._snackBar.openSnackBar('snack-danger', 'Debe ingresar un número superior a 0 (cero)', 3000);
       return;
     }
     this.fechaCalculadaLbl = '';
-    this.justificacion.Dias = null;
+    this.aviso.Dias = null;
   }
 
   soloNumeros(e) {
@@ -200,14 +217,18 @@ export class AvisosComponent implements OnInit {
       height: '120px',
       autoFocus: false,
       data: {
-        titulo: '¿Desea guardar la justificación?'
+        titulo: '¿Desea guardar el aviso?'
       }
     });
     dialogRef.beforeClosed().subscribe((result) => {
       if (result) {
-        this.postJustificacion();
+        this.guardarAviso();
       }
     });
+  }
+
+  setMostrarCmbPatologia() {
+    this.cmbPatologiaHabilitado = this.aviso.IdIncidencia && this.listIncidenciasCmb.find(x => x.Id === this.aviso.IdIncidencia).IdPreSet === 1;
   }
 
 }

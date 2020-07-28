@@ -81,4 +81,8 @@ export class NovedadesService {
     return this.novedadesEndPoint.updJustificacionEndPoint(params);
   }
 
+  guardarAviso(params: ParamEntity<any>) {
+    return this.novedadesEndPoint.guardarAvisoEndPoint(params);
+  }
+
 }
