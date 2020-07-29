@@ -165,6 +165,21 @@ namespace DataAccess.Access.Peticiones
 			return result;
 		}
 
+		public IEnumerable<Aviso> getNovedadesAvisos(ParamEntity<object> param)
+		{
+			var parametros = new List<object>()
+			{
+				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
+				new MySqlParameter(){ ParameterName = "P_FECHA", Value = param.FechaDate },
+				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa}
+			};
+
+			var sqlQuery = "SP_NOV_AVISOS_PRD_GET";
+			var result = MAccess.GetSavantList<MySqlConnection, Aviso>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+
+			return result;
+		}
+
 		/*-----------------------------POST----------------------------------*/
 
 		public ResponseHelper guardarJornada(ParamEntity<object> param)
@@ -352,7 +367,30 @@ namespace DataAccess.Access.Peticiones
 
 			return responseHelper;
 		}
-		
+
+		public ResponseHelper anularAviso(ParamEntity<Aviso> param)
+		{
+			var parametros = new List<object>()
+			{
+				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa },
+				new MySqlParameter(){ ParameterName = "P_ID_USUARIO", Value = param.IdUsuario },
+				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
+				new MySqlParameter(){ ParameterName = "P_FECHA_DESDE", Value = param.GenericEntity.FechaDesde },
+				new MySqlParameter(){ ParameterName = "P_DIAS", Value = param.GenericEntity.Dias },
+				new MySqlParameter(){ ParameterName = "P_OBSERVACIONES", Value = param.GenericEntity.Observaciones },
+				new MySqlParameter(){ ParameterName = "P_ID_NOV_INCIDENCIA", Value = param.GenericEntity.IdNovIncidencia },
+				new MySqlParameter(){ ParameterName = "P_ID_ESTADO", Value = param.GenericEntity.IdEstado },
+				new MySqlParameter(){ ParameterName = "P_ID_INCIDENCIA", Value = param.GenericEntity.IdIncidencia },
+				new MySqlParameter(){ ParameterName = "P_ID_PATOLOGIA", Value = param.GenericEntity.IdPatologia }
+			};
+
+			var sqlQuery = "SP_NOV_AVISOS_PRD_UPD";
+			var responseHelper = new ResponseHelper();
+			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+
+			return responseHelper;
+		}	
+
 
 
 	}

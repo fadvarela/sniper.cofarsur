@@ -59,6 +59,13 @@ namespace Backend.RRHH.Consultas
 			return novedadDataAccess.getIncidenciasGrillaModal(param);
 		}
 
+		public IEnumerable<Aviso> getNovedadesAvisos(ParamEntity<object> param)
+		{
+			return novedadDataAccess.getNovedadesAvisos(param);
+		}
+
+		
+
 		/*-------------------------POST-----------------------------*/
 
 		public ResponseHelper guardarJornada(ParamEntity<object> param)
@@ -160,6 +167,17 @@ namespace Backend.RRHH.Consultas
 			return responseHelper;
 		}
 
+		public ResponseHelper anularAviso(ParamEntity<Aviso> param)
+		{
+			var responseHelper = new ResponseHelper();
+			responseHelper = novedadDataAccess.anularAviso(param);
+			if (!responseHelper.Ok)
+			{
+				responseHelper.Mensaje = "Hubo un problema al guardar los datos";
+			}
+			return responseHelper;
+		}
+		
 
 	}
 }

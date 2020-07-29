@@ -216,6 +216,26 @@ namespace t2019.Controllers
 			}
 		}
 
+		[HttpGet("getNovedadesAvisos")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult getNovedadesAvisos([FromQuery]string filtro)
+		{
+			try
+			{
+				// Si el objeto que viene por parametro contiene algun valor, lo convierto con la funcion de JSON.
+				// sino lo guardo como NULL
+				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity<object>>(filtro) : null;
+				var result = novedadBackend.getNovedadesAvisos(paramObj);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
 
 		/*-------------------------POST-----------------------------*/
 
@@ -360,6 +380,23 @@ namespace t2019.Controllers
 			try
 			{
 				var result = novedadBackend.guardarAviso(param);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpPost("anularAviso")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult anularAviso([FromBody]ParamEntity<Aviso> param)
+		{
+			try
+			{
+				var result = novedadBackend.anularAviso(param);
 				return Ok(result);
 			}
 			catch (Exception ex)

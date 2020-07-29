@@ -208,4 +208,13 @@ export class NovedadesEndPoint {
       }));
   }
 
+  anularAvisoEndPoint(params) {
+    const endPointUrl = this._urlNovedades + '/anularAviso';
+
+    return this.http.post(endPointUrl, JSON.stringify(params), { headers: this.getRequestHeaders() }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
 }

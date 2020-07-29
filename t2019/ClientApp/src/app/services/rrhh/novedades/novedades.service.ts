@@ -85,4 +85,8 @@ export class NovedadesService {
     return this.novedadesEndPoint.guardarAvisoEndPoint(params);
   }
 
+  anularAviso(params: ParamEntity<any>) {
+    return this.novedadesEndPoint.anularAvisoEndPoint(params);
+  }
+
 }

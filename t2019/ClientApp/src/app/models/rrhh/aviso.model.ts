@@ -4,5 +4,10 @@ export class Aviso extends Novedades {
   IdAviso: number;
   IdEstado: number;
   IdPatologia: number;
+  Npatologia: string;
   FechaDesde: Date;
+  FechaRegistro: Date;
+  IdUsuarioFum: number;
+  Nusuario: string;
+  IdNovIncidencia: number;
 }

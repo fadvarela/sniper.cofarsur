@@ -18,21 +18,22 @@ import { Aviso } from 'src/app/models/rrhh/aviso.model';
   styleUrls: ['./avisos.component.css']
 })
 export class AvisosComponent implements OnInit {
+
   startDateValue;
   endDateValue;
   displayedColumns: string[] = [
-    'Id Justificación',
-    'Id Incidencia',
-    'N Incidencia',
-    'Desde',
-    'Hasta',
-    'Estado',
-    'Observación',
-    'Acción'
+    'fecha',
+    'nIncidencia',
+    'idEstado',
+    'nEstado',
+    'observaciones',
+    'nPatologia',
+    'fum',
+    'nUsuario'
   ];
-  dataSource = new MatTableDataSource<Justificacion>([]);
+  dataSourceAviso = new MatTableDataSource<Aviso>([]);
   @ViewChild(MatPaginator, { static: true }) set matPaginator(paginator: MatPaginator) {
-    this.dataSource.paginator = paginator;
+    this.dataSourceAviso.paginator = paginator;
   }
   aviso: Aviso;
   listIncidenciasCmb: CmbEntity[] = [];
@@ -99,14 +100,14 @@ export class AvisosComponent implements OnInit {
     });
   }
 
-  getJustificacionesGrilla(idLegajo) {
+  getAvisosGrilla(idLegajo) {
     const paramEntity = new ParamEntity<any>();
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
     paramEntity.IdLegajo = idLegajo;
 
-    this.novedadesService.getJustificacionGrilla(paramEntity).subscribe((result: Justificacion[]) => {
-      this.dataSource.data = result;
+    this.novedadesService.getJustificacionGrilla(paramEntity).subscribe((result: Aviso[]) => {
+      this.dataSourceAviso.data = result;
     });
   }
 
@@ -114,16 +115,15 @@ export class AvisosComponent implements OnInit {
     const paramEntity = new ParamEntity<Aviso>();
     this.aviso.FechaDesde = this.fechaPicker;
     paramEntity.GenericEntity = this.aviso;
-    paramEntity.GenericEntity.IdEstado = 0;
-    paramEntity.GenericEntity.IdAviso = 0;
+    paramEntity.GenericEntity.IdEstado = 1;
     paramEntity.IdLegajo = this.aviso.IdLegajo;
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
 
     this.novedadesService.guardarAviso(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {
-        this._snackBar.openSnackBar('snack-success', 'Justificación guardada correctamente', 3000);
-        this.getJustificacionesGrilla(paramEntity.IdLegajo);
+        this._snackBar.openSnackBar('snack-success', 'Aviso guardado correctamente', 3000);
+        this.getAvisosGrilla(paramEntity.IdLegajo);
         this.limpiarObjeto();
         this.dateInput = this.dateInput = new Date();
         this.calculaFecha(this.fechaPicker);
@@ -136,22 +136,26 @@ export class AvisosComponent implements OnInit {
   anularAviso(row: Aviso) {
     const paramEntity = new ParamEntity<Aviso>();
     paramEntity.GenericEntity = this.aviso;
-    paramEntity.GenericEntity.IdAviso = row.IdAviso;
+    paramEntity.GenericEntity.IdIncidencia = row.IdIncidencia;
     paramEntity.GenericEntity.IdEstado = 0;
-    paramEntity.GenericEntity.Dias = 0;
+    paramEntity.GenericEntity.FechaDesde = row.FechaDesde;
+    paramEntity.GenericEntity.Dias = row.Dias;
+    paramEntity.GenericEntity.Observaciones = row.Observaciones;
+    paramEntity.GenericEntity.IdNovIncidencia = row.IdNovIncidencia;
+    paramEntity.GenericEntity.IdPatologia = row.IdPatologia;
     paramEntity.IdLegajo = this.aviso.IdLegajo;
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
 
-    // this.novedadesService.updJustificacion(paramEntity).subscribe((result: ResponseHelper) => {
-    //   if (result.Ok) {
-    //     this._snackBar.openSnackBar('snack-success', 'Justificación anulada correctamente', 3000);
-    //     this.getJustificacionesGrilla(paramEntity.IdLegajo);
-    //     this.limpiarObjeto();
-    //   } else {
-    //     this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
-    //   }
-    // }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
+    this.novedadesService.anularAviso(paramEntity).subscribe((result: ResponseHelper) => {
+      if (result.Ok) {
+        this._snackBar.openSnackBar('snack-success', 'Aviso anulado correctamente', 3000);
+        this.getAvisosGrilla(paramEntity.IdLegajo);
+        this.limpiarObjeto();
+      } else {
+        this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
+      }
+    }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
   }
 
   limpiarObjeto() {
@@ -174,7 +178,7 @@ export class AvisosComponent implements OnInit {
     dialogRef.beforeClosed().subscribe((result: Nomina) => {
       if (result) {
         Object.assign(this.aviso, result);
-        this.getJustificacionesGrilla(this.aviso.IdLegajo);
+        this.getAvisosGrilla(this.aviso.IdLegajo);
       }
     });
   }
