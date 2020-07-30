@@ -143,6 +143,17 @@ export class NovedadesEndPoint {
       }));
   }
 
+  getNovedadesAvisosGrillaEndPoint(param?) {
+    const endpointUrl = this._urlNovedades + '/getNovedadesAvisos';
+    const params = new HttpParams()
+      .set('filtro', JSON.stringify(param));
+
+    return this.http.get(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
   /*------------POST--------------*/
 
   guardarJornada(param): Observable<any> {

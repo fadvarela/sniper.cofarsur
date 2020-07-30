@@ -24,11 +24,12 @@ export class AvisosComponent implements OnInit {
   displayedColumns: string[] = [
     'fecha',
     'nIncidencia',
-    'nEstado',
     'observaciones',
     'nPatologia',
+    'nEstado',
     'fum',
-    'nUsuario'
+    'nUsuario',
+    'accion'
   ];
   dataSourceAviso = new MatTableDataSource<Aviso>([]);
   @ViewChild(MatPaginator, { static: true }) set matPaginator(paginator: MatPaginator) {
@@ -105,7 +106,7 @@ export class AvisosComponent implements OnInit {
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
     paramEntity.IdLegajo = idLegajo;
 
-    this.novedadesService.getIncidenciasGrilla(paramEntity).subscribe((result: Aviso[]) => {
+    this.novedadesService.getNovedadesAvisosGrilla(paramEntity).subscribe((result: Aviso[]) => {
       this.dataSourceAviso.data = result;
     });
   }

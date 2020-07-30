@@ -55,6 +55,11 @@ export class NovedadesService {
     return this.novedadesEndPoint.getIncidenciasGrillaEndPoint(params);
   }
 
+  getNovedadesAvisosGrilla(params?: ParamEntity<any>) {
+    return this.novedadesEndPoint.getNovedadesAvisosGrillaEndPoint(params);
+  }
+  
+
   /*--------POST-----------*/
 
   guardarJornada(params: ParamEntity<any>) {

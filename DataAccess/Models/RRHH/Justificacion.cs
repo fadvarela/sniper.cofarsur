@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataAccess.Models.RRHH
 {
-	public class Justificacion
+	public class Justificacion: Nomina
 	{
 		public long Legajo { get; set; }
 
@@ -35,5 +35,11 @@ namespace DataAccess.Models.RRHH
 
 		[Column("N_ESTADO")]
 		public string Nestado { get; set; }
+
+		[Column("ID_PATOLOGIA")]
+		public long IdPatologia { get; set; }
+
+		[Column("N_PATOLOGIA")]
+		public string Npatologia { get; set; }
 	}
 }

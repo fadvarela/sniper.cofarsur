@@ -14,6 +14,9 @@ namespace DataAccess.Models.RRHH
 		[Column("ID_ESTADO")]
 		public long IdEstado { get; set; }
 
+		[Column("N_ESTADO")]
+		public string Nestado { get; set; }
+
 		[Column("ID_PATOLOGIA")]
 		public long IdPatologia { get; set; }
 

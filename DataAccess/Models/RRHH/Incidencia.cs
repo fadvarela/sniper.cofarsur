@@ -22,5 +22,8 @@ namespace DataAccess.Models.RRHH
 		[Column("ID_USUARIO_FUM")]
 		public long IdUsuario { get; set; }
 
+		[Column("N_USUARIO")]
+		public string Nusuario { get; set; }
+
 	}
 }

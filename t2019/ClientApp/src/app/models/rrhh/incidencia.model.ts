@@ -6,4 +6,5 @@ export class Incidencia extends Novedades {
   Npatologia: string;
   FechaModificacion: Date;
   IdUsuario: number;
+  Nusuario: string;
 }

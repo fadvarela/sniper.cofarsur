@@ -36,12 +36,14 @@ export class ModalMarcacionComponent implements OnInit {
     'Estado',
     'Patologia',
     'Fecha Modificacion',
-    'Id Usuario'
+    'nUsuario'
   ];
 
   dataSourceMarcacion = new MatTableDataSource<Marcacion>([]);
   dataSourceIncidencia = new MatTableDataSource<Incidencia>([]);
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('marcacionPaginator', { static: true }) marcacionPaginator: MatPaginator;
+  @ViewChild('incidenciasPaginator', { static: true }) incidenciasPaginator: MatPaginator;
+
   objeto: Novedades;
   titulo: string;
   novedad;
@@ -59,6 +61,7 @@ export class ModalMarcacionComponent implements OnInit {
   timePickerValue: string;
   tiempoActualReset: string;
   cmbPatologiaHabilitado: boolean;
+  actualizaGrillaParteDiario = false;
 
   constructor(
     public dialogRef: MatDialogRef<ModalMarcacionComponent>,
@@ -77,7 +80,8 @@ export class ModalMarcacionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataSourceMarcacion.paginator = this.paginator;
+    this.dataSourceMarcacion.paginator = this.marcacionPaginator;
+    this.dataSourceIncidencia.paginator = this.incidenciasPaginator;
     this.loadJornadasCmb();
     this.loadIncidenciasCmb();
     this.loadPatologiasCmb();
@@ -134,7 +138,8 @@ export class ModalMarcacionComponent implements OnInit {
   }
 
   cerrarModal() {
-    this.dialogRef.close(this.objeto.FechaDate);
+    const data = {actualiza: this.actualizaGrillaParteDiario, fecha: this.objeto.FechaDate};
+    this.dialogRef.close(data);
   }
 
   calcularMovimientos() {
@@ -172,6 +177,7 @@ export class ModalMarcacionComponent implements OnInit {
     this.novedadesService.guardarJornada(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {
         this._snackBar.openSnackBar('snack-success', 'Jornada guardada correctamente', 3000);
+        this.actualizaGrillaParteDiario = true;
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }
@@ -200,6 +206,7 @@ export class ModalMarcacionComponent implements OnInit {
         this.objeto.Observaciones = '';
         this.objeto.IdIncidencia = null;
         this.loadIncidencias();
+        this.actualizaGrillaParteDiario = true;
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }
@@ -225,6 +232,7 @@ export class ModalMarcacionComponent implements OnInit {
       if (result.Ok) {
         this._snackBar.openSnackBar('snack-success', 'Marcación anulada correctamente', 3000);
         this.loadMarcaciones();
+        this.actualizaGrillaParteDiario = true;
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }
@@ -256,6 +264,7 @@ export class ModalMarcacionComponent implements OnInit {
       if (result.Ok) {
         this._snackBar.openSnackBar('snack-success', 'Marcación guardada correctamente', 3000);
         this.loadMarcaciones();
+        this.actualizaGrillaParteDiario = true;
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);
       }

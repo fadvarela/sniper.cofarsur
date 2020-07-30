@@ -170,7 +170,7 @@ namespace DataAccess.Access.Peticiones
 			var parametros = new List<object>()
 			{
 				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
-				new MySqlParameter(){ ParameterName = "P_FECHA", Value = param.FechaDate },
+				new MySqlParameter(){ ParameterName = "P_ID_USUARIO", Value = param.IdUsuario },
 				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa}
 			};
 

@@ -123,7 +123,7 @@
                 (click)="getRowData(row)" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
             </table>
 
-            <mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
+            <mat-paginator #marcacionPaginator [pageSizeOptions]="[5, 10]"></mat-paginator>
           </div>
         </div>
       </div>
@@ -186,9 +186,9 @@
                 <td mat-cell *matCellDef="let element"> {{element.FechaModificacion | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
               </ng-container>
 
-              <ng-container matColumnDef="Id Usuario">
-                <th mat-header-cell *matHeaderCellDef> Id Usuario </th>
-                <td mat-cell *matCellDef="let element"> {{element.IdUsuario}} </td>
+              <ng-container matColumnDef="nUsuario">
+                <th mat-header-cell *matHeaderCellDef> Usuario </th>
+                <td mat-cell *matCellDef="let element"> {{element.Nusuario}} </td>
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="incidenciaColumns"></tr>
@@ -197,7 +197,7 @@
                 (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
             </table>
 
-            <mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
+            <mat-paginator #incidenciasPaginator [pageSizeOptions]="[5, 10]"></mat-paginator>
           </div>
         </div>
         <div class="row">

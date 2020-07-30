@@ -115,8 +115,8 @@ export class ParteDiarioComponent implements OnInit {
       }
     });
     dialogRef.beforeClosed().subscribe((result) => {
-      if (result) {
-        this.getNovedades(result);
+      if (result.actualiza) {
+        this.getNovedades(result.fecha);
       }
     });
   }

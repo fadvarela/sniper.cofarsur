@@ -28,6 +28,7 @@ export class JustificacionesComponent implements OnInit {
     'Hasta',
     'Estado',
     'Observación',
+    'nPatologia',
     'Acción'
   ];
   dataSource = new MatTableDataSource<Justificacion>([]);
