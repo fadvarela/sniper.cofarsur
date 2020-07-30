@@ -50,7 +50,7 @@
   <div class="row">
     <div class="col-4 text-center">
       <app-datepicker (dateEmit)="getStartDatePickerEmit($event)" [dateClass]="'datePickerMargin'" [dateLabel]="'Desde'"
-        [emitOnInit]="true" [disabled]="!aviso.IdLegajo" [dateInput]="dateInput" [fullWidth]="true"></app-datepicker>
+        [emitOnInit]="true" [disabled]="!aviso.IdLegajo" [dateInput]="dateInput" [fullWidth]="true" [maxDate]="null"></app-datepicker>
     </div>
     <div class="col-4 text-center">
       <mat-form-field>

@@ -355,7 +355,7 @@ namespace DataAccess.Access.Peticiones
 				new MySqlParameter(){ ParameterName = "P_FECHA_DESDE", Value = param.GenericEntity.FechaDesde },
 				new MySqlParameter(){ ParameterName = "P_DIAS", Value = param.GenericEntity.Dias },
 				new MySqlParameter(){ ParameterName = "P_OBSERVACIONES", Value = param.GenericEntity.Observaciones },
-				new MySqlParameter(){ ParameterName = "P_ID_AVISO", Value = param.GenericEntity.IdAviso },
+				new MySqlParameter(){ ParameterName = "P_ID_NOV_INCIDENCIA", Value = param.GenericEntity.IdNovIncidencia },
 				new MySqlParameter(){ ParameterName = "P_ID_ESTADO", Value = param.GenericEntity.IdEstado },
 				new MySqlParameter(){ ParameterName = "P_ID_INCIDENCIA", Value = param.GenericEntity.IdIncidencia },
 				new MySqlParameter(){ ParameterName = "P_ID_PATOLOGIA", Value = param.GenericEntity.IdPatologia }

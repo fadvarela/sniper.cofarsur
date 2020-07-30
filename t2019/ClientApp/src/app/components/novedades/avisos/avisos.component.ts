@@ -90,12 +90,17 @@ export class AvisosComponent implements OnInit {
   }
 
   getIncidenciasCmb() {
-    const paramEntity = new ParamEntity<any>();
-    paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
-    paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
-    paramEntity.IdIncidencia = 0;
+    // const paramEntity = new ParamEntity<any>();
+    // paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
+    // paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
+    // paramEntity.IdIncidencia = 0;
 
-    this.novedadesService.getIncidenciasJustificaciones(paramEntity).subscribe((result: CmbEntity[]) => {
+    let params = [];
+    params.push(null);
+    params.push(this.userValuesService.getUsuarioValues.IdUsuario);
+    params.push(this.userValuesService.getUsuarioValues.IdEmpresa);
+
+    this.novedadesService.getListIncidencias(params).subscribe((result: CmbEntity[]) => {
       this.listIncidenciasCmb = result;
     });
   }
@@ -115,6 +120,7 @@ export class AvisosComponent implements OnInit {
     const paramEntity = new ParamEntity<Aviso>();
     this.aviso.FechaDesde = this.fechaPicker;
     paramEntity.GenericEntity = this.aviso;
+    paramEntity.GenericEntity.IdNovIncidencia = 0;
     paramEntity.GenericEntity.IdEstado = 1;
     paramEntity.IdLegajo = this.aviso.IdLegajo;
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
