@@ -83,7 +83,7 @@
       <table mat-table [dataSource]="dataSourceAviso" class="mat-elevation-z8 table-parte-diario">
         <ng-container matColumnDef="fecha">
           <th mat-header-cell *matHeaderCellDef class="text-center"> Fecha </th>
-          <td mat-cell *matCellDef="let element" class="text-center"> {{element.FechaDesde}} </td>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{element.FechaDesde  | date: 'dd/MM/yyyy'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="nIncidencia">
@@ -109,7 +109,7 @@
 
         <ng-container matColumnDef="fum">
           <th mat-header-cell *matHeaderCellDef class="text-center"> Fecha Registro </th>
-          <td mat-cell *matCellDef="let element" class="text-center"> {{element.FechaRegistro}} </td>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{element.FechaRegistro | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="nUsuario">

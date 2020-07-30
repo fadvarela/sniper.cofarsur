@@ -24,7 +24,6 @@ export class AvisosComponent implements OnInit {
   displayedColumns: string[] = [
     'fecha',
     'nIncidencia',
-    'idEstado',
     'nEstado',
     'observaciones',
     'nPatologia',
@@ -106,7 +105,7 @@ export class AvisosComponent implements OnInit {
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
     paramEntity.IdLegajo = idLegajo;
 
-    this.novedadesService.getJustificacionGrilla(paramEntity).subscribe((result: Aviso[]) => {
+    this.novedadesService.getIncidenciasGrilla(paramEntity).subscribe((result: Aviso[]) => {
       this.dataSourceAviso.data = result;
     });
   }
@@ -159,13 +158,13 @@ export class AvisosComponent implements OnInit {
   }
 
   limpiarObjeto() {
-    const nuevaJustificacion = new Justificacion();
-    Object.assign(nuevaJustificacion, this.aviso);
+    const nuevoAviso = new Justificacion();
+    Object.assign(nuevoAviso, this.aviso);
     this.aviso = new Aviso();
-    this.aviso.IdLegajo = nuevaJustificacion.IdLegajo;
-    this.aviso.Nombre = nuevaJustificacion.Nombre;
-    this.aviso.Apellido = nuevaJustificacion.Apellido;
-    this.aviso.Seccion = nuevaJustificacion.Seccion;
+    this.aviso.IdLegajo = nuevoAviso.IdLegajo;
+    this.aviso.Nombre = nuevoAviso.Nombre;
+    this.aviso.Apellido = nuevoAviso.Apellido;
+    this.aviso.Seccion = nuevoAviso.Seccion;
   }
 
   openModalNomina() {
