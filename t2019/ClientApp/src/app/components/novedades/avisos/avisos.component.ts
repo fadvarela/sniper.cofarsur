@@ -90,11 +90,6 @@ export class AvisosComponent implements OnInit {
   }
 
   getIncidenciasCmb() {
-    // const paramEntity = new ParamEntity<any>();
-    // paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
-    // paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
-    // paramEntity.IdIncidencia = 0;
-
     let params = [];
     params.push(null);
     params.push(this.userValuesService.getUsuarioValues.IdUsuario);
