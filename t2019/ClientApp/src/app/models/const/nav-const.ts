@@ -7,6 +7,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
       header: 'Sniper',
       link: '#',
       disabled: false,
+      hidden: false,
       tooltip: '',
       dropdown: true,
       submenu: [
@@ -15,6 +16,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
           header: 'Configuraciones',
           link: '#',
           disabled: false,
+          hidden: false,
           tooltip: ''
         },
         {
@@ -22,6 +24,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
           header: 'Soporte',
           link: '#',
           disabled: false,
+          hidden: false,
           tooltip: '',
           dropdown: true,
           submenu: [
@@ -30,6 +33,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
               header: 'ABM Sistema',
               link: '#',
               disabled: false,
+              hidden: false,
               tooltip: ''
             },
             {
@@ -37,6 +41,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
               header: 'ABM Estructuras',
               link: '#',
               disabled: false,
+              hidden: false,
               tooltip: ''
             },
             {
@@ -44,6 +49,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
               header: 'ABM Novedades',
               link: '#',
               disabled: false,
+              hidden: false,
               tooltip: ''
             }
           ]
@@ -55,6 +61,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
       header: 'Nómina',
       link: '#',
       disabled: false,
+      hidden: false,
       tooltip: '',
       dropdown: true,
       submenu: [
@@ -63,6 +70,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
           header: 'ABM Personas',
           link: '#',
           disabled: false,
+          hidden: false,
           tooltip: ''
         }
       ]
@@ -72,6 +80,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
       header: 'Novedades',
       link: '#',
       disabled: false,
+      hidden: false,
       tooltip: '',
       dropdown: true,
       submenu: [
@@ -80,6 +89,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
           header: 'Jornadas Habituales',
           link: '/jornadas-habituales',
           disabled: false,
+          hidden: false,
           tooltip: ''
         },
         {
@@ -87,6 +97,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
           header: 'Avisos',
           link: '/avisos',
           disabled: false,
+          hidden: true,
           tooltip: ''
         },
         {
@@ -94,6 +105,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
           header: 'Justificaciones',
           link: '/justificaciones',
           disabled: false,
+          hidden: false,
           tooltip: ''
         },
         {
@@ -101,6 +113,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
           header: 'Parte diario',
           link: '/parte-diario',
           disabled: false,
+          hidden: false,
           tooltip: ''
         }
       ]
@@ -110,6 +123,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
       header: 'Reportes',
       link: '',
       disabled: false,
+      hidden: false,
       tooltip: '#',
       dropdown: true,
       submenu: [
@@ -118,6 +132,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
           header: 'Novedades Consolidadas',
           link: '#',
           disabled: false,
+          hidden: false,
           tooltip: ''
         },
         {
@@ -125,6 +140,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
           header: 'Anomalías',
           link: '#',
           disabled: false,
+          hidden: false,
           tooltip: ''
         }
       ]

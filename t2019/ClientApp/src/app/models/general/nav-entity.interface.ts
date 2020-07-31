@@ -7,4 +7,5 @@ export interface NavEntity {
   tooltipPosition?: string;
   dropdown?: boolean;
   submenu?: NavEntity[];
+  hidden?: boolean;
 }

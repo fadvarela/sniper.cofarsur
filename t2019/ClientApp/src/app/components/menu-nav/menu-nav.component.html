@@ -19,7 +19,7 @@
             <!-- Iteración para mostrar todos los botones incluidos como submenu
                 y aplicamos la misma logica que en los botones padres -->
             <ul class="dropdown-menu dropdown-submenu shadow-sm">
-              <li class="nav-item px-2 py-1" *ngFor="let subElement of element.submenu"
+              <li class="nav-item px-2 py-1" *ngFor="let subElement of filterMenuItems(element.submenu)"
                 [ngClass]="(subElement.dropdown && !subElement.disabled) ? 'dropdown' : ''">
                 <a class="nav-menu-link" [ngClass]="{'disable-a' : subElement.disabled}"
                 routerLink="{{ subElement.link }}">

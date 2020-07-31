@@ -70,8 +70,8 @@ export class MenuNavComponent implements OnInit {
     this.userValuesService.setLogout();
   }
 
-  filterMenuItems(menuList) {
-    // return menuList.filter(x => x.id ===);
+  filterMenuItems(menuItems) {
+    return menuItems.filter(x => !x.hidden);
   }
 
 }

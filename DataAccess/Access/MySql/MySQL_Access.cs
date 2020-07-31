@@ -38,8 +38,9 @@ namespace DataAccess.Access.MySQL
                   {
                       cmd.CommandType = comandType;
                       cmd.CommandText = sqlQuery.ToUpper();
+					  cmd.CommandTimeout = 5000; // seteamos el tiempo de espera de 5 minutos
 
-                      if (parameters != null)
+					  if (parameters != null)
                       {
                           cmd.Parameters.AddRange(parameters.ToArray());
                           cmd.GetDbParameters();
@@ -66,6 +67,7 @@ namespace DataAccess.Access.MySQL
 					//"SELECT id, titulo as nombre FROM test WHERE id = @id"
 					cmd.CommandType = comandType; // Especifico el tipo de comando
 					cmd.CommandText = sqlQuery.ToUpper(); // Seteo la query enviada por parámetro
+					cmd.CommandTimeout = 5000; // seteamos el tiempo de espera de 5 minutos
 
 					if (parameters != null)
 					{
@@ -92,6 +94,7 @@ namespace DataAccess.Access.MySQL
 				{
 					cmd.CommandType = comandType; // Especifico el tipo de comando
 					cmd.CommandText = sqlQuery.ToUpper(); // Seteo la query enviada por parámetro
+					cmd.CommandTimeout = 5000; // seteamos el tiempo de espera de 5 minutos
 
 					if (parameters != null)
 					{
