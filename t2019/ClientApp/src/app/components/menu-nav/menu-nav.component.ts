@@ -28,7 +28,7 @@ export class MenuNavComponent implements OnInit {
     private route: Router,
     private activatedRoute: ActivatedRoute,
     private _snackBar: SnackBarService) {
-    this.navMenuList = getNavMenuList();
+    this.navMenuList = getNavMenuList(this.userValuesService.getUsuarioValues.IdRol);
   }
 
   ngOnInit() {

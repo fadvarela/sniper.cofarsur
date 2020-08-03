@@ -1,6 +1,6 @@
 import { NavEntity } from '../general/nav-entity.interface';
 
-export const getNavMenuList = (): Array<NavEntity> => {
+export const getNavMenuList = (idRol): Array<NavEntity> => {
   const navMenuList = [
     {
       id: 1,
@@ -105,7 +105,7 @@ export const getNavMenuList = (): Array<NavEntity> => {
           header: 'Justificaciones',
           link: '/justificaciones',
           disabled: false,
-          hidden: false,
+          hidden: idRol === 2,
           tooltip: ''
         },
         {
