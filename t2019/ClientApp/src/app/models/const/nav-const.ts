@@ -97,7 +97,7 @@ export const getNavMenuList = (idRol): Array<NavEntity> => {
           header: 'Avisos',
           link: '/avisos',
           disabled: false,
-          hidden: true,
+          hidden: false,
           tooltip: ''
         },
         {

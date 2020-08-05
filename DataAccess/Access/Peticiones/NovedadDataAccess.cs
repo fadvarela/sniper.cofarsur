@@ -224,7 +224,7 @@ namespace DataAccess.Access.Peticiones
 			{
 				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa},
 				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
-				new MySqlParameter(){ ParameterName = "P_FECHA", Value = param.FechaDate.Date },
+				new MySqlParameter(){ ParameterName = "P_FECHA", Value = param.FechaDateArray[0].Date },
 				new MySqlParameter(){ ParameterName = "P_ID_INCIDENCIA",Value = param.IdIncidencia },
 				new MySqlParameter(){ ParameterName = "P_OBSERVACIONES",Value = param.GenericEntity.Observaciones }
 			};
