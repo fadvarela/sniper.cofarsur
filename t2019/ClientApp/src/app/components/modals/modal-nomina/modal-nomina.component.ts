@@ -37,6 +37,13 @@ export class ModalNominaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.dataSource.filterPredicate = (data: Nomina, filter: string) => {
+      return data.Seccion.includes(filter)
+      || data.IdLegajo.toString().includes(filter)
+      || data.Apellido.toLowerCase().includes(filter)
+      || data.Nombre.toLowerCase().includes(filter)
+      || data.Cuil.toString().includes(filter)
+    }
     this.getNominaGrilla();
   }
 
@@ -48,6 +55,7 @@ export class ModalNominaComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
 
   getNominaGrilla() {
     const paramEntity = new ParamEntity();

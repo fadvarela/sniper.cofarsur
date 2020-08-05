@@ -216,19 +216,37 @@ export class JustificacionesComponent implements OnInit {
   }
 
   openModalConfirmacion() {
-    const dialogRef = this.dialog.open(ModalConfirmacionComponent, {
-      width: '500px',
-      height: '120px',
-      autoFocus: false,
-      data: {
-        titulo: '¿Desea guardar la justificación?'
-      }
-    });
-    dialogRef.beforeClosed().subscribe((result) => {
-      if (result) {
-        this.postJustificacion();
-      }
-    });
+    if (this.validarCampos()) {
+      const dialogRef = this.dialog.open(ModalConfirmacionComponent, {
+        width: '500px',
+        height: '120px',
+        autoFocus: false,
+        data: {
+          titulo: '¿Desea guardar la justificación?'
+        }
+      });
+      dialogRef.beforeClosed().subscribe((result) => {
+        if (result) {
+          this.postJustificacion();
+        }
+      });
+    }
+  }
+
+  validarCampos() {
+    if (!this.justificacion.IdIncidencia) {
+      this._snackBar.openSnackBar('snack-danger', 'Seleccione una incidencia', 3000);
+      return false;
+    }
+    if (this.justificacion.IdIncidencia && this.cmbPatologiaHabilitado && !this.justificacion.IdPatologia) {
+      this._snackBar.openSnackBar('snack-danger', 'Seleccione una patología', 3000);
+      return false;
+    }
+    if (!this.justificacion.Dias) {
+      this._snackBar.openSnackBar('snack-danger', 'Ingrese cantidad de días', 3000);
+      return false;
+    }
+    return true;
   }
 
   setMostrarCmbPatologia() {

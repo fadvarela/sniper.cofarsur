@@ -217,19 +217,34 @@ export class AvisosComponent implements OnInit {
   }
 
   openModalConfirmacion() {
-    const dialogRef = this.dialog.open(ModalConfirmacionComponent, {
-      width: '500px',
-      height: '120px',
-      autoFocus: false,
-      data: {
-        titulo: '¿Desea guardar el aviso?'
-      }
-    });
-    dialogRef.beforeClosed().subscribe((result) => {
-      if (result) {
-        this.guardarAviso();
-      }
-    });
+    if (this.validarCampos()) {
+      const dialogRef = this.dialog.open(ModalConfirmacionComponent, {
+        width: '500px',
+        height: '120px',
+        autoFocus: false,
+        data: {
+          titulo: '¿Desea guardar el aviso?'
+        }
+      });
+      dialogRef.beforeClosed().subscribe((result) => {
+        if (result) {
+          this.guardarAviso();
+        }
+      });
+    }
+
+  }
+
+  validarCampos() {
+    if (!this.aviso.IdIncidencia) {
+      this._snackBar.openSnackBar('snack-danger', 'Seleccione una incidencia', 3000);
+      return false;
+    }
+    if (!this.aviso.Dias) {
+      this._snackBar.openSnackBar('snack-danger', 'Ingrese cantidad de días', 3000);
+      return false;
+    }
+    return true;
   }
 
   setMostrarCmbPatologia() {
