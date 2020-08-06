@@ -81,6 +81,7 @@ import { ModalConfirmacionComponent } from './components/modals/modal-confirmaci
 import { JustificacionesComponent } from './components/novedades/justificaciones/justificaciones.component';
 import { ModalNominaComponent } from './components/modals/modal-nomina/modal-nomina.component';
 import { AvisosComponent } from './components/novedades/avisos/avisos.component';
+import { AutofocusDirective } from './directives/autofocus.directive';
 
 declare var $: any;
 registerLocaleData(localeEsAr, 'es-AR');
@@ -104,7 +105,8 @@ registerLocaleData(localeEsAr, 'es-AR');
     ModalConfirmacionComponent,
     JustificacionesComponent,
     ModalNominaComponent,
-    AvisosComponent
+    AvisosComponent,
+    AutofocusDirective
   ],
   entryComponents: [
     ModalMarcacionComponent,

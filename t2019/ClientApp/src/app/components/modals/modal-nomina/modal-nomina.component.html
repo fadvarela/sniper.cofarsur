@@ -3,9 +3,9 @@
 </h1>
 <div mat-dialog-content>
 
-  <mat-form-field class="filter-input">
+  <mat-form-field class="filter-input" >
     <mat-label>Filtrar</mat-label>
-    <input matInput (keyup)="filtrarGrilla($event)">
+    <input matInput (keyup)="filtrarGrilla($event)" sniperAutofocus>
   </mat-form-field>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

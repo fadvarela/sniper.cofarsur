@@ -3,7 +3,7 @@ import { Idle } from 'idlejs/dist';
 import { ParamEntity } from './../../../models/general/param.model';
 import { UserValuesService } from './../../../services/utils/user-values.service';
 import { Nomina } from './../../../models/rrhh/nomina.model';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatDialog, MatDialogRef } from '@angular/material';
 import { Marcacion } from 'src/app/models/rrhh/marcacion.model';
 
