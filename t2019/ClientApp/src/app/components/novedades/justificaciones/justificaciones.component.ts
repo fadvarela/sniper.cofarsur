@@ -117,6 +117,7 @@ export class JustificacionesComponent implements OnInit {
     paramEntity.GenericEntity = this.justificacion;
     paramEntity.GenericEntity.IdEstado = 0;
     paramEntity.GenericEntity.IdJustificacion = 0;
+    paramEntity.GenericEntity.Anula = false;
     paramEntity.IdLegajo = this.justificacion.IdLegajo;
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
@@ -143,6 +144,7 @@ export class JustificacionesComponent implements OnInit {
     paramEntity.GenericEntity.IdJustificacion = row.IdJustificacion;
     paramEntity.GenericEntity.IdEstado = 0;
     paramEntity.GenericEntity.Dias = 0;
+    paramEntity.GenericEntity.Anula = true;
     paramEntity.IdLegajo = this.justificacion.IdLegajo;
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;

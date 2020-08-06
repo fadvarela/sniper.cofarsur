@@ -350,7 +350,7 @@ namespace t2019.Controllers
 			try
 			{
 				var result = novedadBackend.updJustificacion(param);
-				if (result.Ok)
+				if (result.Ok && !param.GenericEntity.Anula)
 				{
 					var paramDynamic = new ParamEntity<dynamic>();
 					paramDynamic.IdEmpresa = param.IdEmpresa;

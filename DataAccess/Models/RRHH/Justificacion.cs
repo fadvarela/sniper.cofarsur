@@ -41,5 +41,7 @@ namespace DataAccess.Models.RRHH
 
 		[Column("N_PATOLOGIA")]
 		public string Npatologia { get; set; }
+
+		public bool Anula { get; set; }
 	}
 }
