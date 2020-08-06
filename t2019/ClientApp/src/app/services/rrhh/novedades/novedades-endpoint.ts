@@ -1,9 +1,10 @@
+import { timeout } from 'rxjs/operators';
 import { JornadaHabitual } from './../../../models/rrhh/novedades/jornada-habitual.model';
 import { ParamEntity } from 'src/app/models/general/param.model';
 import { CmbEntity } from './../../../models/general/cmbEntity.model';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { throwError, Observable } from 'rxjs';
+import { throwError, Observable, TimeoutError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { DateTimeEntity } from 'src/app/models/sistema/dateTimeEntity';
 import { Novedades } from 'src/app/models/rrhh/novedades/novedades.model';
@@ -23,13 +24,17 @@ export class NovedadesEndPoint {
       'Authorization': 'Bearer ' + '',
       'Content-Type': 'application/json',
       'Accept': `application/json, text/plain, */*`,
-      'App-Version': '1.0'
+      'App-Version': '1.0',
+      timeout: `${100000}`
     });
 
     return headers;
   }
 
   handleError(error: HttpErrorResponse) {
+    if (error instanceof TimeoutError) {
+      return throwError('En este momento no podemos realizar la operación. Por favor intente nuevamente más tarde.');
+    }
     return throwError(error);
   }
 

@@ -56,7 +56,6 @@ export class ModalNominaComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
   getNominaGrilla() {
     const paramEntity = new ParamEntity();
     paramEntity.IdLegajo = 0;

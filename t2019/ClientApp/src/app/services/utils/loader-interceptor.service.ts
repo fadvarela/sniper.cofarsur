@@ -1,9 +1,11 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Inject, InjectionToken } from "@angular/core";
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable, BehaviorSubject } from "rxjs";
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } from "@angular/common/http";
-import { tap } from "rxjs/operators";
+import { tap, timeout } from "rxjs/operators";
 import { ActivatedRoute, Router } from "@angular/router";
+
+export const DEFAULT_TIMEOUT = new InjectionToken<number>('defaultTimeout');
 
 @Injectable()
 export class LoadingInterceptorService implements HttpInterceptor {
@@ -12,10 +14,13 @@ export class LoadingInterceptorService implements HttpInterceptor {
 
   constructor(
     private router: Router,
-    private spinnerNgx: NgxSpinnerService) {
+    private spinnerNgx: NgxSpinnerService,
+    @Inject(DEFAULT_TIMEOUT) protected defaultTimeout: number) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const timeoutValue = req.headers.get('timeout') || this.defaultTimeout;
+    const timeoutValueNumeric = Number(timeoutValue);
 
     if (this.router.url !== '/login') {
       this.spinnerNgx.show();
@@ -25,6 +30,7 @@ export class LoadingInterceptorService implements HttpInterceptor {
     return next
       .handle(req)
       .pipe(
+        timeout(timeoutValueNumeric),
         tap((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
             this.spinnerNgx.hide();

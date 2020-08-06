@@ -71,7 +71,7 @@ import { AlertComponent } from './components/utils/alert/alert/alert.component';
 import { LoginIngresoComponent } from './components/login/login-ingreso/login-ingreso.component';
 import { LoginRecuperarPassComponent } from './components/login/login-recuperar-pass/login-recuperar-pass.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { LoadingInterceptorService } from './services/utils/loader-interceptor.service';
+import { LoadingInterceptorService, DEFAULT_TIMEOUT } from './services/utils/loader-interceptor.service';
 import { MenuNavComponent } from './components/menu-nav/menu-nav.component';
 import { ModalMarcacionComponent } from './components/modals/modal-marcacion/modal-marcacion.component';
 import { ParteDiarioComponent } from './components/novedades/parte-diario/parte-diario.component';
@@ -177,7 +177,8 @@ registerLocaleData(localeEsAr, 'es-AR');
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptorService,
       multi: true
-    }
+    },
+    [{ provide: DEFAULT_TIMEOUT, useValue: 30000 }]
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

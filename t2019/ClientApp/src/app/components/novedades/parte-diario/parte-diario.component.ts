@@ -82,7 +82,9 @@ export class ParteDiarioComponent implements OnInit {
       if (result) {
         this.dataSource.data = [...result];
       }
-    }, (error) => { this._snackBar.openSnackBar('snack-danger', 'Backend error: ' + error.error, 5000); });
+    }, (error) => {
+      error = (error.error) ? 'Backend error: ' + error.error : error;
+      this._snackBar.openSnackBar('snack-danger',  error, 5000); });
   }
 
 
