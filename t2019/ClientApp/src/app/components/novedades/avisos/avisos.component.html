@@ -142,7 +142,7 @@
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-          [ngClass]="{'css_justificacion': row.IdEstado == 2,'css_anulado': row.IdEstado == 0, hovered: row.hovered, sombreado: row.Seleccionado}"
+          [ngClass]="{'css_justificacion_anulada': row.IdEstado == 3,'css_justificacion': row.IdEstado == 2,'css_anulado': row.IdEstado == 0, hovered: row.hovered, sombreado: row.Seleccionado}"
           (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
       </table>
 
