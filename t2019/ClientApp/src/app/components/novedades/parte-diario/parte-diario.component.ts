@@ -31,7 +31,9 @@ export class ParteDiarioComponent implements OnInit {
     'I_IMPARES',
     'I_SIN_INCIDENCIAS',
     'H_ADICIONALES',
-    'H_AUSENCIA'
+    'H_AUSENCIA',
+    'llegadaTarde',
+    'retiroAnticipado'
   ];
   dataSource = new MatTableDataSource<Novedades>([]);
   @ViewChild(MatPaginator, { static: true }) set matPaginator(paginator: MatPaginator) {

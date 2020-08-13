@@ -38,7 +38,8 @@ export class JustificacionesComponent implements OnInit {
   justificacion: Justificacion;
   listJustificacionesCmb: CmbEntity[] = [];
   listPatologiasCmb: CmbEntity[] = [];
-  fechaCalculadaLbl = '';
+  fechaCalculadaRetorno = '';
+  fechaCalculadaHasta = '';
   justificacionesList: Justificacion[] = [];
   menuMarcacionOpened = false;
   dateInput: any = '';
@@ -123,7 +124,7 @@ export class JustificacionesComponent implements OnInit {
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
     paramEntity.GenericEntity.IdPatologia = this.justificacion.IdPatologia;
     paramEntity.FechaDateArray[0] = this.fechaPicker;
-    paramEntity.FechaDateArray[1] = new Date(this.fechaCalculadaLbl);
+    paramEntity.FechaDateArray[1] = new Date(this.fechaCalculadaRetorno);
 
     this.novedadesService.updJustificacion(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {
@@ -190,14 +191,17 @@ export class JustificacionesComponent implements OnInit {
     if (this.justificacion.Dias > 0 && this.justificacion.Dias < 1000) {
       const result = new Date(fechaPicker);
       result.setDate(result.getDate() + Number(this.justificacion.Dias));
-      this.fechaCalculadaLbl = result.toISOString();
+      this.fechaCalculadaRetorno = result.toISOString();
+      result.setDate(result.getDate() - 1);
+      this.fechaCalculadaHasta = result.toISOString();
       return;
     }
     if (this.justificacion.Dias === 0) {
       this._snackBar.openSnackBar('snack-danger', 'Debe ingresar un número superior a 0 (cero)', 3000);
       return;
     }
-    this.fechaCalculadaLbl = '';
+    this.fechaCalculadaRetorno = '';
+    this.fechaCalculadaHasta = '';
     this.justificacion.Dias = null;
   }
 

@@ -38,7 +38,8 @@ export class AvisosComponent implements OnInit {
   aviso: Aviso;
   listIncidenciasCmb: CmbEntity[] = [];
   listPatologiasCmb: CmbEntity[] = [];
-  fechaCalculadaLbl = '';
+  fechaCalculadaRetorno = '';
+  fechaCalculadaHasta = '';
   justificacionesList: Justificacion[] = [];
   menuMarcacionOpened = false;
   dateInput: any = '';
@@ -189,14 +190,16 @@ export class AvisosComponent implements OnInit {
     if (this.aviso.Dias > 0 && this.aviso.Dias < 1000) {
       const result = new Date(fechaPicker);
       result.setDate(result.getDate() + Number(this.aviso.Dias));
-      this.fechaCalculadaLbl = result.toISOString();
+      this.fechaCalculadaRetorno = result.toISOString();
+      result.setDate(result.getDate() - 1);
+      this.fechaCalculadaHasta = result.toISOString();
       return;
     }
     if (this.aviso.Dias === 0) {
       this._snackBar.openSnackBar('snack-danger', 'Debe ingresar un número superior a 0 (cero)', 3000);
       return;
     }
-    this.fechaCalculadaLbl = '';
+    this.fechaCalculadaRetorno = '';
     this.aviso.Dias = null;
   }
 

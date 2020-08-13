@@ -48,19 +48,28 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-4 text-center">
+    <div class="col text-center">
       <app-datepicker (dateEmit)="getStartDatePickerEmit($event)" [dateClass]="'datePickerMargin'" [dateLabel]="'Desde'"
         [emitOnInit]="true" [disabled]="!aviso.IdLegajo" [dateInput]="dateInput" [fullWidth]="true" [maxDate]="null"></app-datepicker>
     </div>
-    <div class="col-4 text-center">
+    <div class="col text-center">
       <mat-form-field>
         <mat-label>Días</mat-label>
         <input [disabled]="!aviso.IdLegajo" type="text" matInput placeholder="Ingrese hasta 3 dígitos"
           [(ngModel)]="aviso.Dias" (blur)="calculaFecha()" (keydown)="soloNumeros($event)" maxlength="3">
       </mat-form-field>
     </div>
-    <div class="col-4 text-center d-flex justify-content-center align-items-center" *ngIf="fechaCalculadaLbl">
-      <mat-label class="label-legajo shadow-sm">{{ fechaCalculadaLbl | date: 'dd/MM/yyyy' }}</mat-label>
+    <div class="col text-center d-flex justify-content-center align-items-center">
+      <mat-form-field>
+        <mat-label>Hasta (inclusive)</mat-label>
+        <input [disabled]="true" type="text" matInput value="{{fechaCalculadaHasta | date: 'dd/MM/yyyy'}}">
+      </mat-form-field>
+    </div>
+    <div class="col text-center d-flex justify-content-center align-items-center">
+      <mat-form-field>
+        <mat-label>Retorno</mat-label>
+        <input [disabled]="true" type="text" matInput value="{{fechaCalculadaRetorno | date: 'dd/MM/yyyy'}}">
+      </mat-form-field>
     </div>
 
   </div>

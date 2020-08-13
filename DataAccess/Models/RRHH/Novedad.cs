@@ -40,5 +40,11 @@ namespace DataAccess.Models.RRHH
 
 		[Column("OBSERVACIONES")]
 		public string Observaciones { get; set; }
+
+		[Column("LLEGADA_TARDE")]
+		public long LlegadaTarde { get; set; }
+
+		[Column("RETIRO_ANTICIPADO")]
+		public long RetiroAnticipado { get; set; }
 	}
 }

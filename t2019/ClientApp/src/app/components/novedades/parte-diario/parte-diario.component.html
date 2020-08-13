@@ -108,6 +108,18 @@
             <td class="border text-center" mat-cell *matCellDef="let element"> {{element.Hausencia}} </td>
           </ng-container>
 
+          <ng-container matColumnDef="llegadaTarde">
+            <th class="border bg-secondary text-white text-center" mat-header-cell *matHeaderCellDef> Llegada tarde </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"
+            [ngClass]="{'anomalia-bg': element.LlegadaTarde > 0}"> {{element.LlegadaTarde}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="retiroAnticipado">
+            <th class="border bg-secondary text-white text-center" mat-header-cell *matHeaderCellDef> Retiro Anticipado </th>
+            <td class="border text-center" mat-cell *matCellDef="let element"
+            [ngClass]="{'anomalia-bg': element.RetiroAnticipado > 0}"> {{element.RetiroAnticipado}} </td>
+          </ng-container>
+
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openModalData(row)"></tr>
         </table>

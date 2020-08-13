@@ -19,4 +19,6 @@ export class Novedades extends Nomina {
   public Observaciones: string;
   public IdPatologia: number;
   public Npatologia: string;
+  public LlegadaTarde: number;
+  public RetiroAnticipado: number;
 }
