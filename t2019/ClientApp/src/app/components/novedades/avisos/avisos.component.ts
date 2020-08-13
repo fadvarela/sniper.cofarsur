@@ -68,6 +68,11 @@ export class AvisosComponent implements OnInit {
     this.endDateValue = value;
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceAviso.filter = filterValue.trim().toLowerCase();
+  }
+
   getSeleccionIncidencia(e) {
     this.aviso.IdIncidencia = e.value;
     this.setMostrarCmbPatologia();
@@ -152,7 +157,7 @@ export class AvisosComponent implements OnInit {
     this.novedadesService.anularAviso(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {
         this._snackBar.openSnackBar('snack-success', 'Aviso anulado correctamente', 3000);
-        this.getAvisosGrilla(paramEntity.IdLegajo);
+        this.getAvisosGrilla(this.aviso.IdLegajo);
         this.limpiarObjeto();
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);

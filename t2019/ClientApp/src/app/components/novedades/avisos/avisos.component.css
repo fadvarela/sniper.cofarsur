@@ -13,5 +13,15 @@
 
 .css_anulado {
   background-color: rgba(233, 170, 170, 0.781);
+}
+
+
+.css_justificacion {
+  background-color: rgba(148, 191, 255, 0.781);
+  font-weight: bold;
+}
+
+.css_justificacion_anulada {
+  background-color: rgba(241, 128, 128, 0.781);
   font-weight: bold;
 }
