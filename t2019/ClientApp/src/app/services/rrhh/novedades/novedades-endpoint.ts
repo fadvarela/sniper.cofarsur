@@ -8,6 +8,7 @@ import { throwError, Observable, TimeoutError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { DateTimeEntity } from 'src/app/models/sistema/dateTimeEntity';
 import { Novedades } from 'src/app/models/rrhh/novedades/novedades.model';
+import { ResponseHelper } from 'src/app/models/sistema/responseHelper';
 
 @Injectable({
   providedIn: 'root'
@@ -264,5 +265,83 @@ export class NovedadesEndPoint {
         return this.handleError(error);
       }));
   }
+
+
+
+  DownloadFile(param?: ResponseHelper) {
+    let filename = param.Downfilename;
+
+    this.getImage(param.Url).subscribe((data: Blob) => {
+      //debugger;
+      let item = filename[filename.length - 1];
+
+      let checkFileType = item.split('.').pop();
+      var fileType: any;
+      if (checkFileType == "txt") {
+        fileType = "text/plain";
+      }
+      if (checkFileType == "pdf") {
+        fileType = "application/pdf";
+      }
+      if (checkFileType == "doc") {
+        fileType = "application/vnd.ms-word";
+      }
+      if (checkFileType == "docx") {
+        fileType = "application/vnd.ms-word";
+      }
+      if (checkFileType == "xls") {
+        fileType = "application/vnd.ms-excel";
+      }
+      if (checkFileType == "xlsx") {
+        fileType = "application/vnd.ms-excel";
+      }
+      if (checkFileType == "png") {
+        fileType = "image/png";
+      }
+      if (checkFileType == "jpg") {
+        fileType = "image/jpeg";
+      }
+      if (checkFileType == "jpeg") {
+        fileType = "image/jpeg";
+      }
+      if (checkFileType == "gif") {
+        fileType = "image/gif";
+      }
+      if (checkFileType == "csv") {
+        fileType = "text/csv";
+      }
+      if (checkFileType == "amr") {
+        fileType = "AMR-WB";
+      }
+      var blob = new Blob([data], { type: 'application/pdf' })
+      const blob1: Blob = data;
+      const objectUrl: string = URL.createObjectURL(blob);
+      const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+
+      a.href = objectUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+
+      document.body.removeChild(a);
+      URL.revokeObjectURL(objectUrl);
+    })
+  }
+
+  getImage(imageUrl: string): Observable<any> {
+    const endPointUrl = this._urlNovedades + '/DownFile';
+
+    const params = new HttpParams()
+      .set('filtro', JSON.stringify(imageUrl));
+
+    return this.http.get(endPointUrl, { headers: this.getRequestHeaders(), params: params, responseType: 'arraybuffer'  }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+
+   // return this.http.get(this._urlNovedades + '/' , { headers: this.getRequestHeaders(), responseType: 'arraybuffer' });
+  }
+
+
 
 }

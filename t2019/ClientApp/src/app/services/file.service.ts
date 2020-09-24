@@ -3,13 +3,14 @@ import { Injectable } from "@angular/core";
 import { Observable, Subject, throwError, TimeoutError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { ResponseHelper } from "../models/sistema/responseHelper";
+import { NovedadesEndPoint } from 'src/app/services/rrhh/novedades/novedades-endpoint';
+import { ParamEntity } from "../models/general/param.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private novedadesEndPoint: NovedadesEndPoint) { }
 
   private handleError(error: HttpErrorResponse) {
     if (error instanceof TimeoutError) {
@@ -21,23 +22,28 @@ export class FileService {
   downloadPdf(param?: ResponseHelper): Observable<boolean> {
     const sub = new Subject<boolean>();
 
-    this.http.get(param.Url, { responseType: 'arraybuffer' }).subscribe((response: any) => {
-      if (response !== 0) {
-        const byteArray = new Uint8Array(response);
-        const blob = new Blob([byteArray], { type: 'application/pdf' });
+    this.DownloadFile(param);
+    sub.next(true);
+    sub.complete();
+    //this.http.get(param.Url, { responseType: 'arraybuffer' }).subscribe((response: any) => {
+    //  if (response !== 0) {
+        //const byteArray = new Uint8Array(response);
+        //const blob = new Blob([byteArray], { type: 'application/pdf' });
 
-        this.saveFile(blob, param.Downfilename);
+        //this.saveFile(blob, param.Downfilename);
 
-        sub.next(true);
-        sub.complete();
-      } else {
-        sub.error(false);
-      }
-    }, (error) => {
-      catchError(error => {
-        return this.handleError(error);
-      })
-    });
+
+
+      //  sub.next(true);
+      //  sub.complete();
+      //} else {
+      //  sub.error(false);
+      //}
+    //}, (error) => {
+    //  catchError(error => {
+    //    return this.handleError(error);
+    //  })
+    //});
 
     return sub;
   }
@@ -49,4 +55,11 @@ export class FileService {
     downloadLink.download = filename;
     downloadLink.click();
   }
+
+
+
+  DownloadFile(param?: ResponseHelper) {
+    return this.novedadesEndPoint.DownloadFile(param);
+  }
+
 }
