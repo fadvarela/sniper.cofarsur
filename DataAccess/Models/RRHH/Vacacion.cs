@@ -49,6 +49,12 @@ namespace DataAccess.Models.RRHH
 		[Column("SALDO_PERIODO")]
 		public long SaldoPeriodo { get; set; }
 
+		[Column("URL")]
+		public string Url { get; set; }
+
+		[Column("DOWNFILENAME")]
+		public string Filename { get; set; }
+
 		public bool Anulacion { get; set; }
 		
 	}

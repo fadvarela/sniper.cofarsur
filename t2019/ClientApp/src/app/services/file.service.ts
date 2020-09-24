@@ -1,4 +1,5 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { FileEntity } from './../models/general/file.entity';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject, throwError, TimeoutError } from "rxjs";
 import { catchError } from "rxjs/operators";
@@ -10,6 +11,9 @@ import { ParamEntity } from "../models/general/param.model";
   providedIn: 'root'
 })
 export class FileService {
+  /* Variables para llamar a API */
+  private readonly _urlArchivos: string = '/api/file';
+
   constructor(private http: HttpClient, private novedadesEndPoint: NovedadesEndPoint) { }
 
   private handleError(error: HttpErrorResponse) {
@@ -19,41 +23,53 @@ export class FileService {
     return throwError(error);
   }
 
-  downloadPdf(param?: ResponseHelper): Observable<boolean> {
+  protected getRequestHeaders() {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + '',
+      'Content-Type': 'application/json',
+      'Accept': `application/json, text/plain, */*`,
+      'App-Version': '1.0',
+      timeout: `${100000}`
+    });
+
+    return headers;
+  }
+
+  downloadPdf(params?: FileEntity): Observable<boolean> {
     const sub = new Subject<boolean>();
+    const url = `${this._urlArchivos}/descargaArchivo`;
 
-    this.DownloadFile(param);
-    sub.next(true);
-    sub.complete();
-    //this.http.get(param.Url, { responseType: 'arraybuffer' }).subscribe((response: any) => {
-    //  if (response !== 0) {
-        //const byteArray = new Uint8Array(response);
-        //const blob = new Blob([byteArray], { type: 'application/pdf' });
+    const paramsEndPoint = new HttpParams()
+      .set('filtro', JSON.stringify(params.Url));
 
-        //this.saveFile(blob, param.Downfilename);
-
-
-
-      //  sub.next(true);
-      //  sub.complete();
-      //} else {
-      //  sub.error(false);
-      //}
-    //}, (error) => {
-    //  catchError(error => {
-    //    return this.handleError(error);
-    //  })
-    //});
+    this.http.get(url, { headers: this.getRequestHeaders(), params: paramsEndPoint, responseType: 'arraybuffer' }).subscribe((fileResponse: any) => {
+      if (fileResponse) {
+        this.printFile(fileResponse, params);
+        sub.next(true);
+      } else {
+        sub.error(false);
+      }
+    }, (error) => {
+      catchError(error => {
+        return this.handleError(error);
+      })
+    });
 
     return sub;
   }
 
-  private saveFile(blob, filename) {
-    const downloadLink = document.createElement('a');
-    downloadLink.href = window.URL.createObjectURL(blob);
-    // downloadLink.download = `${new Date().toString().substring(0, 33)}_comprobante`;
-    downloadLink.download = filename;
-    downloadLink.click();
+  private printFile(fileResponse, param: FileEntity) {
+    var blob = new Blob([fileResponse], { type: 'application/pdf' })
+    const objectUrl: string = URL.createObjectURL(blob);
+    const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+
+    a.href = objectUrl;
+    a.download = param.Filename;
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(objectUrl);
   }
 
 

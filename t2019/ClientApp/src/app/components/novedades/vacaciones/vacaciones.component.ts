@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { FileEntity } from './../../../models/general/file.entity';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
 import { CmbEntity } from 'src/app/models/general/cmbEntity.model';
 import { UserValuesService } from 'src/app/services/utils/user-values.service';
@@ -15,7 +16,8 @@ import { FileService } from 'src/app/services/file.service';
 @Component({
   selector: 'app-vacaciones',
   templateUrl: './vacaciones.component.html',
-  styleUrls: ['./vacaciones.component.scss']
+  styleUrls: ['./vacaciones.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class VacacionesComponent implements OnInit {
   menuMarcacionOpened = false;
@@ -52,6 +54,7 @@ export class VacacionesComponent implements OnInit {
   fechaPicker: Date;
   cmbPatologiaHabilitado: boolean;
   vacacionObj: Vacacion;
+  loadingFile = false;
 
   constructor(
     private userValuesService: UserValuesService,
@@ -198,25 +201,7 @@ export class VacacionesComponent implements OnInit {
       // VALIDO SI EL OK ES TRUE MUESTRO EL EXITO SINO ERROR
       this._snackBar.openSnackBar((resultGuardado.Ok) ? 'snack-success' : 'snack-danger', resultGuardado.Mensaje, 3000);
       if (resultGuardado.Ok) {
-        // SI ES TRUE, USO TIMEOUT PARA QUE NO SE PISE CON EL MENSAJE ANTERIOR
-        setTimeout(() => {
-          this._snackBar.openSnackBar('snack-warning', 'Generando archivo. Por favor espere.');
-        }, 2000);
-        this.fileService.downloadPdf(resultGuardado).subscribe((resultDownload) => {
-          if (resultDownload) {
-            // SI SE DESCARGA CORRECTAMENTE LIMPIO TODO Y ACTUALIZO LOS DATOS
-            this.getVacacionesList();
-            this.getSaldosVacacionesList();
-            this.limpiarObjeto();
-            // USO EL TIMEOUT DE NUEVO PARA ELIMINAR EL MENSAJE ANTERIOR
-            setTimeout(() => {
-              this._snackBar.dismissSnackbar();
-            }, 3000);
-
-          } else {
-            this._snackBar.openSnackBar('snack-danger', 'Hubo un error al intentar descargar el archivo', 3000);
-          }
-        }, (errorDescarga) => { this._snackBar.openSnackBar('snack-danger', errorDescarga, 5000); });
+        this.printFile(false, resultGuardado.Url, resultGuardado.Downfilename);
       }
     }, (error) => { this._snackBar.openSnackBar('snack-danger', error.error, 3000); });
   }
@@ -250,6 +235,39 @@ export class VacacionesComponent implements OnInit {
     this.vacacionObj.Seccion = nuevaVacacion.Seccion;
     this.dateInput = this.dateInput = new Date();
     this.calculaFecha(this.fechaPicker);
+  }
+
+  printFile(soloDescarga: boolean, url?, fileName?) {
+    let file = new FileEntity();
+    file.Url = url;
+    file.Filename = fileName;
+
+    this.loadingFile = true; // inhabilito todos los controles del html
+    // SI ES TRUE, USO TIMEOUT PARA QUE NO SE PISE CON EL MENSAJE ANTERIOR
+    setTimeout(() => {
+      this._snackBar.openSnackBar('snack-warning', 'Generando archivo. Por favor espere.');
+    }, 2000);
+    this.fileService.downloadPdf(file).subscribe((resultDownload) => {
+      if (resultDownload) {
+        if (!soloDescarga) {
+          // SI SE DESCARGA CORRECTAMENTE LIMPIO TODO Y ACTUALIZO LOS DATOS
+          this.getVacacionesList();
+          this.getSaldosVacacionesList();
+          this.limpiarObjeto();
+        }
+        // USO EL TIMEOUT DE NUEVO PARA ELIMINAR EL MENSAJE ANTERIOR
+        setTimeout(() => {
+          this._snackBar.dismissSnackbar();
+        }, 3000);
+
+      } else {
+        this._snackBar.openSnackBar('snack-danger', 'Hubo un error al intentar descargar el archivo', 3000);
+      }
+      this.loadingFile = false; // VUELVO A HABILITAR LOS CONTROLER
+    }, (errorDescarga) => {
+      this._snackBar.openSnackBar('snack-danger', errorDescarga, 5000);
+      this.loadingFile = false; // VUELVO A HABILITAR LOS CONTROLER
+    });
   }
 
 }

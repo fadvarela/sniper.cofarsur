@@ -25,4 +25,6 @@ export class Vacacion extends Nomina {
   Seleccionado = false;
   Hovered: boolean;
   Anulacion: boolean = false;
+  Url: string;
+  Filename: string;
 }

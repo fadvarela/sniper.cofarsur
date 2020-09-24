@@ -11,7 +11,7 @@
         {{ (vacacionObj.IdLegajo) ? 'Leg. ' + vacacionObj.IdLegajo : 'Legajo' }}</mat-label>
     </div>
     <div class="col-1 align-self-center">
-      <button mat-mini-fab class="btn-open-nomina" color="primary" matTooltip="Buscar" (click)="openModalNomina()">
+      <button mat-mini-fab class="btn-open-nomina" color="primary" matTooltip="Buscar" (click)="openModalNomina()" [disabled]="loadingFile">
         <mat-icon>search</mat-icon>
       </button>
     </div>
@@ -35,13 +35,13 @@
   <div class="row">
     <div class="col text-center">
       <app-datepicker (dateEmit)="getStartDatePickerEmit($event)" [dateClass]="'datePickerMargin'" [dateLabel]="'Desde'"
-        [emitOnInit]="true" [disabled]="!vacacionObj.IdLegajo" [dateInput]="dateInput" [fullWidth]="true"
+        [emitOnInit]="true" [disabled]="!vacacionObj.IdLegajo || loadingFile" [dateInput]="dateInput" [fullWidth]="true"
         [maxDate]="null"></app-datepicker>
     </div>
     <div class="col text-center">
       <mat-form-field>
         <mat-label>Días</mat-label>
-        <input [disabled]="!vacacionObj.IdLegajo" type="text" matInput placeholder="Ingrese hasta 3 dígitos"
+        <input [disabled]="!vacacionObj.IdLegajo || loadingFile" type="text" matInput placeholder="Ingrese hasta 3 dígitos"
           [(ngModel)]="vacacionObj.Dias" (blur)="calculaFecha()" (keydown)="soloNumeros($event)" maxlength="3">
       </mat-form-field>
     </div>
@@ -69,13 +69,13 @@
   <div class="row mb-3">
     <div class="col-4">
       <button mat-stroked-button color="primary" (click)="openModalConfirmacion()"
-      [disabled]="!vacacionObj.IdLegajo">Guardar</button>
+      [disabled]="!vacacionObj.IdLegajo || loadingFile">Guardar</button>
     </div>
   </div>
 
   <mat-tab-group dynamicHeight animationDuration="0ms" mat-align-tabs="center">
     <mat-tab label="Short tab">
-      <table mat-table [dataSource]="vacacionesListDataSource" class="mat-elevation-z8 table-parte-diario m-3 p-2">
+      <table mat-table [dataSource]="vacacionesListDataSource" class="mat-elevation-z8 table-parte-diario">
         <ng-container matColumnDef="periodo">
           <th mat-header-cell *matHeaderCellDef class="text-center"> Período </th>
           <td mat-cell *matCellDef="let element" class="text-center"> {{ element.Periodo }} </td>
@@ -105,7 +105,7 @@
       <mat-paginator [pageSizeOptions]="[20, 10]"></mat-paginator>
     </mat-tab>
     <mat-tab label="Long tab">
-      <table mat-table [dataSource]="vacacionesListDataSource" class="mat-elevation-z8 table-parte-diario m-3 p-2">
+      <table mat-table [dataSource]="vacacionesListDataSource" class="mat-elevation-z8 table-parte-diario">
         <ng-container matColumnDef="periodo">
           <th mat-header-cell *matHeaderCellDef class="text-center"> Período </th>
           <td mat-cell *matCellDef="let element" class="text-center"> {{ element.Periodo }} </td>
@@ -139,14 +139,16 @@
         <ng-container matColumnDef="accion">
           <th mat-header-cell *matHeaderCellDef class="text-center"> Acción </th>
           <td mat-cell *matCellDef="let element" class="pl-0 text-center">
-            <mat-icon matTooltip="Anular" class="icon-action" [matMenuTriggerFor]="menu" *ngIf="element.IdEstado > 0"
+            <mat-icon matTooltip="Anular" class="icon-action mr-1" [matMenuTriggerFor]="menu" *ngIf="element.IdEstado > 0"
               (menuOpened)="toggleMenuOpened()" (menuClosed)="toggleMenuOpened()">close</mat-icon>
             <mat-menu #menu="matMenu" class="p-3 text-center menu-marcacion">
-              <p>¿Anular justificación?</p>
+              <p>¿Anular registro?</p>
               <button cdkFocusInitial mat-stroked-button color="primary" class="m-2"
                 (click)="anularRegistro(element, 'vacaciones')">Si</button>
               <button mat-stroked-button class="m-2">No</button>
             </mat-menu>
+            <mat-icon matTooltip="Imprimir" class="icon-action" *ngIf="element.IdEstado > 0 && element.Url"
+              (click)="printFile(true, element.Url, element.Filename)">print</mat-icon>
           </td>
         </ng-container>
 
@@ -160,18 +162,4 @@
     </mat-tab>
   </mat-tab-group>
 
-  <!-- Tabla de registros de saldos por periodo -->
-
-  <!-- <div class="row">
-    <div class="col">
-
-    </div>
-  </div> -->
-
-  <!-- Tabla de registros de vacaciones -->
-  <!-- <div class="row mt-3">
-    <div class="col">
-
-    </div>
-  </div> -->
 </div>
