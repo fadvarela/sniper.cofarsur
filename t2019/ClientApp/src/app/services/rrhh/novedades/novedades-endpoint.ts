@@ -159,6 +159,29 @@ export class NovedadesEndPoint {
       }));
   }
 
+  getVacacionesListEndPoint(param?) {
+    const endpointUrl = this._urlNovedades + '/getVacacionesList';
+    const params = new HttpParams()
+      .set('filtro', JSON.stringify(param));
+
+    return this.http.get(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
+  getSaldosVacacionesListEndPoint(param?) {
+    const endpointUrl = this._urlNovedades + '/getSaldosVacacionesList';
+    const params = new HttpParams()
+      .set('filtro', JSON.stringify(param));
+
+    return this.http.get(endpointUrl, { headers: this.getRequestHeaders(), params: params }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
+
   /*------------POST--------------*/
 
   guardarJornada(param): Observable<any> {
@@ -226,6 +249,15 @@ export class NovedadesEndPoint {
 
   anularAvisoEndPoint(params) {
     const endPointUrl = this._urlNovedades + '/anularAviso';
+
+    return this.http.post(endPointUrl, JSON.stringify(params), { headers: this.getRequestHeaders() }).pipe(
+      catchError(error => {
+        return this.handleError(error);
+      }));
+  }
+
+  updVacacionEndPoint(params) {
+    const endPointUrl = this._urlNovedades + '/updVacacion';
 
     return this.http.post(endPointUrl, JSON.stringify(params), { headers: this.getRequestHeaders() }).pipe(
       catchError(error => {

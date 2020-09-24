@@ -10,6 +10,7 @@ export class Nomina {
   public FechaIngreso: Date;
   public FechaEgreso?: Date;
   public Seccion: string;
+  public AntiguedadStr: string;
   public Antiguedad: number;
   public Edad: number;
   public Seleccionado: boolean;

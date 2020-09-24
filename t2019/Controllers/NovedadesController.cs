@@ -236,6 +236,45 @@ namespace t2019.Controllers
 			}
 		}
 
+		[HttpGet("getVacacionesList")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult getVacacionesList([FromQuery]string filtro)
+		{
+			try
+			{
+				// Si el objeto que viene por parametro contiene algun valor, lo convierto con la funcion de JSON.
+				// sino lo guardo como NULL
+				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity<Vacacion>>(filtro) : null;
+				var result = novedadBackend.getVacacionesList(paramObj);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpGet("getSaldosVacacionesList")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult getSaldosVacacionesList([FromQuery]string filtro)
+		{
+			try
+			{
+				// Si el objeto que viene por parametro contiene algun valor, lo convierto con la funcion de JSON.
+				// sino lo guardo como NULL
+				var paramObj = (!string.IsNullOrEmpty(filtro)) ? JsonConvert.DeserializeObject<ParamEntity<Vacacion>>(filtro) : null;
+				var result = novedadBackend.getSaldosVacacionesList(paramObj);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 
 		/*-------------------------POST-----------------------------*/
 
@@ -397,6 +436,23 @@ namespace t2019.Controllers
 			try
 			{
 				var result = novedadBackend.anularAviso(param);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpPost("updVacacion")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[Consumes(MediaTypeNames.Application.Json)]
+		public IActionResult updVacacion([FromBody]ParamEntity<Vacacion> param)
+		{
+			try
+			{
+				var result = novedadBackend.updVacacion(param);
 				return Ok(result);
 			}
 			catch (Exception ex)

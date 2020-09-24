@@ -12,5 +12,14 @@ namespace DataAccess.Models.Sistema.Helper
 
 		[Column("MENSAJE")]
 		public string Mensaje { get; set; }
+
+		[Column("URL")]
+		public string Url { get; set; }
+
+		[Column("DOWNFILENAME")]
+		public string Downfilename { get; set; }
+
+		[NotMapped]
+		public dynamic DataResponse { get; set; }
 	}
 }

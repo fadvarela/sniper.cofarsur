@@ -72,7 +72,7 @@ namespace DataAccess.Access.Peticiones
 
 			return result;
 		}
-		
+
 
 		public IEnumerable<Marcacion> getListMarcaciones(ParamEntity<object> param)
 		{
@@ -180,6 +180,37 @@ namespace DataAccess.Access.Peticiones
 			return result;
 		}
 
+		public IEnumerable<Vacacion> getVacacionesList(ParamEntity<Vacacion> param)
+		{
+			var parametros = new List<object>()
+			{
+				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
+				new MySqlParameter(){ ParameterName = "P_ID_USUARIO", Value = param.IdUsuario },
+				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa}
+			};
+
+			var sqlQuery = "SP_VACACIONES_GET";
+			var result = MAccess.GetSavantList<MySqlConnection, Vacacion>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+
+			return result;
+		}
+
+		public IEnumerable<Vacacion> getSaldosVacacionesList(ParamEntity<Vacacion> param)
+		{
+			var parametros = new List<object>()
+			{
+				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.IdLegajo},
+				new MySqlParameter(){ ParameterName = "P_ID_USUARIO", Value = param.IdUsuario },
+				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa}
+			};
+
+			var sqlQuery = "SP_VACACIONES_SALDOS_GET";
+			var result = MAccess.GetSavantList<MySqlConnection, Vacacion>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+
+			return result;
+		}
+
+
 		/*-----------------------------POST----------------------------------*/
 
 		public ResponseHelper guardarJornada(ParamEntity<object> param)
@@ -195,7 +226,7 @@ namespace DataAccess.Access.Peticiones
 
 			var sqlQuery = "SP_NOVEDADES_JORNADAS_UPD";
 			var responseHelper = new ResponseHelper();
-			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+			responseHelper = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
 			return responseHelper;
 		}
@@ -213,7 +244,7 @@ namespace DataAccess.Access.Peticiones
 
 			var sqlQuery = "SP_NOVEDADES_INCIDENCIAS_UPD";
 			var responseHelper = new ResponseHelper();
-			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+			responseHelper = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
 			return responseHelper;
 		}
@@ -231,7 +262,7 @@ namespace DataAccess.Access.Peticiones
 
 			var sqlQuery = "SP_NOV_OBSERVACIONES_UPD";
 			var responseHelper = new ResponseHelper();
-			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+			responseHelper = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
 			return responseHelper;
 		}
@@ -250,11 +281,11 @@ namespace DataAccess.Access.Peticiones
 
 			var sqlQuery = "SP_PATOLOGIAS_UPD";
 			var responseHelper = new ResponseHelper();
-			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+			responseHelper = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
 			return responseHelper;
 		}
-		
+
 
 		public ResponseHelper anularMarcacion(ParamEntity<Marcacion> param)
 		{
@@ -273,7 +304,7 @@ namespace DataAccess.Access.Peticiones
 
 			var sqlQuery = "SP_NOVEDADES_MARCACION_UPD";
 			var responseHelper = new ResponseHelper();
-			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+			responseHelper = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
 			return responseHelper;
 		}
@@ -295,7 +326,7 @@ namespace DataAccess.Access.Peticiones
 
 			var sqlQuery = "SP_NOVEDADES_MARCACION_UPD";
 			var responseHelper = new ResponseHelper();
-			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+			responseHelper = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
 			return responseHelper;
 		}
@@ -318,7 +349,7 @@ namespace DataAccess.Access.Peticiones
 
 			var sqlQuery = "SP_JORNADAS_HABITUALES_UPD";
 			var responseHelper = new ResponseHelper();
-			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+			responseHelper = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
 			return responseHelper;
 		}
@@ -340,7 +371,7 @@ namespace DataAccess.Access.Peticiones
 
 			var sqlQuery = "SP_JUSTIF_UPD";
 			var responseHelper = new ResponseHelper();
-			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+			responseHelper = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
 			return responseHelper;
 		}
@@ -363,7 +394,7 @@ namespace DataAccess.Access.Peticiones
 
 			var sqlQuery = "SP_NOV_AVISOS_PRD_UPD";
 			var responseHelper = new ResponseHelper();
-			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+			responseHelper = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
 			return responseHelper;
 		}
@@ -386,12 +417,31 @@ namespace DataAccess.Access.Peticiones
 
 			var sqlQuery = "SP_NOV_AVISOS_PRD_UPD";
 			var responseHelper = new ResponseHelper();
-			responseHelper.Ok = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+			responseHelper = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 
 			return responseHelper;
-		}	
+		}
 
+		public ResponseHelper updVacacion(ParamEntity<Vacacion> param)
+		{
+			var parametros = new List<object>()
+			{
+				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = param.IdEmpresa },
+				new MySqlParameter(){ ParameterName = "P_ID_USUARIO", Value = param.IdUsuario },
+				new MySqlParameter(){ ParameterName = "P_ID_LEGAJO", Value = param.GenericEntity.IdLegajo},
+				new MySqlParameter(){ ParameterName = "P_FECHA_DESDE", Value = param.GenericEntity.FechaDesde},
+				new MySqlParameter(){ ParameterName = "P_DIAS", Value = param.GenericEntity.Dias},
+				new MySqlParameter(){ ParameterName = "P_OBSERVACIONES", Value = param.GenericEntity.Observaciones},
+				new MySqlParameter(){ ParameterName = "P_ID_JUSTIFICACION", Value = param.GenericEntity.IdJustificacion},
+				new MySqlParameter(){ ParameterName = "P_ID_ESTADO", Value = param.GenericEntity.IdEstado}
+			};
 
+			var sqlQuery = "SP_VACACIONES_UPD";
+			var responseHelper = new ResponseHelper();
+			responseHelper = MAccess.SavantLoad<MySqlConnection>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
+
+			return responseHelper;
+		}
 
 	}
 }

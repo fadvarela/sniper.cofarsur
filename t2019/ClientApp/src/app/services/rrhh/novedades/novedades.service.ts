@@ -58,7 +58,14 @@ export class NovedadesService {
   getNovedadesAvisosGrilla(params?: ParamEntity<any>) {
     return this.novedadesEndPoint.getNovedadesAvisosGrillaEndPoint(params);
   }
-  
+
+  getVacacionesList(params?: ParamEntity<any>) {
+    return this.novedadesEndPoint.getVacacionesListEndPoint(params);
+  }
+
+  getSaldosVacacionesList(params?: ParamEntity<any>) {
+    return this.novedadesEndPoint.getSaldosVacacionesListEndPoint(params);
+  }
 
   /*--------POST-----------*/
 
@@ -92,6 +99,10 @@ export class NovedadesService {
 
   anularAviso(params: ParamEntity<any>) {
     return this.novedadesEndPoint.anularAvisoEndPoint(params);
+  }
+
+  updVacacion(params: ParamEntity<any>) {
+    return this.novedadesEndPoint.updVacacionEndPoint(params);
   }
 
 }

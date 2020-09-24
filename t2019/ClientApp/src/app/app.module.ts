@@ -1,3 +1,4 @@
+import { FileService } from './services/file.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -82,6 +83,7 @@ import { JustificacionesComponent } from './components/novedades/justificaciones
 import { ModalNominaComponent } from './components/modals/modal-nomina/modal-nomina.component';
 import { AvisosComponent } from './components/novedades/avisos/avisos.component';
 import { AutofocusDirective } from './directives/autofocus.directive';
+import { VacacionesComponent } from './components/novedades/vacaciones/vacaciones.component';
 
 declare var $: any;
 registerLocaleData(localeEsAr, 'es-AR');
@@ -106,7 +108,8 @@ registerLocaleData(localeEsAr, 'es-AR');
     JustificacionesComponent,
     ModalNominaComponent,
     AvisosComponent,
-    AutofocusDirective
+    AutofocusDirective,
+    VacacionesComponent
   ],
   entryComponents: [
     ModalMarcacionComponent,
@@ -173,6 +176,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     SenderService,
     SnackBarService,
     LoadingInterceptorService,
+    FileService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptorService,

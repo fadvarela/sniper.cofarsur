@@ -110,6 +110,14 @@ export const getNavMenuList = (idRol): Array<NavEntity> => {
         },
         {
           id: 13,
+          header: 'Vacaciones',
+          link: '/vacaciones',
+          disabled: false,
+          hidden: idRol === 2,
+          tooltip: ''
+        },
+        {
+          id: 14,
           header: 'Parte diario',
           link: '/parte-diario',
           disabled: false,
@@ -119,7 +127,7 @@ export const getNavMenuList = (idRol): Array<NavEntity> => {
       ]
     },
     {
-      id: 14,
+      id: 15,
       header: 'Reportes',
       link: '',
       disabled: false,
@@ -128,7 +136,7 @@ export const getNavMenuList = (idRol): Array<NavEntity> => {
       dropdown: true,
       submenu: [
         {
-          id: 15,
+          id: 16,
           header: 'Novedades Consolidadas',
           link: '#',
           disabled: false,
@@ -136,7 +144,7 @@ export const getNavMenuList = (idRol): Array<NavEntity> => {
           tooltip: ''
         },
         {
-          id: 16,
+          id: 17,
           header: 'Anomalías',
           link: '#',
           disabled: false,

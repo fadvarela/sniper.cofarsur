@@ -64,7 +64,15 @@ namespace Backend.RRHH.Consultas
 			return novedadDataAccess.getNovedadesAvisos(param);
 		}
 
-		
+		public IEnumerable<Vacacion> getVacacionesList(ParamEntity<Vacacion> param)
+		{
+			return novedadDataAccess.getVacacionesList(param);
+		}
+
+		public IEnumerable<Vacacion> getSaldosVacacionesList(ParamEntity<Vacacion> param)
+		{
+			return novedadDataAccess.getSaldosVacacionesList(param);
+		}		
 
 		/*-------------------------POST-----------------------------*/
 
@@ -175,6 +183,13 @@ namespace Backend.RRHH.Consultas
 			{
 				responseHelper.Mensaje = "Hubo un problema al guardar los datos";
 			}
+			return responseHelper;
+		}
+
+		public ResponseHelper updVacacion(ParamEntity<Vacacion> param)
+		{
+			var responseHelper = new ResponseHelper();
+			responseHelper = novedadDataAccess.updVacacion(param);
 			return responseHelper;
 		}
 		

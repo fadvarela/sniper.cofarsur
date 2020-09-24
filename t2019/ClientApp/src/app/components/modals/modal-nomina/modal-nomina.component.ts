@@ -21,6 +21,7 @@ export class ModalNominaComponent implements OnInit {
     'Cuil',
     'Fingreso',
     'Fegreso',
+    'antiguedad',
     'Accion'
   ];
   dataSource = new MatTableDataSource<Nomina>([]);

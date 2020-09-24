@@ -27,11 +27,15 @@ export class SnackBarService {
 
   }
 
-  openSnackBar(tema: string, mensaje: string, tiempo: number) {
+  openSnackBar(tema: string, mensaje: string, tiempo: number = null) {
     this._snackBar.open(mensaje, '', {
       duration: tiempo,
       panelClass: [tema]
     });
+  }
+
+  dismissSnackbar() {
+    this._snackBar.dismiss();
   }
 
 //   openSnackBar(message: string, ambito: TipoAlerta, duracion: number = null, contenido?: string[]) {

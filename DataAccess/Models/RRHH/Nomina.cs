@@ -34,6 +34,9 @@ namespace DataAccess.Models.RRHH
 		[Column("SECCION")]
 		public string Seccion { get; set; }
 
+		[Column("ANTIGUEDAD_STR")]
+		public string AntiguedadStr { get; set; }
+
 		[Column("ANTIGUEDAD")]
 		public long Antiguedad { get; set; }
 

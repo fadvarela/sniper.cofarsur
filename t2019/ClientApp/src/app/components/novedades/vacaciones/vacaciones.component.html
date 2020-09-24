@@ -1,0 +1,177 @@
+<div [ngClass]="{'bg-opacity': menuMarcacionOpened}"></div>
+<div class="container">
+  <div class="row mb-4">
+    <div class="col-6 mx-auto text-center text-white">
+      <app-alert [titulo]="'Vacaciones'"></app-alert>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2 align-self-center">
+      <mat-label class="label-legajo shadow-sm">
+        {{ (vacacionObj.IdLegajo) ? 'Leg. ' + vacacionObj.IdLegajo : 'Legajo' }}</mat-label>
+    </div>
+    <div class="col-1 align-self-center">
+      <button mat-mini-fab class="btn-open-nomina" color="primary" matTooltip="Buscar" (click)="openModalNomina()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+    <div class="col-6 align-self-center" *ngIf="vacacionObj.IdLegajo">
+      <mat-chip-list>
+        <mat-chip class="mx-auto position-relative">
+          <span>{{vacacionObj.Nombre + ' ' + vacacionObj.Apellido + ' (' + vacacionObj.Seccion + ')' }}</span>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-4">
+      <mat-form-field class="w-100">
+        <mat-label>Antigüedad</mat-label>
+        <input [disabled]="true" type="text" matInput
+          [(ngModel)]="vacacionObj.AntiguedadStr">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center">
+      <app-datepicker (dateEmit)="getStartDatePickerEmit($event)" [dateClass]="'datePickerMargin'" [dateLabel]="'Desde'"
+        [emitOnInit]="true" [disabled]="!vacacionObj.IdLegajo" [dateInput]="dateInput" [fullWidth]="true"
+        [maxDate]="null"></app-datepicker>
+    </div>
+    <div class="col text-center">
+      <mat-form-field>
+        <mat-label>Días</mat-label>
+        <input [disabled]="!vacacionObj.IdLegajo" type="text" matInput placeholder="Ingrese hasta 3 dígitos"
+          [(ngModel)]="vacacionObj.Dias" (blur)="calculaFecha()" (keydown)="soloNumeros($event)" maxlength="3">
+      </mat-form-field>
+    </div>
+    <div class="col text-center d-flex justify-content-center align-items-center">
+      <mat-form-field>
+        <mat-label>Hasta (inclusive)</mat-label>
+        <input [disabled]="true" type="text" matInput value="{{fechaCalculadaHasta | date: 'dd/MM/yyyy'}}">
+      </mat-form-field>
+    </div>
+    <div class="col text-center d-flex justify-content-center align-items-center">
+      <mat-form-field>
+        <mat-label>Retorno</mat-label>
+        <input [disabled]="true" type="text" matInput value="{{fechaCalculadaRetorno | date: 'dd/MM/yyyy'}}">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row justify-content-center" *ngIf="false">
+    <div class="col">
+      <mat-form-field class="w-100">
+        <mat-label>Observaciones</mat-label>
+        <textarea [disabled]="!vacacionObj.IdLegajo" matInput [(ngModel)]="vacacionObj.Observaciones"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-4">
+      <button mat-stroked-button color="primary" (click)="openModalConfirmacion()"
+      [disabled]="!vacacionObj.IdLegajo">Guardar</button>
+    </div>
+  </div>
+
+  <mat-tab-group dynamicHeight animationDuration="0ms" mat-align-tabs="center">
+    <mat-tab label="Short tab">
+      <table mat-table [dataSource]="vacacionesListDataSource" class="mat-elevation-z8 table-parte-diario m-3 p-2">
+        <ng-container matColumnDef="periodo">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Período </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{ element.Periodo }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="diasDevengados">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Días devengados </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{ element.DiasDevengados }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="diasPercibidos">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Días percibidos </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{ element.DiasPercibidos }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="saldoPeriodo">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Saldo período </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{ element.SaldoPeriodo }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="saldosVacacionesListColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: saldosVacacionesListColumns;"
+          [ngClass]="{'anulado': row.Nestado === 'Anulado', hovered: row.hovered, sombreado: row.Seleccionado}"
+          (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[20, 10]"></mat-paginator>
+    </mat-tab>
+    <mat-tab label="Long tab">
+      <table mat-table [dataSource]="vacacionesListDataSource" class="mat-elevation-z8 table-parte-diario m-3 p-2">
+        <ng-container matColumnDef="periodo">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Período </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{ element.Periodo }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaDesde">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Fecha Desde </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{ element.FechaDesde | date:'dd/MM/yyyy' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaHasta">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Fecha Hasta </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{ element.FechaHasta | date:'dd/MM/yyyy' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dias">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Días </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{ element.Dias  }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Estado </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{ element.Nestado }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaRegistro">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Fecha Registro </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{ element.FechaRegistro | date:'dd/MM/yyyy' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="accion">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Acción </th>
+          <td mat-cell *matCellDef="let element" class="pl-0 text-center">
+            <mat-icon matTooltip="Anular" class="icon-action" [matMenuTriggerFor]="menu" *ngIf="element.IdEstado > 0"
+              (menuOpened)="toggleMenuOpened()" (menuClosed)="toggleMenuOpened()">close</mat-icon>
+            <mat-menu #menu="matMenu" class="p-3 text-center menu-marcacion">
+              <p>¿Anular justificación?</p>
+              <button cdkFocusInitial mat-stroked-button color="primary" class="m-2"
+                (click)="anularRegistro(element, 'vacaciones')">Si</button>
+              <button mat-stroked-button class="m-2">No</button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="vacacionesListColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: vacacionesListColumns;"
+          [ngClass]="{'anulado': row.Nestado === 'Anulado', hovered: row.hovered, sombreado: row.Seleccionado}"
+          (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[20, 10]"></mat-paginator>
+    </mat-tab>
+  </mat-tab-group>
+
+  <!-- Tabla de registros de saldos por periodo -->
+
+  <!-- <div class="row">
+    <div class="col">
+
+    </div>
+  </div> -->
+
+  <!-- Tabla de registros de vacaciones -->
+  <!-- <div class="row mt-3">
+    <div class="col">
+
+    </div>
+  </div> -->
+</div>

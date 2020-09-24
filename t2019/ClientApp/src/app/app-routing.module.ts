@@ -8,6 +8,7 @@ import { ParteDiarioComponent } from './components/novedades/parte-diario/parte-
 import { JornadasHabitualesComponent } from './components/novedades/jornadas-habituales/jornadas-habituales.component';
 import { JustificacionesComponent } from './components/novedades/justificaciones/justificaciones.component';
 import { AvisosComponent } from './components/novedades/avisos/avisos.component';
+import { VacacionesComponent } from './components/novedades/vacaciones/vacaciones.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'parte-diario', component: ParteDiarioComponent, canActivate: [AuthGuard], data: { title: 'Parte Diario'} },
   { path: 'jornadas-habituales', component: JornadasHabitualesComponent, canActivate: [AuthGuard], data: { title: 'Jornadas Habituales'} },
   { path: 'justificaciones', component: JustificacionesComponent, canActivate: [AuthGuard], data: { title: 'Justificaciones'} },
-  { path: 'avisos', component: AvisosComponent, canActivate: [AuthGuard], data: { title: 'Avisos'} }
+  { path: 'avisos', component: AvisosComponent, canActivate: [AuthGuard], data: { title: 'Avisos'} },
+  { path: 'vacaciones', component: VacacionesComponent, canActivate: [AuthGuard], data: { title: 'Vacaciones'} }
 ];
 
 @NgModule({
