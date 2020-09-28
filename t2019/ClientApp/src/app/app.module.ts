@@ -182,7 +182,7 @@ registerLocaleData(localeEsAr, 'es-AR');
       useClass: LoadingInterceptorService,
       multi: true
     },
-    [{ provide: DEFAULT_TIMEOUT, useValue: 30000 }]
+    [{ provide: DEFAULT_TIMEOUT, useValue: 60000 }]
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

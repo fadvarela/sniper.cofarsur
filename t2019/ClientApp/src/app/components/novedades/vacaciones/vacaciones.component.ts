@@ -12,6 +12,7 @@ import { Vacacion } from 'src/app/models/rrhh/vacacion.model';
 import { ParamEntity } from 'src/app/models/general/param.model';
 import { ResponseHelper } from 'src/app/models/sistema/responseHelper';
 import { FileService } from 'src/app/services/file.service';
+import { LoadingInterceptorService } from 'src/app/services/utils/loader-interceptor.service';
 
 @Component({
   selector: 'app-vacaciones',
@@ -61,7 +62,8 @@ export class VacacionesComponent implements OnInit {
     private novedadesService: NovedadesService,
     private fileService: FileService,
     private dialog: MatDialog,
-    private _snackBar: SnackBarService
+    private _snackBar: SnackBarService,
+    private loadingInterceptorService: LoadingInterceptorService
   ) { }
 
   ngOnInit() {
