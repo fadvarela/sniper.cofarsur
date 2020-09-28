@@ -72,10 +72,4 @@ export class FileService {
     URL.revokeObjectURL(objectUrl);
   }
 
-
-
-  DownloadFile(param?: ResponseHelper) {
-    return this.novedadesEndPoint.DownloadFile(param);
-  }
-
 }
