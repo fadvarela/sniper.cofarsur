@@ -39,6 +39,7 @@
   font-size: 19px;
   left: 13px;
   position: relative;
+  cursor: pointer
 }
 
 .ico-seleccionado {

@@ -228,3 +228,7 @@ td {
   position: fixed;
   z-index: 99;
 }
+
+.mat-mini-fab {
+  outline: none !important;
+}

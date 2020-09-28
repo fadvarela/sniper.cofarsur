@@ -210,14 +210,18 @@ export class VacacionesComponent implements OnInit {
     const paramEntity = new ParamEntity<Vacacion>();
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
+    paramEntity.GenericEntity = new Vacacion();
     paramEntity.GenericEntity.IdJustificacion = row.IdJustificacion;
-    paramEntity.GenericEntity.Anulacion = true;
     paramEntity.GenericEntity.IdEstado = 0;
+    paramEntity.GenericEntity.Observaciones = '';
+    paramEntity.GenericEntity.FechaDesde = new Date();
+    paramEntity.IdLegajo = this.vacacionObj.IdLegajo;
 
     this.novedadesService.updVacacion(paramEntity).subscribe((result: ResponseHelper) => {
       if (result.Ok) {
-        this._snackBar.openSnackBar('snack-success', 'Registro anulada correctamente', 3000);
-        (tipo === 'vacaciones') ? this.getVacacionesList() : this.getSaldosVacacionesList();
+        this._snackBar.openSnackBar('snack-success', result.Mensaje, 3000);
+        this.getVacacionesList();
+        this.getSaldosVacacionesList();
         this.limpiarObjeto();
       } else {
         this._snackBar.openSnackBar('snack-danger', result.Mensaje, 3000);

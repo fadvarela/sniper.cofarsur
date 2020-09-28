@@ -231,3 +231,13 @@ a.disable-a {
   background-color: rgba(200, 200, 200, 0.6);
   border-radius: 25px;
 }
+
+/*--ICON-COLORS--*/
+
+.icon-action-anular {
+  color: red !important;
+}
+
+.icon-action-print {
+  color: #3f51b5 !important;
+}
