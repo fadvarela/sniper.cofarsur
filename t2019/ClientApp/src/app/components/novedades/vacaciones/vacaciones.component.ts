@@ -239,6 +239,7 @@ export class VacacionesComponent implements OnInit {
     this.vacacionObj.Nombre = nuevaVacacion.Nombre;
     this.vacacionObj.Apellido = nuevaVacacion.Apellido;
     this.vacacionObj.Seccion = nuevaVacacion.Seccion;
+    this.vacacionObj.AntiguedadStr = nuevaVacacion.AntiguedadStr;
     this.dateInput = this.dateInput = new Date();
     this.calculaFecha(this.fechaPicker);
   }
