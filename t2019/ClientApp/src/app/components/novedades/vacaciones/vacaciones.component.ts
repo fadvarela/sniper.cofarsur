@@ -252,7 +252,8 @@ export class VacacionesComponent implements OnInit {
     // SI ES TRUE, USO TIMEOUT PARA QUE NO SE PISE CON EL MENSAJE ANTERIOR
     setTimeout(() => {
       this._snackBar.openSnackBar('snack-warning', 'Generando archivo. Por favor espere.');
-    }, 2000);
+    }, 1000);
+
     this.fileService.downloadPdf(file).subscribe((resultDownload) => {
       if (resultDownload) {
         if (!soloDescarga) {
