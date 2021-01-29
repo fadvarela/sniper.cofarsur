@@ -79,6 +79,7 @@ export class ParteDiarioComponent implements OnInit {
     paramEntity.IdEmpresa = this.userValuesService.getUsuarioValues.IdEmpresa;
     paramEntity.FechaDate = valor;
     paramEntity.IdUsuario = this.userValuesService.getUsuarioValues.IdUsuario;
+    paramEntity.CurrentDateFront = new Date();
 
     this.novedadesService.getNovedades(paramEntity).subscribe((result: Novedades[]) => {
       if (result) {

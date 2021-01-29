@@ -13,7 +13,7 @@ import { SnackBarService } from 'src/app/services/utils/snackBar.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-  bgImage = '../../../assets/images/bg/loginBG.jpg';//'../../../assets/images/Cofarsur/Cofarsur_BGLogin.png';
+  bgImage = '../../../assets/images/Cofarsur/Cofarsur_BGLogin.png'; //'../../../assets/images/Cofarsur/Cofarsur_BGLogin.png'; //'../../../assets/images/bg/loginBG.jpg';
   logoSniper = '../../../assets/images/SBOT/SBOT_LOGO.png';
 
   username: string;
@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.showHideNavbar(1000);
+    console.log('Init session log: ' + new Date());
   }
 
   ngAfterViewInit() {

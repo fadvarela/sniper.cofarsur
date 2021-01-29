@@ -113,6 +113,7 @@ export const getNavMenuList = (idRol): Array<NavEntity> => {
           header: 'Vacaciones',
           link: '/vacaciones',
           disabled: false,
+          //hidden: true,
           hidden: idRol === 2,
           tooltip: ''
         },

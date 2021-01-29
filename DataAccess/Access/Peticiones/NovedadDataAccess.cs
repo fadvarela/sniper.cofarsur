@@ -2,6 +2,7 @@
 using DataAccess.Models.RRHH;
 using DataAccess.Models.Sistema.Helper;
 using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -17,8 +18,9 @@ namespace DataAccess.Access.Peticiones
 			{
 				new MySqlParameter(){ ParameterName = "P_FECHA", Value = filtros.FechaDate },
 				new MySqlParameter(){ ParameterName = "P_ID_USUARIO", Value = filtros.IdUsuario },
-				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = filtros.IdEmpresa }
-			};
+				new MySqlParameter(){ ParameterName = "P_ID_EMPRESA", Value = filtros.IdEmpresa },
+                new MySqlParameter(){ ParameterName = "P_FECHA_NOW", Value = filtros.CurrentDateFront }
+            };
 			var sqlQuery = "SP_NOVEDADES_GET";
 			var result = MAccess.GetSavantList<MySqlConnection, Novedad>(sqlQuery, CommandType.StoredProcedure, typeof(MySqlParameterCollection), parametros);
 

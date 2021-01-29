@@ -14,4 +14,5 @@ export class ParamEntity<T> {
   Tipo: any;
   IdPatologia: number;
   FechaDateArray: Date[] = [];
+  CurrentDateFront: Date;
 }
